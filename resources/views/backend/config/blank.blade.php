@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- favicon -->
-        <link rel="shortcut icon" href="https://shreethemes.in/doctris/layouts/assets/images/favicon.ico">
+        <link rel="shortcut icon" href="{{ asset('brandicon1.png') }}">
 
         <!-- Css -->
         <link href="{{ asset('backend/libs/simplebar/simplebar.min.css') }}" rel="stylesheet">
@@ -25,14 +25,14 @@
 
     <body>
         <!-- Loader -->
-        <div id="preloader">
+        {{-- <div id="preloader">
             <div id="status">
                 <div class="spinner">
                     <div class="double-bounce1"></div>
                     <div class="double-bounce2"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Loader -->
         @yield('blank')
         <!-- Main Js -->
