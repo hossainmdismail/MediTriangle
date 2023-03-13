@@ -9,8 +9,6 @@ class FrontEndController extends Controller
 {
     //Appoinmnet
     function appoinmentLink(){
-        abort(404);
-        die();
         return view('frontend.appoinment.index');
     }
     function loginLink(){
