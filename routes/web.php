@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDashboard;
 use App\Http\Controllers\AdminMedicineController;
 use App\Http\Controllers\AppoinmentController;
+use App\Http\Controllers\BannnerController;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\FindDoctorController;
@@ -191,6 +192,12 @@ Route::group(['middleware' => 'admin_model'],function(){
         Route::post('/about/store',[AboutUsController::class, 'aboutStore'])->name('d.about.store');
         Route::get('/about/delete/{id}',[AboutUsController::class, 'aboutDelete'])->name('about.delete');
         Route::post('/about/edit',[AboutUsController::class, 'aboutEdit'])->name('about.edit');
+
+        //Banner
+        Route::get('/banner',[BannnerController::class, 'banner'])->name('d.banner');
+        Route::post('/banner/store',[BannnerController::class, 'bannerStore'])->name('d.banner.store');
+        Route::get('/banner/delete/{id}',[BannnerController::class, 'bannerDelete'])->name('banner.delete');
+        Route::post('/banner/edit',[BannnerController::class, 'bannerEdit'])->name('banner.edit');
     });
 
 });

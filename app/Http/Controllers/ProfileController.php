@@ -22,8 +22,8 @@ class ProfileController extends Controller
             'name' =>'required',
         ]);
         User::find(Auth::user()->id)->update([
-            'name' => $request->name,
-            'address' => $request->address,
+            'name'       => $request->name,
+            'address'    => $request->address,
             'updated_at' => Carbon::now(),
         ]);
         return back()->with('succ','Profile Updated');
@@ -51,7 +51,7 @@ class ProfileController extends Controller
         $order = AppoinmentModel::where('user_id',Auth::guard()->user()->id)->paginate(10);
         $medicine = MedicineBillings::where('user_id',Auth::user()->id)->paginate(10);
         return view('frontend.profile.order',[
-            'orders' => $order,
+            'orders'    => $order,
             'medicines' => $medicine,
         ]);
     }
