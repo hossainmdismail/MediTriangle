@@ -6,6 +6,7 @@ use App\Models\AppoinmentModel;
 use App\Models\AppoinmentReports;
 use App\Models\DoctorModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminDashboard extends Controller
@@ -26,13 +27,46 @@ class AdminDashboard extends Controller
             'totalEarn'             => $totalEarn,
         ]);
     }
-    function appointment(){
-        $data = AppoinmentModel::orderBy('id', 'DESC')->where('appointment_type',1)->paginate(10);
+    function appointment(Request $request){
+            $data = AppoinmentModel::orderBy('id','DESC')
+            ->when($request->date != null,function($query) use ($request){
+                return $query->whereDate('created_at',$request->date);
+            })
+            ->when($request->select != null, function ($query) use ($request){
+                return $query->where('status',$request->select);
+            })
+            ->where('appointment_type',1)
+            ->paginate(10)
+            ->withQueryString();
+        // if ($request->select != '') {
+        //     $data = AppoinmentModel::orderBy('id', 'DESC')
+        //     ->where('appointment_type',1)
+        //     ->where('status',$request->select)
+        //     ->paginate(2);
+        // }else{
+        //     $data = AppoinmentModel::orderBy('id', 'DESC')
+        //     ->where('appointment_type',1)
+        //     ->paginate(10);
+        // }
+
         return view('backend.data.appointment.index',['datas' => $data]);
     }
-    function videoInvitaion(){
-        $data = AppoinmentModel::orderBy('id', 'DESC')->where('appointment_type',2)->paginate(10);
+    function videoInvitaion(Request $request){
+        $data = AppoinmentModel::orderBy('id','DESC')
+            ->when($request->date != null,function($query) use ($request){
+                return $query->whereDate('created_at',$request->date);
+            })
+            ->when($request->select != null, function ($query) use ($request){
+                return $query->where('status',$request->select);
+            })
+            ->where('appointment_type',2)
+            ->paginate(10)
+            ->withQueryString();
+
         return view('backend.data.video.index',['datas' => $data]);
+
+        // $data = AppoinmentModel::orderBy('id', 'DESC')->where('appointment_type',2)->paginate(10);
+        // return view('backend.data.video.index',['datas' => $data]);
     }
     function appointmentWatch($id){
         AppoinmentModel::find($id)->update([
@@ -46,9 +80,21 @@ class AdminDashboard extends Controller
         'doctor'      =>  $doctor
     ]);
     }
-    function visaInvitaion(){
-        $data = AppoinmentModel::orderBy('id', 'DESC')->where('appointment_type',3)->paginate(10);
+    function visaInvitaion(Request $request){
+        $data = AppoinmentModel::orderBy('id','DESC')
+            ->when($request->date != null,function($query) use ($request){
+                return $query->whereDate('created_at',$request->date);
+            })
+            ->when($request->select != null, function ($query) use ($request){
+                return $query->where('status',$request->select);
+            })
+            ->where('appointment_type',3)
+            ->paginate(10)
+            ->withQueryString();
+
         return view('backend.data.visa.index',['datas' => $data]);
+        // $data = AppoinmentModel::orderBy('id', 'DESC')->where('appointment_type',3)->paginate(10);
+        // return view('backend.data.visa.index',['datas' => $data]);
     }
     function appointmentConfirmation(Request $request){
         $request->validate([

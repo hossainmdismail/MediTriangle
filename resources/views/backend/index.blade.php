@@ -81,11 +81,11 @@
                 <div class="card features feature-primary rounded border-0 shadow p-4">
                     <div class="d-flex align-items-center">
                         <div class="icon text-center rounded-md">
-                            <i class="uil uil-medical-drip h3 mb-0"></i>
+                            <i class="fa-solid fa-bangladeshi-taka-sign"></i>
                         </div>
                         <div class="flex-1 ms-2">
-                            <h5 class="mb-0">10</h5>
-                            <p class="text-muted mb-0">Operations</p>
+                            <h5 class="mb-0" id="balancesSMS">....</h5>
+                            <p class="text-muted mb-0">Balance</p>
                         </div>
                     </div>
                 </div>
@@ -548,6 +548,23 @@
 @endsection
 
 @section('script')
+<script>
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': 'your-rapidapi-key',
+            'X-RapidAPI-Host': 'contextualwebsearch-websearch-v1.p.rapidapi.com',
+        },
+    };
+    let dis = document.getElementById('balancesSMS');
+    fetch(
+        'http://bulksmsbd.net/api/getBalanceApi?api_key=5Ga7wUBj70JdpiqVhe8t',
+        options
+    )
+        .then(response => response.json())
+        .then(response => dis.innerText= response.balance)
+        .catch(err => console.error(err));
+</script>
 <script>
     try {
     var options1 = {
