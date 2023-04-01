@@ -552,7 +552,7 @@
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': 'your-rapidapi-key',
+            'X-RapidAPI-Key': '5Ga7wUBj70JdpiqVhe8t',
             'X-RapidAPI-Host': 'contextualwebsearch-websearch-v1.p.rapidapi.com',
         },
     };
