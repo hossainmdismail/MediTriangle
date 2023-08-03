@@ -38,7 +38,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 mb-3 text-start">
-                                <label for="report" class="form-label">Reports</label>
+                                <label for="report" class="form-label">Prescription</label>
                                 <input type="file" name="report" class="form-control bg-white border-0">
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 <input type="text" name="name" class="form-control bg-white border-0 @error('name') is-invalid @enderror" placeholder="Name" value="{{ old('name') }}" style="height: 55px;">
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="number" name="mobile" class="form-control bg-white border-0 @error('mobile') is-invalid @enderror" placeholder="Number" value="{{ old('number') }}" style="height: 55px;">
+                                <input type="number" name="mobile" class="form-control bg-white border-0 @error('mobile') is-invalid @enderror" placeholder="Phone Number" value="{{ old('number') }}" style="height: 55px;">
                             </div>
                         </div>
                         @if (!Auth::user())
@@ -98,7 +98,7 @@
                                 @endif
                         <div class="row">
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Make An Appointment</button>
+                                <button class="btn btn-primary w-100 py-3" type="submit">Order</button>
                             </div>
                         </div>
                     </form>

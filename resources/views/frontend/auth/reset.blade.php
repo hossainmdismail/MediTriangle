@@ -1,4 +1,4 @@
-{{-- @extends('frontend.config.app')
+@extends('frontend.config.app')
 
 @section('content')
 <div class="container my-5">
@@ -10,7 +10,7 @@
                     <form action="{{ route('profile.forget.pass.checkup') }}" method="post">
                     @csrf
                     <div class="mb-3">
-                        <input style="background-color: #1ab8ae0f !important;" type="text" name="number" class="form-control py-3 border-0 @error('number') is-invalid @enderror" placeholder="Number">
+                        <input style="background-color: #1ab8ae0f !important;" type="text" name="email" class="form-control py-3 border-0 @error('email') is-invalid @enderror" placeholder="Email">
                     </div>
 
                     <div class=" text-end">
@@ -22,4 +22,4 @@
         </div>
     </div>
 </div>
-@endsection --}}
+@endsection

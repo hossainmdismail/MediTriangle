@@ -75,14 +75,12 @@
                                 <tr>
                                     <th class="border-bottom p-3"><i class="fa-solid fa-print" id="print"></th>
                                     <th class="border-bottom p-3" style="min-width: 100px;">Name</th>
-                                    <th class="border-bottom p-3" style="min-width: 150px;">Email</th>
+                                    <th class="border-bottom p-3" style="min-width: 150px;">WhatsApp</th>
                                     <th class="border-bottom p-3">Age</th>
                                     <th class="border-bottom p-3">Gender</th>
-                                    <th class="border-bottom p-3">Department</th>
                                     <th class="border-bottom p-3" style="min-width: 150px;">Request</th>
                                     <th class="border-bottom p-3">Status</th>
                                     <th class="border-bottom p-3" style="min-width: 220px;">Doctor</th>
-                                    <th class="border-bottom p-3">Fees</th>
                                     <th class="border-bottom p-3"></th>
                                 </tr>
                             </thead>
@@ -90,29 +88,22 @@
                             @foreach ($datas as $key => $data)
                             <tr>
                                 <th class="p-3">{{ $key+1 }}</th>
-                                <td class="p-3">{{ $data->passportname }}</td>
-                                <td class="p-3">{{ $data->passportnumber }}</td>
+                                <td class="p-3">{{ $data->name }}</td>
+                                <td class="p-3">{{ $data->number }}</td>
                                 <td class="p-3">{{ $data->age }}</td>
                                 <td class="p-3">{{ $data->gender }}</td>
-                                <td class="p-3">{{ $data->con_department->department }}</td>
                                 <td class="p-3">
-                                    <span class="badge bg-soft-{{ ($date > $data->appoinment_date->format('M d Y')? 'danger':'success') }}">{{ $data->appoinment_date->format('M d Y') }}</span>
+                                    <span class="badge bg-soft-{{ ($date > $data->expected_date->format('M d Y')? 'danger':'success') }}">
+                                        {{ $data->expected_date->format('M d Y') }}
+                                    </span>
                                 </td>
                                 <td class="p-3">
-                                    <span class="badge bg-{{ $data->order_status != 0?'primary':($data->status == 2?'danger':'info') }}">
-                                        {{ $data->order_status != 0?$data->activity->format('M-d-Y'):($data->status == 2?'Canceled':'panding') }}
-                                    </span>
-                                    {{-- <span class="badge bg-{{ $data->activity == null?($data->status == 2?'danger':'info'):'primary' }}">
-                                    @if ($data->activity == null)
-                                        @if ($data->status == 2)
-                                            Cancel
-                                        @else
-                                            Waiting
-                                        @endif
-                                    @else
-                                    {{ $data->activity->format('M-d-Y') }}
+                                    @if ($data->order_status == 1)
+                                        <span class="badge bg-success">Confirm</span>
                                     @endif
-                                    </span> --}}
+                                    <span class="badge bg-{{ $data->order_status == 2?'danger':($data->order_status == 0?'info':'primary') }}">
+                                        {{ $data->order_status == 2?'Cancel':($data->order_status == 0?'Panding':$data->appointment_date->format('M-d-Y')) }}
+                                    </span>
                                 </td>
                                 <td class="p-3">
                                     <a href="#" class="text-dark">
@@ -122,11 +113,8 @@
                                         </div>
                                     </a>
                                 </td>
-                                <td class="p-3">৳-{{ number_format($data->fee) }}</td>
                                 <td class="text-end p-3">
-                                    <a href="{{  route('appointment.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-{{ $data->notifications == 0?'primary':'muted' }}"><i class="fa-regular fa-eye"></i></a>
-                                    {{-- <a href="#" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#acceptappointment"><i class="fa-solid fa-check"></i></a>
-                                    <a href="#" class="btn btn-icon btn-pills btn-soft-danger" data-bs-toggle="modal" data-bs-target="#cancelappointment"><i class="fa-solid fa-xmark"></i></a> --}}
+                                    <a href="{{  route('videoInvitaion.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-{{ $data->notifications == 0?'primary':'muted' }}"><i class="fa-regular fa-eye"></i></a>
                                 </td>
                             </tr>
                             @endforeach

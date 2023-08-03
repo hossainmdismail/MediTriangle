@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     function home(){
         $about = AboutModel::where('status',1)->first();
-        $banner = BannnerModel::where('status',1)->first();
+        $banner = BannnerModel::where('status',1)->get();
         $doctor =DoctorModel::where('status',1)->get();
         $service =ServiceModel::where('status',1)->get();
         $department = DepartmentModel::where('status',1)->get();

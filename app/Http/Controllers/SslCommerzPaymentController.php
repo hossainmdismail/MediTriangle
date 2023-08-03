@@ -28,6 +28,8 @@ class SslCommerzPaymentController extends Controller
 
         $post_data = array();
         $post_data['total_amount'] = $data['amount']; # You cant not pay less than 10
+        $post_data['order_type'] = $data['type'];
+        $post_data['user_id'] = $data['id'];
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
@@ -70,6 +72,8 @@ class SslCommerzPaymentController extends Controller
             ->updateOrInsert([
                 'order_id' => $post_data['cus_order'],
                 'amount' => $post_data['total_amount'],
+                'user_id' => $post_data['user_id'],
+                'order_type' => $post_data['order_type'],
                 'status' => 'Pending',
                 'address' => $post_data['cus_add1'],
                 'transaction_id' => $post_data['tran_id'],
@@ -160,9 +164,6 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-
-        echo "Transaction is Successful";
-
         $tran_id = $request->input('tran_id');
         $amount = $request->input('amount');
         $currency = $request->input('currency');
@@ -187,8 +188,6 @@ class SslCommerzPaymentController extends Controller
                     ->where('transaction_id', $tran_id)
                     ->update(['status' => 'Processing']);
                 $order_id = DB::table('orders')->where('transaction_id', $tran_id)->first()->order_id;
-
-                echo "<br >Transaction is successfully Completed order_id id :".$order_id;
             }
         } else if ($order_details->status == 'Processing' || $order_details->status == 'Complete') {
             /*

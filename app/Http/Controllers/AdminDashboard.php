@@ -8,15 +8,55 @@ use App\Models\DoctorModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminDashboard extends Controller
 {
     function dashboard(){
+        $patientHistory = DB::table('appoinment_models')->select(
+            DB::raw('DATE_FORMAT(created_at, "%M") as month'),
+            DB::raw('COUNT(gender) as total'),
+            DB::raw('SUM(CASE WHEN gender = "male" THEN 1 ELSE 0 END) as male'),
+            DB::raw('SUM(CASE WHEN gender = "female" THEN 1 ELSE 0 END) as female'))
+            ->whereYear('created_at',2023)
+            ->orderBy('created_at','ASC')
+            ->groupBy('month')
+            ->get();
+
+        $chart_data = [];
+        foreach($patientHistory as $data) {
+            $chart_data[] = [
+                'month' => $data->month,
+                'male' => $data->male,
+                'female' => $data->female
+            ];
+        }
+        $chart = [
+            'chart' => [
+                'type' => 'bar',
+                'height' => 350
+            ],
+            'series' => [
+                [
+                    'name' => 'Male',
+                    'data' => array_column($chart_data, 'male')
+                ],
+                [
+                    'name' => 'Female',
+                    'data' => array_column($chart_data, 'female')
+                 ]
+            ],
+            'xaxis' => [
+                'categories' => array_column($chart_data, 'month')
+            ]
+        ];
+        // return $response;
         $user               = User::all()->count();
         $patient            = AppoinmentModel::all()->count();
         $notificationsCount = AppoinmentModel::where('notifications',0);
         $totalAppointment   = AppoinmentModel::where('appointment_type',1)->count();
         $totalEarn          = AppoinmentModel::sum('fee');
+
         // return $notificationsCount->orderBy('id', 'DESC')->first()->passportname;
         // dd($notificationsCount);
         return view('backend.index',[
@@ -25,6 +65,7 @@ class AdminDashboard extends Controller
             'notificationsCount'    => $notificationsCount,
             'totalAppointment'      => $totalAppointment,
             'totalEarn'             => $totalEarn,
+            'data'                  => json_encode($chart),
         ]);
     }
     function appointment(Request $request){
@@ -78,7 +119,7 @@ class AdminDashboard extends Controller
        return view('backend.data.appointment.watch',[
         'datas'       =>  $data,
         'doctor'      =>  $doctor
-    ]);
+        ]);
     }
     function visaInvitaion(Request $request){
         $data = AppoinmentModel::orderBy('id','DESC')
@@ -98,9 +139,9 @@ class AdminDashboard extends Controller
     }
     function appointmentConfirmation(Request $request){
         $request->validate([
-            'order_id' =>'required',
-            'message' =>'required',
-            'btn' =>'required',
+            'order_id'  =>'required',
+            'message'   =>'required',
+            'btn'       =>'required',
         ]);
         if ($request->btn == 1) {
             $request->validate([
@@ -109,10 +150,10 @@ class AdminDashboard extends Controller
             ]);
             if (AppoinmentModel::where('order_id',$request->order_id)->exists()) {
                 AppoinmentModel::where('order_id',$request->order_id)->update([
-                    'status' => 1,
-                    'activity' => $request->date,
-                    'message' => $request->message,
-                    'order_status' => 1,
+                    'status'        => 1,
+                    'activity'      => $request->date,
+                    'message'       => $request->message,
+                    'order_status'  => 1,
                 ]);
                 $message = 'Accepted ,'.'appointment date :'. $request->date.'. Note :'.$request->message;
                 // SMS

@@ -95,7 +95,7 @@
         left: -9999999px;
         opacity: 0;
     }
-    #blocks_show {
+    /* #blocks_show {
         display: none;
     }
     .patient {
@@ -103,7 +103,7 @@
     }
     .passport {
         display: none;
-    }
+    } */
 </style>
 @endsection
 @section('content')
@@ -117,32 +117,12 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-8">
                 <div class="bg-light text-center rounded p-5">
-                    <h1 class="mb-5">Book An <span class="app_type">Appointment</span></h1>
+                    <h1 class="mb-5">Doctor <span class="app_type">Appointment</span></h1>
                     <hr>
                     <form action="{{ route('store.appoinment') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="row d-flex justify-content-center" id="blocks">
-                            <div class="col-lg-4  mb-3">
-                                <input type="radio" name="appointment_type" id="1" value="1" class="cstm-fileinput guide payment">
-                                <label for="1" class="pay-checkbox">
-                                    Appointment
-                                </label>
-                            </div>
-                            <div class="col-lg-4  mb-3">
-                                <input type="radio" name="appointment_type" id="2" value="2" class="cstm-fileinput guide payment">
-                                <label for="2" class="pay-checkbox">
-                                    Consultation
-                                </label>
-                            </div>
-                            <div class="col-lg-4  mb-3">
-                                <input type="radio" name="appointment_type" id="3" value="3" class="cstm-fileinput guide payment">
-                                <label for="3" class="pay-checkbox">
-                                    Visa
-                                </label>
-                            </div>
-                        </div>
-                        <hr class="mt-0">
                         <div class="row g-3 mt-3" id="blocks_show">
+                            <input type="hidden" name="appointment_type" value="1" id="">
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 country @error('country_id') is-invalid @enderror" name="country_id">
                                     <option value="" selected>Choose Country</option>
@@ -155,25 +135,25 @@
                             {{-- State --}}
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 state @error('state_id') is-invalid @enderror" id="state" name="state_id">
-                                    <option value="{{old('state_id')}}" selected>{{old('state_id')}}---</option>
+                                    <option value="{{old('state_id')}}" selected>{{old('state_id')}}State</option>
                                 </select>
                             </div>
                             {{-- Hospital --}}
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 hospital @error('hospital_id') is-invalid @enderror" id="hospital" name="hospital_id">
-                                    <option value="" selected>---</option>
+                                    <option value="" selected>Hospital</option>
                                 </select>
                             </div>
                             {{-- Department --}}
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 department @error('department_id') is-invalid @enderror" id="departmentVal" name="department_id">
-                                    <option value="" selected>---</option>
+                                    <option value="" selected>Deparment</option>
                                 </select>
                             </div>
                             {{-- Doctor --}}
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 doctor @error('doctor_id') is-invalid @enderror" id="doctors" name="doctor_id">
-                                    <option value="" selected>---</option>
+                                    <option value="" selected>Doctor</option>
                                 </select>
                             </div>
                             <div class="col-12">
@@ -187,7 +167,7 @@
                             </div>
 
                             <div class="col-12 ">
-                                <input type="number" name="number" class="form-control bg-white border-0 @error('number') is-invalid @enderror nameblock" placeholder="Number">
+                                <input type="number" name="number" class="form-control bg-white border-0 @error('number') is-invalid @enderror nameblock" placeholder="Phone Number">
                             </div>
 
                             <div class="col-12 ">
@@ -196,13 +176,7 @@
                             <div class="col-12">
                                 <input type="text" name="passportnumber" class="form-control bg-white border-0 @error('passportnumber') is-invalid @enderror passportnumber" placeholder="Passport Number">
                             </div>
-                            {{-- Patient --}}
-                            {{-- <div class="col-12 patient">
-                                <input type="text" name="patientname" class="form-control bg-white border-0 @error('patientname') is-invalid @enderror" placeholder="Patient Name">
-                            </div>
-                            <div class="col-12 patient">
-                                <input type="text" name="patientnumber" class="form-control bg-white border-0 @error('patientnumber') is-invalid @enderror" placeholder="Whatsapp Number">
-                            </div> --}}
+
 
                             <div class="col-12">
                                 <div class="col-12">
@@ -219,12 +193,45 @@
                             </div>
                             {{-- File --}}
                             <div class="col-12 mb-3 text-start">
-                                <label for="" class="p-2">Reports</label>
+                                <label for="" class="p-2">Passport</label>
+                                <input type="file" name="passport" class="form-control bg-white border-0 @error('passport') is-invalid @enderror">
+                            </div>
+                            {{-- File --}}
+                            <div class="col-12 mb-3 text-start">
+                                <label for="" class="p-2">Report</label>
                                 <input type="file" name="report[]" class="form-control bg-white border-0 @error('report') is-invalid @enderror" multiple>
                             </div>
                             {{-- Doctor --}}
                             <div class="col-12">
                                 <textarea type="text" name="note" class="form-control bg-white border-0" placeholder="Note.." rows="3"></textarea>
+                            </div>
+
+                            <hr class="mt-5">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>If Anyone Attendant with you</h5>
+                                <button type="button" class="btn btn-primary" id="plus">Add More</button>
+                            </div>
+                            <div class="row text-left border border-primary py-2 align-items-center mt-4">
+                                <div class="col-12 col-sm-4">
+                                    Attendant Name
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    Passport Number
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    Passport Photo
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-between align-items-center g-3 medi">
+                                <div class="col-12 col-sm-4">
+                                    <input type="text" name="attendantName[]" class="form-control bg-white border-0 inp @error('attendantName') is-invalid @enderror" placeholder="Attendant Name" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <input type="text" name="attendantPassportNumber[]" class="form-control bg-white border-0 @error('attendantPassportNumber') is-invalid @enderror" placeholder="Passport Number" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <input type="file" name="attendantPassport[]" class="form-control bg-white border-0 @error('attendantPassport') is-invalid @enderror">
+                                </div>
                             </div>
                             {{-- user info --}}
                             <div class="login-system">
@@ -246,7 +253,7 @@
 
                                             <div class="row mt-3">
                                                 <div class="col-12 mb-3">
-                                                    <input type="text" name="number" class="form-control bg-white border-0 @error('number') is-invalid @enderror" value="{{ old('number') }}" placeholder="01XXXXXXXXX">
+                                                    <input type="text" name="newNumber" class="form-control bg-white border-0 @error('number') is-invalid @enderror" value="{{ old('number') }}" placeholder="01XXXXXXXXX">
 
                                                 </div>
                                                 <div class="col-12 mb-3">
@@ -284,6 +291,15 @@
 @endsection
 
 @section('script')
+<script>
+    $('.inp').click(function () {
+        $('#billings').css('display','block');
+    });
+    $('#plus').click(function () {
+        let inputNew = $('.medi:last').clone(true);
+        $(inputNew).insertAfter('.medi:last');
+    });
+</script>
 {{-- Click --}}
 <script>
     $('.payment').click(function(){

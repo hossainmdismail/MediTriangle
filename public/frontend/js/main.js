@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-    
+
     // Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
@@ -26,8 +26,8 @@
     $('.time').datetimepicker({
         format: 'LT'
     });
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -85,11 +85,53 @@
                 items:1
             },
             992:{
+                items:1
+            }
+        }
+    });
+    // Doctor carousel
+    $(".doctor-carousel, .related-carousel").owlCarousel({
+        autoplay: true,
+        smartSpeed: 1000,
+        margin: 45,
+        dots: false,
+        loop: true,
+        nav : false,
+        navText : [
+            '<i class="bi bi-arrow-left"></i>',
+            '<i class="bi bi-arrow-right"></i>'
+        ],
+        responsive: {
+            0:{
+                items:1
+            },
+            992:{
                 items:2
             }
         }
     });
 
+        // Doctor carousel
+        $(".hospital-carousel, .related-carousel").owlCarousel({
+            autoplay: true,
+            smartSpeed: 1000,
+            margin: 45,
+            dots: false,
+            loop: true,
+            nav : false,
+            navText : [
+                '<i class="bi bi-arrow-left"></i>',
+                '<i class="bi bi-arrow-right"></i>'
+            ],
+            responsive: {
+                0:{
+                    items:2
+                },
+                992:{
+                    items:4
+                }
+            }
+        });
 
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
@@ -99,6 +141,6 @@
         dots: true,
         loop: true,
     });
-    
+
 })(jQuery);
 

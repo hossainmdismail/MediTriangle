@@ -17,9 +17,9 @@ class AboutUsController extends Controller
             'status' => 0,
         ]);
         $request->validate([
-            'photo' => 'required',
-            'title' => 'required',
-            'description' => 'required',
+            'photo'         => 'required',
+            'title'         => 'required',
+            'description'   => 'required',
         ]);
 
         $photo = $request->photo;
@@ -28,10 +28,10 @@ class AboutUsController extends Controller
         Image::make($photo)->resize('500','500')->save(public_path('uploads/about/'.$profileName));
 
         AboutModel::insert([
-            'photo' => $profileName,
-            'title' => $request->title,
-            'description' => $request->description,
-            'created_at' => Carbon::now(),
+            'photo'         => $profileName,
+            'title'         => $request->title,
+            'description'   => $request->description,
+            'created_at'    => Carbon::now(),
         ]);
         return back()->with('succ', 'Added Successfully');
     }
@@ -70,10 +70,10 @@ class AboutUsController extends Controller
                 ]);
             }
             AboutModel::where('id',$request->id)->update([
-                'title' => $request->title,
-                'description' => $request->description,
-                'status' => $request->status,
-                'updated_at' => Carbon::now(),
+                'title'         => $request->title,
+                'description'   => $request->description,
+                'status'        => $request->status,
+                'updated_at'    => Carbon::now(),
             ]);
             return back()->with('succ','Updated Successfully');
         }else {

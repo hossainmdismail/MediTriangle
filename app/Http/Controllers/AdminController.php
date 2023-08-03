@@ -33,16 +33,16 @@ class AdminController extends Controller
     // Store Data
     function register(Request $request){
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
+            'name'      => 'required',
+            'email'     => 'required',
+            'password'  => 'required',
         ]);
         if (!AdminModel::where('email',$request->email)->exists()) {
             AdminModel::insert([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'role' => 1,
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'password'  => bcrypt($request->password),
+                'role'      => 1,
                 'created_at' =>Carbon::now(),
             ]);
             return back();

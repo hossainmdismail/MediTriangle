@@ -139,7 +139,7 @@
     opacity: 1;
 }
 
-.price-carousel::after {
+/* .price-carousel::after {
     position: absolute;
     content: "";
     width: 100%;
@@ -149,7 +149,7 @@
     background: var(--primary);
     border-radius: 8px 8px 50% 50%;
     z-index: -1;
-}
+} */
 
 .price-carousel .owl-nav {
     margin-top: 35px;
@@ -159,7 +159,7 @@
     justify-content: center;
 }
 
-.price-carousel .owl-nav .owl-prev,
+/* .price-carousel .owl-nav .owl-prev,
 .price-carousel .owl-nav .owl-next{
     position: relative;
     margin: 0 5px;
@@ -173,12 +173,12 @@
     font-size: 22px;
     border-radius: 45px;
     transition: .5s;
-}
+} */
 
-.price-carousel .owl-nav .owl-prev:hover,
+/* .price-carousel .owl-nav .owl-prev:hover,
 .price-carousel .owl-nav .owl-next:hover {
     color: var(--dark);
-}
+} */
 
 @media (min-width: 788px) {
     .brandlogo{
@@ -249,6 +249,36 @@
 }
 
 .testimonial-carousel .owl-item img {
-    width: 150px;
+    width: 100%;
+    height: 150px;
+}
+
+.doctor-carousel .owl-dots {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doctor-carousel .owl-dot {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px;
+    width: 20px;
+    height: 20px;
+    background: var(--light);
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    transition: .5s;
+}
+
+.doctor-carousel .owl-dot.active {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+}
+
+.doctor-carousel .owl-item img {
+    width: 100%;
     height: 150px;
 }

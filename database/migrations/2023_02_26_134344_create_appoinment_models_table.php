@@ -30,6 +30,7 @@ return new class extends Migration
             $table->bigInteger('number')->nullable();
             $table->string('passportname');
             $table->string('passportnumber');
+            $table->string('passport');
             $table->string('note')->nullable();
             $table->string('gender');
             $table->integer('age');

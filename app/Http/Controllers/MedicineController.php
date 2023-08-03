@@ -18,12 +18,12 @@ class MedicineController extends Controller
     }
     function store(Request $request){
         $request->validate([
-            'medicine' => 'required',
-            'quantity' => 'required',
-            'address' => 'required',
-            'name' => 'required',
-            'mobile' => 'required',
-            'number' => (!Auth::check()?'required':''),
+            'medicine'  => 'required',
+            'quantity'  => 'required',
+            'address'   => 'required',
+            'name'      => 'required',
+            'mobile'    => 'required',
+            'number'    => (!Auth::check()?'required':''),
         ]);
         //validation for multi input
         if ($request->medicine[0] == null || $request->quantity[0] == null) {
@@ -36,13 +36,16 @@ class MedicineController extends Controller
             }else {
                 $pass ='RAN'.rand(1,5000).'LOG'.rand(1,500);
                 User::insert([
-                    'name' => $request->passportname,
-                    'number' => $request->number,
-                    'email' => $request->email,
-                    'password' => bcrypt($pass),
+                    'name'       => $request->passportname,
+                    'number'     => $request->number,
+                    'email'      => $request->email,
+                    'password'   => bcrypt($pass),
                     'created_at' => Carbon::now(),
                 ]);
-                Auth::guard()->attempt(['number'=> $request->number,'password'=>$pass]);
+                Auth::guard()->attempt([
+                    'number'    => $request->number,
+                    'password'  =>$pass
+                ]);
 
                 // SMS
                 $url = "http://bulksmsbd.net/api/smsapi";
@@ -52,10 +55,10 @@ class MedicineController extends Controller
                 $message = 'Your Password is : '.$pass;
 
                 $data = [
-                    "api_key" => $api_key,
-                    "senderid" => $senderid,
-                    "number" => $number,
-                    "message" => $message
+                    "api_key"   => $api_key,
+                    "senderid"  => $senderid,
+                    "number"    => $number,
+                    "message"   => $message
                 ];
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
@@ -81,12 +84,12 @@ class MedicineController extends Controller
         }
         //Insert billing informations
         MedicineBillings::insert([
-            'user_id' => Auth::user()->id,
-            'order_id' => $order_id,
-            'name' => $request->name,
-            'number' => $request->mobile,
-            'reports' => $request->report != ''?$report:null,
-            'address' => $request->address,
+            'user_id'    => Auth::user()->id,
+            'order_id'   => $order_id,
+            'name'       => $request->name,
+            'number'     => $request->mobile,
+            'reports'    => $request->report != ''?$report:null,
+            'address'    => $request->address,
             'created_at' => Carbon::now(),
         ]);
         //Insert Medicine informations
@@ -95,11 +98,11 @@ class MedicineController extends Controller
         $mi->attachIterator(new ArrayIterator($request->quantity));
         foreach ($mi as list($value, $value2) ) {
             MedicineOrder::insert([
-                'user_id' => Auth::user()->id,
-                'order_id' => $order_id,
-                'medicine' => $value,
-                'quantity' => $value2,
-                'created_at' => Carbon::now(),
+                'user_id'       => Auth::user()->id,
+                'order_id'      => $order_id,
+                'medicine'      => $value,
+                'quantity'      => $value2,
+                'created_at'    => Carbon::now(),
             ]);
         }
         return back()->with('succ', 'Order Complete');

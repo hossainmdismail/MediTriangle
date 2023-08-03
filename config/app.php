@@ -53,8 +53,8 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => 'http://192.168.0.115',
+    // 'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', '/'),
 

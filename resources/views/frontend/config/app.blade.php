@@ -149,12 +149,14 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Appointment</a>
-                        {{-- <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Consultation</a>
-                        <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Invitation</a> --}}
+                        <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Doctor Appointment</a>
+                        {{-- <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Appointment</a> --}}
+                        <a href="{{ route('video.consultant.link') }}" class="nav-item nav-link">Video Consultant</a>
+                        <a href="{{ route('link.visa') }}" class="nav-item nav-link">Visa Invitation</a>
                         <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Medicine</a>
-                        <a href="price.html" class="nav-item nav-link">Card</a>
-                        <div class="nav-item dropdown">
+                        <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Health Card</a>
+                        <a href="price.html" class="nav-item nav-link">Contact Us</a>
+                        {{-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Medicine</a>
                             <div class="dropdown-menu m-0">
                                 <a href="blog.html" class="dropdown-item">Blog Grid</a>
@@ -164,11 +166,15 @@
                                 <a href="appointment.html" class="dropdown-item">Appointment</a>
                                 <a href="search.html" class="dropdown-item">Search</a>
                             </div>
-                        </div>
+                        </div> --}}
                         @if (Auth::user())
-                        <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa-solid fa-user"></i></a>
+                        <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa-solid fa-right-to-bracket"></i></a>
+
+                        {{-- <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa-solid fa-user"></i></a> --}}
                         @else
-                        <a href="{{ route('login') }}" class="nav-item nav-link"><i class="fa-solid fa-right-to-bracket"></i></a>
+                        <span class="nav-item nav-link d-flex justify-content-center align-items-center ml-2">
+                            <a href="{{ route('login') }}" class="btn btn-sm display-6 font-weight-normal bg-primary text-white">Login | SignUp</a>
+                        </span>
                         @endif
                     </div>
                 </div>

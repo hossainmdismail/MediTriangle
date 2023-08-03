@@ -17,20 +17,20 @@ class OwnerController extends Controller
     function ownerStore(Request $request){
         $count = OwnerModel::where('status',1)->count();
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'address' => 'required',
-            'landline' => 'required|max:10',
-            'number' => 'required|max:10',
+            'name'      => 'required',
+            'email'     => 'required',
+            'address'   => 'required',
+            'landline'  => 'required|max:10',
+            'number'    => 'required|max:10',
         ]);
         OwnerModel::insert([
-            'name' => $request->name,
-            'email' => $request->email,
-            'address' => $request->address,
-            'number' => $request->number,
-            'status' => ($count < 1?1:0) ,
-            'landline' => $request->landline,
-            'created_at' => Carbon::now(),
+            'name'          => $request->name,
+            'email'         => $request->email,
+            'address'       => $request->address,
+            'number'        => $request->number,
+            'status'        => ($count < 1?1:0) ,
+            'landline'      => $request->landline,
+            'created_at'    => Carbon::now(),
         ]);
         return back()->with('succ','Successfully Done');
     }
@@ -40,18 +40,18 @@ class OwnerController extends Controller
     }
     function ownerUpdate(Request $request){
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'address' => 'required',
-            'landline' => 'required|max:10',
-            'number' => 'required|max:10',
+            'name'      => 'required',
+            'email'     => 'required',
+            'address'   => 'required',
+            'landline'  => 'required|max:10',
+            'number'    => 'required|max:10',
         ]);
         OwnerModel::where('id',$request->id)->update([
-            'name' =>$request->name,
-            'email' =>$request->email,
-            'number' =>$request->number,
-            'landline' =>$request->landline,
-            'address' =>$request->address,
+            'name'      =>$request->name,
+            'email'     =>$request->email,
+            'number'    =>$request->number,
+            'landline'  =>$request->landline,
+            'address'   =>$request->address,
         ]);
         return redirect()->route('owner.link')->with('succ','Updated Successfully');
     }

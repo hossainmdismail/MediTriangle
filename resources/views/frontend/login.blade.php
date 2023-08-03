@@ -72,12 +72,19 @@
                             <div class="col-12">
                                 <input type="password" name="password" class="form-control bg-white border-0" placeholder="Password" style="height: 55px;">
                             </div>
-                            <div class="col-12">
-                                <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="box">
+                                    <input type="checkbox" name="remember" id="remember" class="form-check-input">
                                 <label class="form-check-label" for="remember">Remember Me</label>
+                                </div>
+                                <a href="{{ route('reset') }}">Forget Password</a>
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Login</button>
+                            </div>
+
+                            <div class="mt-5 text-center">
+                                Not a member? <a href="{{ route('user.register') }}">SignUp</a>
                             </div>
                         </div>
                     </form>

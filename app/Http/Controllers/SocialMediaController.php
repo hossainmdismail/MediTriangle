@@ -18,8 +18,8 @@ class SocialMediaController extends Controller
         ]);
         $count = SocialMediaModel::where('status',1)->count();
         SocialMediaModel::insert([
-            'icon' => $request->icon,
-            'link' => $request->link,
+            'icon'   => $request->icon,
+            'link'   => $request->link,
             'status' => ($count < 5?1:0) ,
         ]);
         return back()->with('succ','Social Media Added Successfully');

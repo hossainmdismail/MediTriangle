@@ -13,9 +13,9 @@ class BannnerController extends Controller
         return view('backend.banner.index',['datas' => $data]);
     }
     function bannerStore(Request $request){
-        BannnerModel::where('status',1)->update([
-            'status' => 0,
-        ]);
+        // BannnerModel::where('status',1)->update([
+        //     'status' => 0,
+        // ]);
         $request->validate([
             'photo' => 'required',
             'name' => 'required',
@@ -51,11 +51,11 @@ class BannnerController extends Controller
         ]);
 
         if ($request->id !=null) {
-            if ($request->status == 1) {
-                BannnerModel::where('status',1)->update([
-                    'status' => 0,
-                ]);
-            }
+            // if ($request->status == 1) {
+            //     BannnerModel::where('status',1)->update([
+            //         'status' => 0,
+            //     ]);
+            // }
             if ($request->photo != null) {
                 $delPhoto = BannnerModel::where('id',$request->id)->first()->image;
                 $path = public_path('uploads/banner/'.$delPhoto);

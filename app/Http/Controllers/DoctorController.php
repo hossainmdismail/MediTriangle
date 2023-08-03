@@ -16,34 +16,34 @@ class DoctorController extends Controller
     }
     function doctorStore(Request $request){
         $request->validate([
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'hospital_id' => 'required',
+            'country_id'    => 'required',
+            'state_id'      => 'required',
+            'hospital_id'   => 'required',
             'department_id' => 'required',
-            'name' => 'required',
-            'career_title' => 'required',
-            'speciality' => 'required',
-            'fee' => 'required',
-            'vat' => 'required',
-            'profile' => 'required',
+            'name'          => 'required',
+            'career_title'  => 'required',
+            'speciality'    => 'required',
+            'fee'           => 'required',
+            'vat'           => 'required',
+            'profile'       => 'required',
         ]);
         $make = $request->profile;
         $extn = $make->getClientOriginalExtension();
         $profileName = 'PRO'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
         Image::make($make)->resize(500,500)->save(public_path('uploads/doctor/'.$profileName));
         DoctorModel::insert([
-            'country_id' => $request->country_id,
-            'state_id' => $request->state_id,
-            'hospital_id' => $request->hospital_id,
+            'country_id'    => $request->country_id,
+            'state_id'      => $request->state_id,
+            'hospital_id'   => $request->hospital_id,
             'department_id' => $request->department_id,
-            'name' => $request->name,
-            'profile' => $profileName,
-            'career_title' => $request->career_title,
-            'speciality' => $request->speciality,
-            'fee' => $request->fee,
-            'vat' => $request->vat,
-            'created_by' => Auth::guard('admin_model')->user()->id,
-            'created_at' => Carbon::now(),
+            'name'          => $request->name,
+            'profile'       => $profileName,
+            'career_title'  => $request->career_title,
+            'speciality'    => $request->speciality,
+            'fee'           => $request->fee,
+            'vat'           => $request->vat,
+            'created_by'    => Auth::guard('admin_model')->user()->id,
+            'created_at'    => Carbon::now(),
         ]);
         return back()->with('succ','Successfully Done');
     }
@@ -53,11 +53,11 @@ class DoctorController extends Controller
     }
     function doctorUpdate(Request $request){
         $request->validate([
-            'name' => 'required',
-            'career_title' => 'required',
-            'speciality' => 'required',
-            'fee' => 'required',
-            'vat' => 'required',
+            'name'          => 'required',
+            'career_title'  => 'required',
+            'speciality'    => 'required',
+            'fee'           => 'required',
+            'vat'           => 'required',
         ]);
         if ($request->profile != '') {
             $fileName = DoctorModel::where('id',$request->id)->first();
@@ -73,11 +73,11 @@ class DoctorController extends Controller
             ]);
         }
         DoctorModel::where('id',$request->id)->update([
-            'name' => $request->name,
-            'career_title' => $request->career_title,
-            'speciality' => $request->speciality,
-            'fee' => $request->fee,
-            'vat' => $request->vat,
+            'name'          => $request->name,
+            'career_title'  => $request->career_title,
+            'speciality'    => $request->speciality,
+            'fee'           => $request->fee,
+            'vat'           => $request->vat,
         ]);
         return back()->with('succ','Update Successfully');
     }

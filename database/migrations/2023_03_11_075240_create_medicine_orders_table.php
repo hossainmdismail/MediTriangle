@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('order_id');
             $table->string('medicine');
             $table->integer('quantity');
-            $table->integer('status')->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

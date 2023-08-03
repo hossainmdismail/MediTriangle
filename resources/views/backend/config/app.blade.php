@@ -86,6 +86,8 @@
                                     <li><a href="{{ route('d.state') }}">State</a> </li>
                                     <li><a href="{{ route('d.hospital') }}">Hospital</a> </li>
                                     <li><a href="{{ route('d.department') }}">Department</a> </li>
+                                    <li><a href="{{ route('embassy.index') }}">Embassy</a> </li>
+                                    <li><a href="{{ route('visatype.index') }}">Passport Type</a> </li>
                                 </ul>
                             </div>
                         </li>
@@ -125,7 +127,7 @@
                 <ul class="sidebar-footer list-unstyled mb-0">
                     <li class="list-inline-item mb-0 ms-1">
                         <a href="#" class="btn btn-icon btn-pills btn-soft-primary">
-                            <i class="uil uil-comment"></i>
+                            <i class="fa-solid fa-arrows-turn-right"></i>
                         </a>
                     </li>
                 </ul>
@@ -171,7 +173,7 @@
                             <li class="list-inline-item mb-0 ms-1">
                                 <div class="dropdown dropdown-primary">
                                     <button type="button" class="btn btn-icon btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="mail" class="fea icon-sm"></i></button>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ $notificationsCount->count() }}<span class="visually-hidden">unread mail</span></span>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ $notificationsCount->count() + App\Models\MedicineBillings::where('status',0)->count() }}<span class="visually-hidden">unread mail</span></span>
 
                                     <div class="dropdown-menu dd-menu dropdown-menu-end shadow rounded border-0 mt-3 px-2 py-2" data-simplebar style="height: 320px; width: 300px;">
                                         @if ($notificationsCount->where('appointment_type',1)->count() != 0)
@@ -197,6 +199,15 @@
                                                 <div class="d-inline-flex position-relative overflow-hidden">
                                                     <img src="{{ Avatar::create('Visa Invitation') }}" class="avatar avatar-md-sm rounded-circle shadow" alt="">
                                                     <small class="text-dark mb-0 d-block text-truncat ms-3">Visa Invitation <b class="badge bg-soft-primary">{{ App\Models\AppoinmentModel::where('notifications',0)->where('appointment_type',3)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\AppoinmentModel::where('notifications',0)->where('appointment_type',3)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
+                                                </div>
+                                            </a>
+                                        @endif
+
+                                        @if (App\Models\MedicineBillings::where('status',0)->count() != 0)
+                                            <a href="{{ route('admin.medicine.link') }}" class="d-flex align-items-center justify-content-between py-2">
+                                                <div class="d-inline-flex position-relative overflow-hidden">
+                                                    <img src="{{ Avatar::create('Visa Invitation') }}" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">Medicine <b class="badge bg-soft-primary">{{ App\Models\MedicineBillings::where('status',0)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\MedicineBillings::where('status',0)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
                                                 </div>
                                             </a>
                                         @endif
@@ -259,7 +270,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="text-sm-start text-center">
-                                    <p class="mb-0 text-muted"><script>document.write(new Date().getFullYear())</script> © Doctris. Design with <i class="mdi mdi-heart text-danger"></i> by <a href="https://shreethemes.in/" target="_blank" class="text-reset">Shreethemes</a>.</p>
+                                    <p class="mb-0 text-muted"><script>document.write(new Date().getFullYear())</script> © MediTriangle. Designed By <a href="https://www.linkedin.com/in/md-ismail-hossain-911a96236" target="_blank" class="text-secondary">Khaalifa</a>.</p>
                                 </div>
                             </div><!--end col-->
                         </div><!--end row-->

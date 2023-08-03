@@ -89,27 +89,34 @@
                             @foreach ($datas as $key => $data)
                             <tr>
                                 <th class="p-3">{{ $key+1 }}</th>
+
                                 <td class="p-3">{{ $data->order_id }}</td>
+
                                 <td class="p-3">{{ $data->passportname }}</td>
+
                                 <td class="p-3">{{ $data->appointment_type == 2?$data->passportnumber:$data->number }}</td>
+
                                 <td class="p-3">{{ $data->con_department->department }}</td>
-                                <td class="p-3"><span class="badge bg-soft-{{ ($date > $data->appoinment_date->format('M d Y')? 'danger':'success') }}">{{ $data->appoinment_date->format('M d Y') }}</span></td>
+
                                 <td class="p-3">
+                                    <span class="badge bg-soft-{{ ($date > $data->appoinment_date->format('M d Y')? 'danger':'success') }}">
+                                        {{ $data->appoinment_date->format('M d Y') }}
+                                    </span>
+                                </td>
+
+                                <td class="p-3">
+                                    @if ($data->status ==1)
+                                    <span class="badge bg-success">
+                                        Confirm
+                                    </span>
+                                    @endif
+                                    <br>
                                     <span class="badge bg-{{ $data->order_status != 0?'primary':($data->status == 2?'danger':'info') }}">
                                         {{ $data->order_status != 0?$data->activity->format('M-d-Y'):($data->status == 2?'Canceled':'panding') }}
                                     </span>
-                                    {{-- <span class="badge bg-{{ $data->activity == null?($data->status == 2?'danger':'info'):'primary' }}">
-                                    @if ($data->activity == null)
-                                        @if ($data->status == 2)
-                                            Cancel
-                                        @else
-                                            Waiting
-                                        @endif
-                                    @else
-                                    {{ $data->activity->format('M-d-Y') }}
-                                    @endif
-                                    </span> --}}
+
                                 </td>
+
                                 <td class="p-3">
                                     <a href="#" class="text-dark">
                                         <div class="d-flex align-items-center">
@@ -118,7 +125,9 @@
                                         </div>
                                     </a>
                                 </td>
+
                                 <td class="p-3">৳-{{ number_format($data->fee) }}</td>
+
                                 <td class="text-end p-3">
                                     <a href="{{ route('appointment.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-{{ $data->notifications == 0?'primary':'muted' }}"><i class="fa-regular fa-eye"></i></a>
                                     {{-- <a href="#" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#acceptappointment"><i class="fa-solid fa-check"></i></a>
@@ -150,7 +159,7 @@
         $('#print').click(function () {
         var pageTitle = 'Appointment',
             stylesheet = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
-            win = window.open('', 'Print', 'width=500,height=300');
+            win = window.open('', 'Print', 'width=700,height=500');
         win.document.write('<html><head><title>' + pageTitle + '</title>' +
             '<link rel="stylesheet" href="' + stylesheet + '">' +
             '</head><body>' + $('.table')[0].outerHTML + '</body></html>');

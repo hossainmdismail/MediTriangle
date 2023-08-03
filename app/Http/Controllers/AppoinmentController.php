@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\AppoinmentModel;
 use App\Models\AppoinmentReports;
+use App\Models\attendant;
 use App\Models\DoctorModel;
 use App\Models\User;
+use ArrayIterator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Image;
+use MultipleIterator;
+use Photo;
+
 class AppoinmentController extends Controller
 {
     function appoinmentStore(Request $request){
-        // if ($request->appointment_type != 3) {
-        //     $request->validate(['appoinment_date' => 'required',]);
-        // }
+        $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
         $request->validate([
             'appointment_type' => 'required',
             'country_id' => 'required',
@@ -28,9 +31,31 @@ class AppoinmentController extends Controller
             'passportnumber' => 'required | min:7 | max:17',
             'gender' => 'required',
             'age' => 'required',
+            'passport' => 'required',
             'number' => (!Auth::check()?'required':''),
         ]);
-        $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
+
+        //Attendant
+        if ($request->hasFile('attendantPassport')) {
+            $mi = new MultipleIterator();
+            $mi->attachIterator(new ArrayIterator($request->attendantName));
+            $mi->attachIterator(new ArrayIterator($request->attendantPassportNumber));
+            $mi->attachIterator(new ArrayIterator($request->attendantPassport));
+            foreach ($mi as list($name, $number, $photo) ) {
+                $make = $photo;
+                $extn = $make->getClientOriginalExtension();
+                $profileName = 'PRO'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
+                attendant::insert([
+                    'user_id' => 1,
+                    'order_id' => $order_id,
+                    'attendant_name' => $name,
+                    'passport_number' => $number,
+                    'passport' => $profileName,
+                ]);
+                Image::make($make)->save(public_path('uploads/attendant/'.$profileName));
+            }
+        }
+        //login
         if (!Auth::check()) {
             if (User::where('number',$request->number)->exists()) {
                 return back()->with('err', 'Number Exists ! Login Please');
@@ -38,7 +63,7 @@ class AppoinmentController extends Controller
                 $pass ='RAN'.rand(1,5000).'LOG'.rand(1,500);
                 User::insert([
                     'name' => $request->passportname,
-                    'number' => $request->number,
+                    'number' => $request->newNumber,
                     'email' => $request->email,
                     'password' => bcrypt($pass),
                     'created_at' => Carbon::now(),
@@ -86,6 +111,7 @@ class AppoinmentController extends Controller
                 ]);
             }
         }
+        Photo::upload($request->passport,'uploads/passport','PASSP');
         AppoinmentModel::insert([
             'user_id' => Auth::user()->id,
             'country_id' => $request->country_id,
@@ -101,13 +127,15 @@ class AppoinmentController extends Controller
             'gender' => $request->gender,
             'note' => $request->note,
             'fee' => $request->fee,
+            'passport' => Photo::$name,
             'order_id' => $order_id,
             'age' => $request->age,
             'created_at' => Carbon::now(),
         ]);
-        $data = array("id"=>Auth::user()->id, "amount"=>$request->fee,'order_id'=>$order_id);
+        $data = array("id"=>Auth::user()->id, "amount"=>$request->fee,'order_id'=>$order_id,'type' => 'appointment');
         return redirect()->route('pay')->with('data',$data);
     }
+
     function appoinmentStoreDone(){
         return view('frontend.appoinment.personal');
     }
