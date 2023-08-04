@@ -1,7 +1,9 @@
 @extends('frontend.config.app')
 
 @section('content')
-
+    @php
+        $filter = empty($_GET)? null:$_GET['department'];
+    @endphp
     <!-- Search Start -->
     <div class="container-fluid pt-5">
         <div class="container">
@@ -15,12 +17,11 @@
             <div class="mx-auto" style="width: 100%; max-width: 600px;">
                 <div class="input-group">
                     <select class="form-select border-primary w-5" name="department" style="height: 60px;">
-                        <option selected>Department</option>
+                        <option value="">Department</option>
                         @foreach ($department as $departments)
-                        <option value="{{ $departments->id }}">{{ $departments->department }}</option>
+                        <option value="{{ $departments->id }}" {{ $filter == $departments->id? 'selected':''}}>{{ $departments->department }}</option>
                         @endforeach
                     </select>
-                    {{-- <input type="text" class="form-control border-primary w-50" placeholder="Keyword"> --}}
                     <button class="btn btn-dark border-0 w-25">Search</button>
                 </div>
             </div>
@@ -36,57 +37,32 @@
             <div class="row g-5">
 
                 @if ($doctors != null)
-                @foreach ($doctors as $doctor)
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <img class="card-img-top pb-3 rounded" src="{{ asset('uploads/doctor/'.$doctor->profile) }}" alt="Card image" style="width:100%">
-                          <h4 class="card-title">{{ $doctor->name }}</h4>
-                          <p class="card-text text-primary">{{ $doctor->con_department->department }}</p>
-                          <p class="card-text"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital->hospital }}</p>
-                          <p class="card-text"><i class="fa-solid fa-stethoscope text-primary p-2"></i>{{ $doctor->career_title }}</p>
-                          <a class="btn btn-outline-dark btn-sm mt-3" href="{{ route('link.appoinment') }}">Appointment</a>
+                @forelse ($doctors as $doctor)
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <img class="card-img-top pb-3 rounded" src="{{ asset('uploads/doctor/'.$doctor->profile) }}" alt="Card image" style="width:100%">
+                            <h4 class="card-title">{{ $doctor->name }}</h4>
+                            <p class="card-text text-primary">{{ $doctor->con_department->department }}</p>
+                            <p class="card-text"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital->hospital }}</p>
+                            <p class="card-text"><i class="fa-solid fa-stethoscope text-primary p-2"></i>{{ $doctor->career_title }}</p>
+                            <a class="btn btn-outline-dark btn-sm mt-3" href="{{ route('link.appoinment') }}">Appointment</a>
+                            </div>
                         </div>
-                      </div>
-                </div>
-                @endforeach
+                    </div>
+                @empty
+                    <div class="col-12  text-center">
+                        <i class="fa-solid fa-triangle-exclamation display-1 mb-4"></i>
+                        <p class="text-secondary">No Data Found !</p>
+                    </div>
+                @endforelse
                 <div class="col-12 text-center">
                     {{ $doctors->links('pagination::bootstrap-4') }}
                 </div>
 
                 @endif
-
-                {{-- @if ($doctors != null)
-                  @foreach ($doctors->take(5) as $doctor)
-                    <div class="col-lg-6 team-item">
-                        <div class="row g-0 bg-light rounded overflow-hidden">
-                            <div class="col-12 col-sm-5 h-100">
-                                <img class="img-fluid h-100" src="{{ asset('uploads/doctor/'.$doctor->profile) }}" style="object-fit: cover;">
-                            </div>
-                            <div class="col-12 col-sm-7 h-auto d-flex">
-                                <div class="mt-auto p-4">
-                                    <h3>{{ $doctor->name }}</h3>
-                                    <h6 class="fw-normal fst-italic text-primary mb-4">{{ $doctor->con_department->department }}</h6>
-                                    <p class="mb-2" style="border-bottom: 1px solid #1ab8ae33;"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital->hospital }}</p>
-                                    <p class="mb-2" style="border-bottom: 1px solid #1ab8ae33;"><i class="fa-solid fa-stethoscope text-primary p-2"></i>{{ $doctor->career_title }}</p>
-                                    <p class="m-0"><i class="fa-solid fa-book text-primary p-2"></i>{{ $doctor->speciality }}</p>
-                                    <a class="btn btn-outline-dark btn-sm mt-3" href="{{ route('link.appoinment') }}">Appointment</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-                <div class="col-12 text-center">
-                    {{ $doctors->links('pagination::bootstrap-4') }}
-                </div>
-
-                @endif --}}
-
-
-
             </div>
         </div>
     </div>
-    <!-- Search Result End -->
 
 @endsection

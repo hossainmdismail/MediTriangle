@@ -12,7 +12,7 @@
     <meta content="meditr" name="description">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{--  Favicon   --}}
-    <link href="{{ ($owners->logo == null?asset('brandicon.png'):$owners->logo) }}" rel="icon">
+    <link href="{{ ($owners == null?'':$owners->logo) }}" rel="icon">
 
     {{--  Google Web Fonts  --}}
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -116,9 +116,11 @@
             <div class="row">
                 <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
                     <div class="d-inline-flex align-items-center">
-                        <a class="text-decoration-none text-body pe-3" href=""><i class="bi bi-telephone me-2"></i>{{ $owners->number }}</a>
-                        <span class="text-body">|</span>
-                        <a class="text-decoration-none text-body px-3" href=""><i class="bi bi-envelope me-2"></i>{{ $owners->email }}</a>
+                        @if ($owners != null)
+                            <a class="text-decoration-none text-body pe-3" href=""><i class="bi bi-telephone me-2"></i>{{ $owners->number }}</a>
+                            <span class="text-body">|</span>
+                            <a class="text-decoration-none text-body px-3" href=""><i class="bi bi-envelope me-2"></i>{{ $owners->email }}</a>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-6 text-center text-lg-end">
@@ -192,10 +194,12 @@
                 <div class="col-lg-3 col-md-6">
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Get In Touch</h4>
                     <p class="mb-4">Access your Health Records from the comfort of your home while seamlessly maintaining a record of your medical conditions.</p>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>{{ $owners->address }}</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>{{ $owners->email }}</p>
-                    <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>{{ $owners->number }}</p>
-                    <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>{{ $owners->landline }}</p>
+                    @if ($owners != null)
+                        <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>{{ $owners->address }}</p>
+                        <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>{{ $owners->email }}</p>
+                        <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>{{ $owners->number }}</p>
+                        <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>{{ $owners->landline }}</p>
+                    @endif
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Quick Links</h4>
@@ -244,7 +248,7 @@
         <div class="container">
             <div class="row g-5">
                 <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-md-0"><a class="text-primary" href="#">{{ $owners->name }}</a> &copy; All Rights Reserved.</p>
+                    <p class="mb-md-0"><a class="text-primary" href="#">{{ $owners != null? $owners->name:'' }}</a> &copy; All Rights Reserved.</p>
                 </div>
             </div>
         </div>

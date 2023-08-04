@@ -15,14 +15,17 @@ class VideoConsultant extends Controller
 {
 
 
-    function link(){
-        $doctor = DoctorModel ::where('status',1)->paginate(10);;
+    function link(Request $request){
+        $doctor = DoctorModel ::where('status',1)->paginate(10);
         $department = DepartmentModel::where('status',1)->get();
-
+        if ($request->department != null) {
+            $doctor = DoctorModel ::where('department_id',$request->department)->paginate(10);
+        }
         return view('frontend.consultant.index',[
             'doctors' => $doctor,
             'department' => $department,
         ]);
+
     }
 
     function take($id){
