@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminVideoController;
 use App\Http\Controllers\AdminVisaController;
 use App\Http\Controllers\AppoinmentController;
 use App\Http\Controllers\BannnerController;
+use App\Http\Controllers\CacheController;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DownloadController;
@@ -40,7 +41,8 @@ Route::get('/', function () {
 Route::get('/image/download',[DownloadController::class, 'imageDownload'])->name('imageDownload');
 
 
-
+//Cache Clear
+Route::get('/clear/cache',[CacheController::class, 'clearCache'])->name('clear.Cache');
 
 
 
