@@ -114,7 +114,7 @@
                                 <td class="p-3"><span class="badge bg-{{ $data->activity == null?($data->status == 2?'danger':'info'):'primary' }}">Processing</span>
                                 </td>
                                 <td class="text-end p-3">
-                                    <a href="{{ route('appointment.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-{{ $data->status == 0?'primary':'muted' }}"><i class="fa-regular fa-eye"></i></a>
+                                    <a href="{{ route('medicine.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-{{ $data->status == 0?'primary':'muted' }}"><i class="fa-regular fa-eye"></i></a>
                                 </td>
                             </tr>
                             @endforeach

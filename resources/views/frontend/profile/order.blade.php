@@ -37,22 +37,21 @@
                                     <th scope="row">{{ $key+1 }}</th>
                                     <td>{{ $order->order_id }}
                                     @if ($order->appointment_type == 1)
-                                    <span class="badge bg-secondary">Appointment</span>
+                                    <span class="badge bg-secondary" style="font-size: 10px">Appointment</span>
                                     @elseif ($order->appointment_type == 2)
                                     <span class="badge bg-secondary">Video</span>
                                     @elseif ($order->appointment_type == 3)
                                     <span class="badge bg-primary">Visa</span>
                                     @endif</td>
-                                    {{-- <td class="d-none d-md-block">{{ $order->con_department->department }}</td> --}}
                                     <td><img src="{{ asset('uploads/doctor/'.$order->con_doctor->profile) }}" style="width: 20px;border-radius: 6px;margin-right: 7px;" alt="">{{ $order->con_doctor->name }}</td>
-                                    <td><span class="badge bg-{{ $order->activity == null?'info':'primary' }}">{{ $order->activity == null?'Waiting':$order->activity->format('M-d-Y') }}</span></td>
+                                    <td><span style="font-size: 10px" class="badge bg-{{ $order->activity == null?'info':'primary' }}">{{ $order->activity == null?'Waiting':$order->activity->format('M-d-Y') }}</span></td>
                                     <td>
                                         @if ($order->status == 0)
-                                        <span class="badge bg-info">Proccessing</span>
+                                        <span style="font-size: 10px" class="badge bg-info">Proccessing</span>
                                         @elseif ($order->status == 1)
-                                        <span class="badge bg-primary">Confirm</span>
+                                        <span style="font-size: 10px" class="badge bg-primary">Confirm</span>
                                         @elseif ($order->status == 2)
-                                        <span class="badge bg-danger">Cancel</span>
+                                        <span style="font-size: 10px" class="badge bg-danger">Cancel</span>
                                         @endif
                                     </td>
                                 </tr>

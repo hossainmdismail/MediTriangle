@@ -164,6 +164,8 @@ Route::group(['middleware' => 'admin_model'],function(){
 
     //Order Medicine Manage
     Route::get('/medicine/link',[AdminMedicineController::class, 'link'])->name('admin.medicine.link');
+    Route::get('/medicine/watch/{id}',[AdminMedicineController::class, 'medicineWatch'])->name('medicine.watch');
+
     //Owner
     Route::group(['prefix' => 'owner'],function(){
         Route::get('/',[OwnerController::class, 'ownerLink'])->name('owner.link');

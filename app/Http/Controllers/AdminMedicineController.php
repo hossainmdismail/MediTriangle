@@ -12,4 +12,15 @@ class AdminMedicineController extends Controller
         $data = MedicineBillings::paginate(10);
         return view('backend.medicine.index',['datas' => $data]);
     }
+
+    function medicineWatch($id){
+        MedicineBillings::find($id)->update([
+            'status'  =>  1,
+        ]);
+        $data = MedicineBillings::where('id',$id)->first();
+       return view('backend.medicine.watch',[
+        'data'   =>  $data,
+        ]);
+    }
+
 }

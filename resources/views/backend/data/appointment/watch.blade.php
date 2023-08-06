@@ -129,6 +129,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="list-unstyled">
+
                                         <div class="d-flex align-items-center mt-2">
                                             <i class="fa-solid fa-cart-shopping text-primary h5 mb-0 me-2"></i>
                                             <h6 class="mb-0">OrderID</h6>
@@ -138,6 +139,12 @@
                                         <div class="d-flex align-items-center mt-2">
                                             <i class="fa-regular fa-calendar-check text-primary h5 mb-0 me-2"></i>
                                             <h6 class="mb-0">Appointment</h6>
+                                            <p class="text-muted mb-0 ms-2"><span class="badge bg-soft-{{ ($datas->order_status != 0 ?'success':($datas->status == 2?'danger':'info')) }}">{{ $datas->order_status != 0?$datas->activity->format('M-d-Y'):($datas->status == 2?'Canceled':'panding') }}</span></p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center mt-2">
+                                            <i class="fa-solid fa-hand-holding-dollar text-primary h5 mb-0 me-2"></i>
+                                            <h6 class="mb-0">Payment</h6>
                                             <p class="text-muted mb-0 ms-2"><span class="badge bg-soft-{{ ($datas->order_status != 0 ?'success':($datas->status == 2?'danger':'info')) }}">{{ $datas->order_status != 0?$datas->activity->format('M-d-Y'):($datas->status == 2?'Canceled':'panding') }}</span></p>
                                         </div>
 
