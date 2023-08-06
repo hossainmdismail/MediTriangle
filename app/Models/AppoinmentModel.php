@@ -27,4 +27,8 @@ class AppoinmentModel extends Model
     function con_doctor(){
         return $this->belongsTo(DoctorModel::class, 'doctor_id');
     }
+
+    function con_attendant(){
+        return $this->belongsTo(attendant::class, 'order_id');
+    }
 }

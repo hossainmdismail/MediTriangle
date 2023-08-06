@@ -14,7 +14,7 @@ class VideoConsultantModel extends Model
         'order_status',
         'appointment_date',
         'message',
-        'notifications'
+        'notification'
     ];
     protected $casts = [
        'expected_date' => 'datetime',

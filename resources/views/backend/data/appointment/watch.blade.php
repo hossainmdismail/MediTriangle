@@ -91,26 +91,11 @@
     <div class="layout-specing">
         <div class="row">
             <div class="col-xl-9 col-lg-6 col-md-4">
-                <h5 class="mb-0">
-                    @if ($datas->appointment_type == 1 )
-                        Appointment
-                    @elseif ($datas->appointment_type == 2 )
-                        Video Consultation
-                    @elseif ($datas->appointment_type == 3 )
-                        Visa Invitation
-                    @endif
-                </h5>
+                <h5 class="mb-0">Appointment</h5>
                 <nav aria-label="breadcrumb" class="d-inline-block mt-2">
                     <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
                         <li class="breadcrumb-item">Dashboard</li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
-                        <li class="breadcrumb-item" aria-current="page">
-                            @if ($datas->appointment_type == 1 )
-                                <a href="{{ route('user.data.appointment') }}">Appointment</a>
-                            @elseif ($datas->appointment_type == 2 )
-                                <a href="{{ route('user.data.videoInvitaion') }}">Video Consultation</a>
-                            @elseif ($datas->appointment_type == 3 )
-                                <a href="{{ route('user.data.visaInvitaion') }}">Visa Invitation</a>
-                            @endif
+                        <li class="breadcrumb-item" aria-current="page"><a href="{{ route('user.data.appointment') }}">Appointment</a>
                         </li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
                         <li class="breadcrumb-item active" aria-current="page">{{ $datas->order_id }}</li>
 
@@ -119,7 +104,7 @@
             </div><!--end col-->
 
             <div class="col-12 mt-4">
-                <div class="rounded shadow overflow-hidden">
+                <div class="rounded shadow p-4 overflow-hidden">
                     <div class="row">
                         <div class="col-5 m-auto">
                             <div class="text-center avatar-profile position-relative py-4 border-bottom">
@@ -135,16 +120,15 @@
                         </div>
                     </div>
 
-
                     <div class="row">
                         <div class="col-lg-6 my-3">
-                            <div class="card">
+                            {{-- Patient --}}
+                            <div class="card border-0 rounded shadow">
+                                <div class="card-header">
+                                    <h4>Patient</h4>
+                                </div>
                                 <div class="card-body">
-                                    <div class="list-unstyled p-4">
-                                        <div class="progress-box">
-                                            <h4>Patient</h4>
-                                        </div><!--end process box-->
-                                        <hr>
+                                    <div class="list-unstyled">
                                         <div class="d-flex align-items-center mt-2">
                                             <i class="fa-solid fa-cart-shopping text-primary h5 mb-0 me-2"></i>
                                             <h6 class="mb-0">OrderID</h6>
@@ -197,50 +181,86 @@
                                             <p class="text-muted mb-0 ms-2"><span class="badge bg-soft-{{ ($date > $datas->appoinment_date->format('M d Y')? 'danger':'success') }}">{{ $datas->appoinment_date->format('M-d-Y') }}</span></p>
                                         </div>
 
-                                        <div class="d-flex align-items-center mt-2 border p-2">
-                                            <p class="text-muted mb-0 ms-2">{{ $datas->note }}</p>
-                                        </div>
 
-                                        <hr>
-
-                                        @if (App\Models\AppoinmentReports::where('order_id',$datas->order_id)->get()->count() != 0)
-                                        <div class="progress-box">
-                                            <h5>Report</h5>
-                                        </div><!--end process box-->
-                                        <div class="py-3">
-                                            <div class="row">
-                                                @foreach (App\Models\AppoinmentReports::where('order_id',$datas->order_id)->get() as $report)
-                                                <div class="col-4">
-                                                    <div class="team-person position-relative overflow-hidden">
-                                                        <img style="width: 100%" src="{{ asset('uploads/report/'.$report->reports) }}" class="img-fluid" alt="">
-                                                        <ul class="list-unstyled team-like">
-                                                            <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icons"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                @endforeach
-                                            </div>
+                                        <div class="mt-4">
+                                            <h4>Messages</h4>
+                                            <p class="p-2 border rounded text-secondary">
+                                                {{ $datas->note }}
+                                            </p>
                                         </div>
-                                        @else
-                                        <div class="error">
-                                            <h5>No Reports</h5>
-                                        </div>
-                                        @endif
-
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- Report --}}
+                            @if (App\Models\AppoinmentReports::where('order_id',$datas->order_id)->get()->count() != 0)
+                            <div class="card mt-4 border-0 rounded shadow">
+                                <div class="card-header">
+                                    <h4>Reports</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="py-3">
+                                        <div class="row">
+                                            @foreach (App\Models\AppoinmentReports::where('order_id',$datas->order_id)->get() as $report)
+                                            <div class="col-4">
+                                                <div class="team-person position-relative overflow-hidden">
+                                                    <img style="width: 100%" src="{{ asset('uploads/report/'.$report->reports) }}" class="img-fluid" alt="">
+                                                    <ul class="list-unstyled team-like">
+                                                        <li><a href="{{ asset('uploads/report/'.$report->reports) }}" class="btn btn-icon btn-pills btn-soft-danger download" download><i class="fa-solid fa-arrow-down"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @else
+                                <div class="error">
+                                    <h5>No Reports</h5>
+                                </div>
+                            @endif
+
                         </div><!---end--->
 
                         <div class="col-lg-6 my-3">
-                            <div class="card team border-0 rounded shadow overflow-hidden">
+                            <div class="card border-0 rounded shadow overflow-hidden">
+                                <div class="card-header">
+                                    <h4>Attendant</h4>
+                                </div>
+                                <div class="card-body">
+                                    @forelse (App\Models\attendant::where('order_id',$datas->order_id)->get() as $attendant)
+                                        <div class="my-2 d-flex border-bottom">
+                                            <div class="team-person position-relative overflow-hidden">
+                                                <img style="width: 100px" src="{{ asset('uploads/attendant/'.$attendant->passport) }}" class="img-fluid" alt="">
+                                                <ul class="list-unstyled team-like">
+                                                    <li><a href="{{ asset('uploads/attendant/'.$attendant->passport) }}" class="btn btn-icon btn-pills btn-soft-danger download" download><i class="fa-solid fa-arrow-down"></i></a></li>
+                                                </ul>
+                                            </div>
+
+                                            {{-- <img src="{{ asset('uploads/attendant/'.$attendant->passport) }}" width="100px"> --}}
+
+                                            <ul class="list-group mx-4">
+                                                <li class="list-group-item">{{ $attendant->attendant_name }}</li>
+                                                <li class="list-group-item">{{ $attendant->passport_number }}</li>
+                                            </ul>
+
+                                        </div>
+                                    @empty
+                                        No Attendant Found
+                                    @endforelse
+
+                                </div>
+                            </div>
+
+                            <div class="card team border-0 rounded shadow overflow-hidden mt-4">
                                 <div class="row">
 
                                     <div class="col-md-5">
                                         <div class="team-person position-relative overflow-hidden">
                                             <img style="width: 100%" src="{{ asset('uploads/doctor/'.$doctor->profile) }}" class="img-fluid" alt="">
                                             <ul class="list-unstyled team-like">
-                                                <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icons"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></a></li>
+                                                <li><a href="{{ asset('uploads/doctor/'.$doctor->profile) }}" class="btn btn-icon btn-pills btn-soft-danger download" download><i class="fa-solid fa-arrow-down"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -271,6 +291,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
                         </div><!---end--->
                     </div>
                 </div>

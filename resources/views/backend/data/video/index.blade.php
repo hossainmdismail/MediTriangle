@@ -114,7 +114,7 @@
                                     </a>
                                 </td>
                                 <td class="text-end p-3">
-                                    <a href="{{  route('videoInvitaion.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-{{ $data->notifications == 0?'primary':'muted' }}"><i class="fa-regular fa-eye"></i></a>
+                                    <a href="{{  route('videoInvitaion.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-{{ $data->notification == 0?'primary':'muted' }}"><i class="fa-regular fa-eye"></i></a>
                                 </td>
                             </tr>
                             @endforeach

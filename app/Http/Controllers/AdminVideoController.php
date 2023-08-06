@@ -22,9 +22,9 @@ function video(Request $request){
 }
 
 function videoWatch($id){
-    // VisaModel::find($id)->update([
-    //     'notifications'  =>  1,
-    // ]);
+    VideoConsultantModel::find($id)->update([
+        'notification'  =>  1,
+    ]);
    $data = VideoConsultantModel::where('id',$id)->first();
    $doctor = DoctorModel::where('id',$data->doctor_id)->first();
     // $visaReports = VisaModelResport::where('order_id',$data->order_id)->get();

@@ -42,9 +42,14 @@
     <body>
 
         @php
-            $notificationsCount = App\Models\AppoinmentModel::where('notifications',0);
+            $appointment    = App\Models\AppoinmentModel::select('notifications')->where('notifications',0)->count();
+            $video          = App\Models\VideoConsultantModel::select('notification')->where('notification',0)->count();
+            $visa           = App\Models\VisaModel::select('notifications')->where('notifications',0)->count();
+            $medicine       = App\Models\MedicineBillings::select('status')->where('status',0)->count();
+            $notifications  = $appointment+$video+$visa+$medicine;
 
         @endphp
+
 
         <div class="page-wrapper doctris-theme toggled">
             <!-- sidebar-wrapper -->
@@ -66,7 +71,7 @@
                         <li><a href="{{ route('user.data.visaInvitaion') }}"><i class="fa-brands fa-cc-visa"></i> Visa Invitation</a></li>
                         <li><a href="{{ route('user.data.videoInvitaion') }}"><i class="fa-solid fa-video"></i> Video Consultation</a></li>
                         <li><a href="{{ route('admin.medicine.link') }}"><i class="fa-solid fa-capsules"></i> Medicine</a></li>
-                        <li><a href="{{ route('user.data.videoInvitaion') }}"><i class="fa-solid fa-address-card"></i> Card</a></li>
+                        <li><a href="#"><i class="fa-solid fa-address-card"></i> Card</a></li>
 
                         <li class="sidebar-dropdown">
                             <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-database"></i> DataBase <span style="margin-left:10px" class="badge bg-warning me-2 mt-2">important</span></a>
@@ -145,7 +150,7 @@
                                 <div id="search" class="menu-search mb-0">
                                     <form role="search" method="get" id="searchform" class="searchform">
                                         <div>
-                                            <input type="text" class="form-control border rounded-pill" name="s" id="s" placeholder="Search Keywords...">
+                                            <input type="text" class="form-control border rounded-pill" name="s" id="s" placeholder="Search ...">
                                             <input type="submit" id="searchsubmit" value="Search">
                                         </div>
                                     </form>
@@ -154,41 +159,36 @@
                         </div>
 
                         <ul class="list-unstyled mb-0">
-                            {{-- <li class="list-inline-item mb-0 ms-1">
-                                <a href="javascript:void(0)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                    <div class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="settings" class="fea icon-sm"></i></div>
-                                </a>
-                            </li> --}}
 
                             <li class="list-inline-item mb-0 ms-1">
                                 <div class="dropdown dropdown-primary">
                                     <button type="button" class="btn btn-icon btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-inbox"></i></button>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ $notificationsCount->count() + App\Models\MedicineBillings::where('status',0)->count() }}<span class="visually-hidden">unread mail</span></span>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ $notifications}}<span class="visually-hidden">unread mail</span></span>
 
                                     <div class="dropdown-menu dd-menu dropdown-menu-end shadow rounded border-0 mt-3 px-2 py-2" data-simplebar style="height: 320px; width: 300px;">
-                                        @if ($notificationsCount->where('appointment_type',1)->count() != 0)
+                                        @if (App\Models\AppoinmentModel::where('notifications',0)->count() != 0)
                                             <a href="{{ route('user.data.appointment') }}" class="d-flex align-items-center justify-content-between py-2">
                                                 <div class="d-inline-flex position-relative overflow-hidden">
                                                     <img src="{{ Avatar::create('Appointment') }}" class="avatar avatar-md-sm rounded-circle shadow" alt="">
-                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">New Appointment <b class="badge bg-soft-primary">{{ $notificationsCount->where('appointment_type',1)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ $notificationsCount->where('appointment_type',1)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
+                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">New Appointment <b class="badge bg-soft-primary">{{ App\Models\AppoinmentModel::where('notifications',0)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\AppoinmentModel::where('notifications',0)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
                                                 </div>
                                             </a>
                                         @endif
 
-                                        @if (App\Models\AppoinmentModel::where('notifications',0)->where('appointment_type',2)->count() != 0)
-                                            <a href="{{ route('user.data.videoInvitaion') }}" class="d-flex align-items-center justify-content-between py-2">
-                                                <div class="d-inline-flex position-relative overflow-hidden">
-                                                    <img src="{{ Avatar::create('Video Consultation') }}" class="avatar avatar-md-sm rounded-circle shadow" alt="">
-                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">Video Consultation <b class="badge bg-soft-primary">{{ App\Models\AppoinmentModel::where('notifications',0)->where('appointment_type',2)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\AppoinmentModel::where('notifications',0)->where('appointment_type',2)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
-                                                </div>
-                                            </a>
-                                        @endif
-
-                                        @if (App\Models\AppoinmentModel::where('notifications',0)->where('appointment_type',3)->count() != 0)
+                                        @if (App\Models\VisaModel::where('notifications',0)->count() != 0)
                                             <a href="{{ route('user.data.visaInvitaion') }}" class="d-flex align-items-center justify-content-between py-2">
                                                 <div class="d-inline-flex position-relative overflow-hidden">
+                                                    <img src="{{ Avatar::create('Video Consultation') }}" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">Visa Invitation <b class="badge bg-soft-primary">{{ App\Models\VisaModel::where('notifications',0)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\VisaModel::where('notifications',0)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
+                                                </div>
+                                            </a>
+                                        @endif
+
+                                        @if (App\Models\VideoConsultantModel::where('notification',0)->count() != 0)
+                                            <a href="{{ route('user.data.videoInvitaion') }}" class="d-flex align-items-center justify-content-between py-2">
+                                                <div class="d-inline-flex position-relative overflow-hidden">
                                                     <img src="{{ Avatar::create('Visa Invitation') }}" class="avatar avatar-md-sm rounded-circle shadow" alt="">
-                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">Visa Invitation <b class="badge bg-soft-primary">{{ App\Models\AppoinmentModel::where('notifications',0)->where('appointment_type',3)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\AppoinmentModel::where('notifications',0)->where('appointment_type',3)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
+                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">Video Consultation <b class="badge bg-soft-primary">{{ App\Models\VideoConsultantModel::where('notification',0)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\VideoConsultantModel::where('notification',0)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
                                                 </div>
                                             </a>
                                         @endif

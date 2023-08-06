@@ -23,15 +23,15 @@ class AdminVisaController extends Controller
     }
 
     function visaWatch($id){
-        // VisaModel::find($id)->update([
-        //     'notifications'  =>  1,
-        // ]);
+        VisaModel::find($id)->update([
+            'notifications'  =>  1,
+        ]);
        $data = VisaModel::where('id',$id)->first();
        $doctor = DoctorModel::where('id',$data->doctor_id)->first();
        $visaReports = VisaModelResport::where('order_id',$data->order_id)->get();
 
        return view('backend.data.visa.watch',[
-        'datas'       =>  $data,
+        'data'       =>  $data,
         'doctor'      =>  $doctor,
         'visa'        =>  $visaReports,
         ]);
