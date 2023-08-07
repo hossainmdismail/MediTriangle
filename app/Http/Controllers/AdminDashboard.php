@@ -115,10 +115,11 @@ class AdminDashboard extends Controller
         ]);
        $data = AppoinmentModel::where('id',$id)->first();
        $doctor = DoctorModel::where('id',$data->doctor_id)->first();
-
+       $payment = DB::table('orders')->where('order_id',$data->order_id)->first()->status;
        return view('backend.data.appointment.watch',[
         'datas'       =>  $data,
-        'doctor'      =>  $doctor
+        'doctor'      =>  $doctor,
+        'payment'     =>  $payment,
         ]);
     }
     function visaInvitaion(Request $request){

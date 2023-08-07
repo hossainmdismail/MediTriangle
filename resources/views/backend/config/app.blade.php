@@ -100,9 +100,11 @@
                         </li>
 
                         <li class="sidebar-dropdown">
-                            <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-tv"></i>Owner </a>
+                            <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-tv"></i>Settings </a>
                             <div class="sidebar-submenu">
                                 <ul>
+                                    <li><a href="{{ route('register.link') }}">Add User</a></li>
+                                    <li><a href="{{ route('role.link') }}">Role Management</a></li>
                                     <li><a href="{{ route('owner.link') }}">Website Info</a></li>
                                     <li><a href="{{ route('d.social') }}">Social Media</a></li>
                                     <li><a href="{{ route('d.service') }}">Service</a></li>

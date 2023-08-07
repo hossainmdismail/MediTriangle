@@ -11,9 +11,9 @@ class AdminController extends Controller
 {
     //All Links
     function loginLink(){
-        // if (Auth::guard('admin_model')->check()) {
-        //     return redirect()->route('admin.dashboard');
-        // }
+        if (Auth::guard('admin_model')->check()) {
+            return redirect()->route('admin.dashboard');
+        }
         return view('backend.auth.login');
 
     }

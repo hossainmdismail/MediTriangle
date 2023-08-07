@@ -19,6 +19,7 @@ use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\SslCommerzPaymentController;
@@ -137,11 +138,14 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 Route::group(['prefix' => 'admin'],function(){
     Route::get('/login', [AdminController::class, 'loginLink'])->name('login.link');
     Route::post('/login/confirmation', [AdminController::class, 'login'])->name('admin.login');
-    Route::get('/register', [AdminController::class, 'registerLink'])->name('register.link');
-    Route::post('/register/confirmation', [AdminController::class, 'register'])->name('register');
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 Route::group(['middleware' => 'admin_model'],function(){
+
+    //Add User
+    Route::get('/admin/register', [AdminController::class, 'registerLink'])->name('register.link');
+    Route::post('/admin/register/confirmation', [AdminController::class, 'register'])->name('register');
+
     Route::get('/dashboard',[AdminDashboard::class, 'dashboard'])->name('admin.dashboard');
 
     //===Order Confirmation
@@ -245,10 +249,18 @@ Route::group(['middleware' => 'admin_model'],function(){
         Route::post('/banner/store',[BannnerController::class, 'bannerStore'])->name('d.banner.store');
         Route::get('/banner/delete/{id}',[BannnerController::class, 'bannerDelete'])->name('banner.delete');
         Route::post('/banner/edit',[BannnerController::class, 'bannerEdit'])->name('banner.edit');
+
     });
+    //Role
+    Route::get('role/link',[RoleController::class, 'index'])->name('role.link');
+    Route::post('permission/store',[RoleController::class, 'permissionStore'])->name('permission.store');
+    Route::post('role/store',[RoleController::class, 'roleStore'])->name('role.store');
+    Route::post('assign/store',[RoleController::class, 'assignStore'])->name('assign.store');
+    Route::get('remove/role/{user_id}',[RoleController::class, 'removeRole'])->name('remove.role');
+    Route::get('delete/role/{role_id}',[RoleController::class, 'deleteRole'])->name('delete.role');
     // Route::resource('/embassy', EmbassyController::class);
     Route::resources([
-        'embassy' => EmbassyController::class,
+        'embassy'  => EmbassyController::class,
         'visatype' => VisaType::class,
     ]);
 
