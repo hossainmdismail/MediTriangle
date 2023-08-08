@@ -13,15 +13,28 @@ use Illuminate\Support\Facades\DB;
 class AdminDashboard extends Controller
 {
     function dashboard(){
-        $patientHistory = DB::table('appoinment_models')->select(
-            DB::raw('DATE_FORMAT(created_at, "%M") as month'),
-            DB::raw('COUNT(gender) as total'),
-            DB::raw('SUM(CASE WHEN gender = "male" THEN 1 ELSE 0 END) as male'),
-            DB::raw('SUM(CASE WHEN gender = "female" THEN 1 ELSE 0 END) as female'))
-            ->whereYear('created_at',2023)
-            ->orderBy('created_at','ASC')
-            ->groupBy('month')
+        // $patientHistory = DB::table('appoinment_models')->select(
+        //     DB::raw('DATE_FORMAT(created_at, "%M") as month'),
+        //     DB::raw('COUNT(gender) as total'),
+        //     DB::raw('SUM(CASE WHEN gender = "male" THEN 1 ELSE 0 END) as male'),
+        //     DB::raw('SUM(CASE WHEN gender = "female" THEN 1 ELSE 0 END) as female'))
+        //     ->whereYear('created_at',2023)
+        //     ->orderBy('created_at','ASC')
+        //     ->groupBy('month')
+        //     ->get();
+
+            $patientHistory = DB::table('appoinment_models')
+            ->select(
+                DB::raw('DATE_FORMAT(created_at, "%M") as month'),
+                DB::raw('COUNT(gender) as total'),
+                DB::raw('SUM(CASE WHEN gender = "male" THEN 1 ELSE 0 END) as male'),
+                DB::raw('SUM(CASE WHEN gender = "female" THEN 1 ELSE 0 END) as female')
+            )
+            ->whereYear('created_at', 2023)
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%M")'))
+            ->orderBy(DB::raw('MIN(created_at)'), 'ASC')
             ->get();
+
 
         $chart_data = [];
         foreach($patientHistory as $data) {
