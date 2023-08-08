@@ -5,11 +5,10 @@
         $owners = App\Models\OwnerModel::where('status',1)->take(1)->first();
         $socials = App\Models\SocialMediaModel::where('status',1)->get()->take(5);
     @endphp
-    <meta charset="utf-8">
-    <title>MediTryangle</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="meditr" name="keywords">
-    <meta content="meditr" name="description">
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
+    {!! JsonLd::generate() !!}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{--  Favicon   --}}
     <link href="{{ ($owners == null?'':$owners->logo) }}" rel="icon">
@@ -34,79 +33,6 @@
     {{-- Font Awesome --}}
     <script src="https://kit.fontawesome.com/70b22ffbec.js" crossorigin="anonymous"></script>
     @yield('style')
-    <style>
-        #progressbar {
-            margin-bottom: 30px;
-            overflow: hidden;
-            padding-left: 0;
-            color: lightgrey;
-        }
-
-        #progressbar .active {
-            color: #000000;
-        }
-
-        #progressbar li {
-            list-style-type: none;
-            font-size: 12px;
-            width: 25%;
-            float: left;
-            text-align: center;
-            position: relative;
-        }
-
-        /*Icons in the ProgressBar*/
-        #progressbar #account:before {
-            font-family: FontAwesome;
-            content: "\f0f0";
-        }
-
-        #progressbar #personal:before {
-            font-family: FontAwesome;
-            content: "\f023";
-        }
-
-        #progressbar #payment:before {
-            font-family: FontAwesome;
-            content: "\f09d";
-        }
-
-        #progressbar #confirm:before {
-            font-family: FontAwesome;
-            content: "\f00c";
-        }
-
-        /*ProgressBar before any progress*/
-        #progressbar li:before {
-            width: 45px;
-            height: 45px;
-            line-height: 45px;
-            display: block;
-            font-size: 18px;
-            color: #ffffff;
-            background: lightgray;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            padding: 2px;
-        }
-
-        /*ProgressBar connectors*/
-        #progressbar li:after {
-            content: '';
-            width: 100%;
-            height: 2px;
-            background: lightgray;
-            position: absolute;
-            left: 0;
-            top: 25px;
-            z-index: -1;
-        }
-
-        /*Color number of the step and the connector before it*/
-        #progressbar li.active:before, #progressbar li.active:after {
-            background: #3CBDB2;
-        }
-    </style>
 </head>
 
 <body>
