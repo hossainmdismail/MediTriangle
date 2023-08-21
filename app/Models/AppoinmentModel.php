@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class AppoinmentModel extends Model
 {
@@ -22,7 +23,7 @@ class AppoinmentModel extends Model
     ];
 
     function con_department(){
-        return $this->belongsTo(DepartmentModel::class, 'department_id');
+        return $this->belongsTo(DepartmentModel::class , 'department_id');
     }
     function con_doctor(){
         return $this->belongsTo(DoctorModel::class, 'doctor_id');
@@ -31,4 +32,5 @@ class AppoinmentModel extends Model
     function con_attendant(){
         return $this->belongsTo(attendant::class, 'order_id');
     }
+
 }

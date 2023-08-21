@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en-US">
 
@@ -7,7 +6,9 @@
     <title>Reset Password</title>
     <meta name="description" content="Reset Password Email Template.">
     <style type="text/css">
-        a:hover {text-decoration: underline !important;}
+        a:hover {
+            text-decoration: underline !important;
+        }
     </style>
 </head>
 
@@ -24,8 +25,8 @@
                     </tr>
                     <tr>
                         <td style="text-align:center;">
-                          <a href="#" title="logo" target="_blank">
-                          </a>
+                            <a href="#" title="logo" target="_blank">
+                            </a>
                         </td>
                     </tr>
                     <tr>
@@ -40,8 +41,10 @@
                                 </tr>
                                 <tr>
                                     <td style="padding:0 35px;">
-                                        <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">You have
-                                            requested to reset your password {{ $data['token'] }}</h1>
+                                        <h1
+                                            style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
+                                            You have
+                                            requested to reset your password</h1>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
@@ -49,7 +52,7 @@
                                             password has been generated for you. To reset your password, click the
                                             following link and follow the instructions.
                                         </p>
-                                        <a href="{{ route('profile.forget.pass.verify',$data['token']) }}"
+                                        <a href="{{ route('profile.forget.pass.verify', $data['token']) }}"
                                             style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Reset
                                             Password</a>
                                     </td>
@@ -64,7 +67,9 @@
                     </tr>
                     <tr>
                         <td style="text-align:center;">
-                            <p style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">&copy; <strong>MediTriangle.com</strong></p>
+                            <p
+                                style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">
+                                &copy; <strong>MediTriangle.com</strong></p>
                         </td>
                     </tr>
                     <tr>

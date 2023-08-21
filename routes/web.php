@@ -18,6 +18,7 @@ use App\Http\Controllers\FrontAjaxController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\PdfDownlodController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
@@ -37,10 +38,8 @@ Route::get('/', function () {
 });
 
 
-
-
-Route::get('/image/download',[DownloadController::class, 'imageDownload'])->name('imageDownload');
-
+//Download PDF
+Route::get('/appointment/pdf/download/{id}',[PdfDownlodController::class, 'appointment_pdf'])->name('appointment.pdf');
 
 //Cache Clear
 Route::get('/clear/cache',[CacheController::class, 'clearCache'])->name('clear.Cache');

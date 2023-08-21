@@ -33,17 +33,17 @@ class FrontEndController extends Controller
     }
     function registerAccess(Request $request){
         $request->validate([
-            'name'    => 'required',
-            'email'    => 'required',
+            'name'      => 'required',
+            'email'     => 'required|email',
             'number'    => 'required',
-            'password'  => 'required',
+            'password'  => 'required |min:8|max:16',
         ]);
         if (!User::where('email', $request->email)->exists()) {
             User::insert([
-                'name' => $request->name,
-                'email' => $request->email,
-                'number' => $request->number,
-                'password' => bcrypt($request->password),
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'number'    => $request->number,
+                'password'  => bcrypt($request->password),
             ]);
             Auth::guard()->attempt([
                 'number'    => $request->number,

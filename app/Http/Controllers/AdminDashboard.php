@@ -129,6 +129,7 @@ class AdminDashboard extends Controller
        $data = AppoinmentModel::where('id',$id)->first();
        $doctor = DoctorModel::where('id',$data->doctor_id)->first();
        $payment = DB::table('orders')->where('order_id',$data->order_id)->first()->status;
+        // dd($data->con_attendant);
        return view('backend.data.appointment.watch',[
         'datas'       =>  $data,
         'doctor'      =>  $doctor,
