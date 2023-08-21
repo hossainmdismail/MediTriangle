@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     @php
-        $owners = App\Models\OwnerModel::where('status',1)->take(1)->first();
-        $socials = App\Models\SocialMediaModel::where('status',1)->get()->take(5);
+        $owners = App\Models\OwnerModel::where('status', 1)
+            ->take(1)
+            ->first();
+        $socials = App\Models\SocialMediaModel::where('status', 1)
+            ->get()
+            ->take(5);
     @endphp
-    {!! SEOMeta::generate() !!}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{-- {!! SEOMeta::generate() !!}
     {!! OpenGraph::generate() !!}
     {!! Twitter::generate() !!}
-    {!! JsonLd::generate() !!}
+    {!! JsonLd::generate() !!} --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{--  Favicon   --}}
-    <link href="{{ ($owners == null?'':$owners->logo) }}" rel="icon">
+    <link href="{{ $owners == null ? '' : $owners->logo }}" rel="icon">
 
     {{--  Google Web Fonts  --}}
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
 
     {{--  Icon Font Stylesheet  --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
@@ -43,18 +52,20 @@
                 <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
                     <div class="d-inline-flex align-items-center">
                         @if ($owners != null)
-                            <a class="text-decoration-none text-body pe-3" href=""><i class="bi bi-telephone me-2"></i>{{ $owners->number }}</a>
+                            <a class="text-decoration-none text-body pe-3" href=""><i
+                                    class="bi bi-telephone me-2"></i>{{ $owners->number }}</a>
                             <span class="text-body">|</span>
-                            <a class="text-decoration-none text-body px-3" href=""><i class="bi bi-envelope me-2"></i>{{ $owners->email }}</a>
+                            <a class="text-decoration-none text-body px-3" href=""><i
+                                    class="bi bi-envelope me-2"></i>{{ $owners->email }}</a>
                         @endif
                     </div>
                 </div>
                 <div class="col-md-6 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center">
                         @forelse ($socials as $social)
-                        <a class="text-body px-2" href="{{ $social->link }}" target="_blank">
-                            <i class="{{ $social->icon }}"></i>
-                        </a>
+                            <a class="text-body px-2" href="{{ $social->link }}" target="_blank">
+                                <i class="{{ $social->icon }}"></i>
+                            </a>
                         @empty
                         @endforelse
 
@@ -72,7 +83,8 @@
                 <a href="{{ route('home') }}" class="navbar-brand">
                     <img class="brandlogo" src="{{ asset('frontend/brand.png') }}" alt="">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -96,13 +108,16 @@
                             </div>
                         </div> --}}
                         @if (Auth::user())
-                        <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa-solid fa-right-to-bracket"></i></a>
+                            <a href="{{ route('profile') }}" class="nav-item nav-link"><i
+                                    class="fa-solid fa-right-to-bracket"></i></a>
 
-                        {{-- <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa-solid fa-user"></i></a> --}}
+                            {{-- <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa-solid fa-user"></i></a> --}}
                         @else
-                        <span class="nav-item nav-link d-flex justify-content-center align-items-center ml-2">
-                            <a href="{{ route('login') }}" class="btn btn-sm display-6 font-weight-normal bg-primary text-white">Login | SignUp</a>
-                        </span>
+                            <span class="nav-item nav-link d-flex justify-content-center align-items-center ml-2">
+                                <a href="{{ route('login') }}"
+                                    class="btn btn-sm display-6 font-weight-normal bg-primary text-white">Login |
+                                    SignUp</a>
+                            </span>
                         @endif
                     </div>
                 </div>
@@ -118,39 +133,53 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Get In Touch</h4>
-                    <p class="mb-4">Access your Health Records from the comfort of your home while seamlessly maintaining a record of your medical conditions.</p>
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
+                        Get In Touch</h4>
+                    <p class="mb-4">Access your Health Records from the comfort of your home while seamlessly
+                        maintaining a record of your medical conditions.</p>
                     @if ($owners != null)
-                        <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>{{ $owners->address }}</p>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>{{ $owners->address }}
+                        </p>
                         <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>{{ $owners->email }}</p>
                         <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>{{ $owners->number }}</p>
                         <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>{{ $owners->landline }}</p>
                     @endif
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Quick Links</h4>
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
+                        Quick Links</h4>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Home</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>About Us</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Our Services</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Meet The Team</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Latest Blog</a>
+                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Our
+                            Services</a>
+                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Meet The
+                            Team</a>
+                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Latest
+                            Blog</a>
                         <a class="text-light" href="#"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Popular Links</h4>
+                    <h4
+                        class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
+                        Popular Links</h4>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Home</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>About Us</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Our Services</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Meet The Team</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Latest Blog</a>
+                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Our
+                            Services</a>
+                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Meet The
+                            Team</a>
+                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Latest
+                            Blog</a>
                         <a class="text-light" href="#"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Newsletter</h4>
+                    <h4
+                        class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
+                        Newsletter</h4>
                     <form action="">
                         <div class="input-group">
                             <input type="text" class="form-control p-3 border-0" placeholder="Your Email Address">
@@ -160,9 +189,10 @@
                     <h6 class="text-primary text-uppercase mt-4 mb-3">Follow Us</h6>
                     <div class="d-flex">
                         @forelse ($socials as $social)
-                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="{{ $social->link }}" target="_blank">
-                            <i class="{{ $social->icon }}"></i>
-                        </a>
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2"
+                                href="{{ $social->link }}" target="_blank">
+                                <i class="{{ $social->icon }}"></i>
+                            </a>
                         @empty
                         @endforelse
                     </div>
@@ -174,7 +204,9 @@
         <div class="container">
             <div class="row g-5">
                 <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-md-0"><a class="text-primary" href="#">{{ $owners != null? $owners->name:'' }}</a> &copy; All Rights Reserved.</p>
+                    <p class="mb-md-0"><a class="text-primary"
+                            href="#">{{ $owners != null ? $owners->name : '' }}</a> &copy; All Rights Reserved.
+                    </p>
                 </div>
             </div>
         </div>
@@ -198,47 +230,49 @@
     {{--  Template Javascript  --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"></script>
     @if (session('succ'))
-    <script>
-        const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-        })
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-        Toast.fire({
-        icon: 'success',
-        title: '{{ session('succ') }}'
-        })
-    </script>
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('succ') }}'
+            })
+        </script>
     @endif
     @if (session('err'))
-    <script>
-        const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-        })
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-        Toast.fire({
-        icon: 'warning',
-        title: '{{ session('err') }}'
-        })
-    </script>
+            Toast.fire({
+                icon: 'warning',
+                title: '{{ session('err') }}'
+            })
+        </script>
     @endif
     @yield('script')
 </body>
+
 </html>
