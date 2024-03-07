@@ -104,15 +104,84 @@
     .passport {
         display: none;
     } */
+
+    .input-default {
+        /* Your styles here */
+    border-radius: 0 !important;  /* Example */
+         /* Example */
+    }
+
+
 </style>
 @endsection
 @section('content')
+
+<div class="container mt-5 py-5">
+    <div class="row ">
+        <div class="col-lg-10 m-auto">
+            <div class="card">
+                <div class="card-header " style="background-color: #1d2a4d;">
+                    <h3 class="text-white">Visa Invitation Form</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('store.visa') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class=" mb-4 ">
+                            <label  class="form-label "> Name</label> <span style="color: #f9a7a7; font-size:10px; " >(According Passport)</span>
+                            <input type="text" class="form-control input-default" name="name"   placeholder="" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6 mb-3 form-group">
+                                <label  class="form-label form-label-typ">Phone Number</label>
+                                <input type="number" name="phone" class="form-control input-default "  class="name" placeholder="" required>
+                            </div>
+                            <div class=" col-6 mb-3 form-group ">
+                                <label  class="form-label ">Email</label>
+                                <input type="text" class="form-control input-default " class="name" placeholder="" >
+                            </div>
+                        </div>
+                        <div class=" mb-3 ">
+                            <label  class="form-label "> Passport Copy</label>
+                            <input type="file" class="form-control input-default" name="name"   placeholder="" required>
+                        </div>
+                        <div class=" mb-3 ">
+                            <label  class="form-label "> Medical Report</label>
+                            <input type="file" class="form-control input-default" name="name"   placeholder="" required>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5>If Anyone Attendant with you</h5>
+                            <button type="button" class="btn btn-primary" id="plus">Add More</button>
+                        </div>
+
+                        <div class="row   g-3 medi mt-1">
+                            <div class="col-4 ">
+
+                                <input type="text" name="attendantName[]" class="form-control bg-white input-default  inp @error('attendantName') is-invalid @enderror" placeholder="Attendant Name"
+                            </div>
+                            <div class="col-4 ">
+
+                                <input type="text" name="attendantPassportNumber[]" class="form-control input-default bg-white  @error('attendantPassportNumber') is-invalid @enderror" placeholder="Passport Number" >
+                            </div>
+                            <div class="col-4 ">
+                                <input  type="file"   name="attendantPassport[] " class="form-control bg-white input-default  @error('attendantPassport') is-invalid @enderror">
+                            </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 @php
     $date = date('Y-m-d');
 @endphp
 <!-- Appointment Start -->
-<div class="container-fluid py-5">
+{{-- <div class="container-fluid py-5">
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-lg-8">
@@ -132,7 +201,7 @@
                                     <option value="{{ $country->id }}" @if($country->id == old('country_id'))  selected @endif>{{ $country->country }}</option>
                                     @endforeach
                                 </select>
-                            </div> --}}
+                            </div>
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 country @error('country_id') is-invalid @enderror" name="country_id">
                                     <option value="" selected>Choose Country</option>
@@ -142,25 +211,25 @@
 
                                 </select>
                             </div>
-                            {{-- State --}}
+
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 state @error('state_id') is-invalid @enderror" id="state" name="state_id">
                                     <option value="{{old('state_id')}}" selected>{{old('state_id')}}State</option>
                                 </select>
                             </div>
-                            {{-- Hospital --}}
+
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 hospital @error('hospital_id') is-invalid @enderror" id="hospital" name="hospital_id">
                                     <option value="" selected>Hospital</option>
                                 </select>
                             </div>
-                            {{-- Department --}}
+
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 department @error('department_id') is-invalid @enderror" id="departmentVal" name="department_id">
                                     <option value="" selected>Deparment</option>
                                 </select>
                             </div>
-                            {{-- Doctor --}}
+
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 doctor @error('doctor_id') is-invalid @enderror" id="doctors" name="doctor_id">
                                     <option value="" selected>Doctor</option>
@@ -171,7 +240,7 @@
                                 <table class="table table-borderless" id="doctor_info" style="margin-bottom: 0;border: 1px solid #19bdb2;">
                                 </table>
                             </div>
-                            {{-- Appoinment Date --}}
+
                             <div class="col-12 text-start">
                                 <label for="" class="py-2">Request a date</label>
                                 <input type="date" name="request_date" id="datepicker" class="form-control bg-white border-0 @error('request_date') is-invalid @enderror" min="{{ $date }}" value="{{ old('request_date') }}">
@@ -207,7 +276,7 @@
                                 </select>
                             </div>
 
-                            {{-- File --}}
+
                             <div class="col-12 mb-3 text-start">
                                 <label for="" class="p-2">Passport Photo</label>
                                 <input type="file" name="passport" class="form-control bg-white border-0 @error('passport') is-invalid @enderror" value="{{ old('passport') }}">
@@ -218,12 +287,12 @@
                                 <input type="file" name="prescription[]" class="form-control bg-white border-0 @error('prescription') is-invalid @enderror" value="{{ old('prescription') }}" multiple>
                             </div>
 
-                            {{-- Doctor --}}
+
                             <div class="col-12">
                                 <textarea type="text" name="note" class="form-control bg-white border-0" placeholder="Note.." rows="3">{{ old('note') }}</textarea>
                             </div>
 
-                            {{-- user info --}}
+
                             <div class="login-system">
                                 @if (!Auth::user())
                                 <div id="userinfo" class="mt-5">
@@ -238,7 +307,7 @@
                                     </ul>
 
                                     <div class="tab-content" id="myTabContent">
-                                        {{-- Home --}}
+
                                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                                             <div class="row mt-3">
@@ -276,7 +345,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Appointment End -->
 @endsection
 

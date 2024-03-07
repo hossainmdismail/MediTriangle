@@ -196,7 +196,7 @@
                             </div>
 
                             {{-- user info --}}
-                            <div class="login-system">
+                            {{-- <div class="login-system">
                                 @if (!Auth::user())
                                 <div id="userinfo" class="mt-5">
 
@@ -210,7 +210,7 @@
                                     </ul>
 
                                     <div class="tab-content" id="myTabContent">
-                                        {{-- Home --}}
+
                                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                                             <div class="row mt-3">
@@ -238,7 +238,7 @@
                                 @else
 
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Make An <span class="app_type">Appointment</span></button>
                             </div>

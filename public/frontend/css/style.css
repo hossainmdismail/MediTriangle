@@ -101,6 +101,7 @@
 }
 .hero-header {
     background-size: cover;
+
 }
 
 .service-item {
@@ -189,6 +190,24 @@
 @media (min-width: 576px) {
     .team-item .row {
         height: 350px;
+    }
+}
+@media (max-width: 576px) {
+    .hero-header {
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .team-carousel .owl-nav {
+        padding: 0 24px !important;
+        top: 175px !important;
+    }
+    .first_element{
+        text-align: center;
+        display: block !important;
+    }
+    .synex{
+        text-align: center;
+        float: none !important;
     }
 }
 
@@ -353,3 +372,4 @@
 #progressbar li.active:before, #progressbar li.active:after {
     background: #3CBDB2;
 }
+

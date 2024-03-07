@@ -8,14 +8,14 @@
     <div class="container-fluid pt-5">
         <div class="container">
             <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                <h1 class="display-4 mb-4">Video Consultant</h1>
+                <h1 class="display-5 mt-5 mb-4">Doctor Video Consultant</h1>
             </div>
             <form action="{{ route('video.consultant.link') }}" method="get">
             @csrf
             <div class="mx-auto" style="width: 100%; max-width: 600px;">
                 <div class="input-group">
                     <select class="form-select border-primary w-5" name="department" style="height: 60px;">
-                        <option value="">Department</option>
+                        <option value=""disabled selected>Request For Doctor Video Consultation</option>
                         @foreach ($department as $departments)
                         <option value="{{ $departments->id }}" {{ $filter == $departments->id? 'selected':''}}>{{ $departments->department }}</option>
                         @endforeach

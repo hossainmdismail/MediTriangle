@@ -53,11 +53,12 @@
                     <div class="d-inline-flex align-items-center">
                         @if ($owners != null)
                             <a class="text-decoration-none text-body pe-3" href=""><i
-                                    class="bi bi-telephone me-2"></i>{{ $owners->number }}</a>
+                                    class="bi bi-telephone me-2"></i>{{$owners->number }}</a>
                             <span class="text-body">|</span>
                             <a class="text-decoration-none text-body px-3" href=""><i
                                     class="bi bi-envelope me-2"></i>{{ $owners->email }}</a>
                         @endif
+
                     </div>
                 </div>
                 <div class="col-md-6 text-center text-lg-end">
@@ -91,11 +92,12 @@
                     <div class="navbar-nav ms-auto py-0">
                         <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Doctor Appointment</a>
                         {{-- <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Appointment</a> --}}
-                        <a href="{{ route('video.consultant.link') }}" class="nav-item nav-link">Video Consultant</a>
-                        <a href="{{ route('link.visa') }}" class="nav-item nav-link">Visa Invitation</a>
-                        <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Medicine</a>
+                        <a href="{{ route('video.consultant.link') }}" class="nav-item nav-link">Doctor Consultant</a>
+                        <a href="{{ route('link.visa') }}" class="nav-item nav-link">Visa Services</a>
+                        {{-- <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Medicine</a> --}}
                         <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Health Card</a>
-                        <a href="price.html" class="nav-item nav-link">Contact Us</a>
+                        <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Blog</a>
+                        {{-- <a href="price.html" class="nav-item nav-link">Contact Us</a> --}}
                         {{-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Medicine</a>
                             <div class="dropdown-menu m-0">
@@ -107,18 +109,26 @@
                                 <a href="search.html" class="dropdown-item">Search</a>
                             </div>
                         </div> --}}
-                        @if (Auth::user())
+                        {{-- @if (Auth::user())
                             <a href="{{ route('profile') }}" class="nav-item nav-link"><i
                                     class="fa-solid fa-right-to-bracket"></i></a>
 
-                            {{-- <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa-solid fa-user"></i></a> --}}
+                            <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa-solid fa-user"></i></a>
                         @else
                             <span class="nav-item nav-link d-flex justify-content-center align-items-center ml-2">
                                 <a href="{{ route('login') }}"
                                     class="btn btn-sm display-6 font-weight-normal bg-primary text-white">Login |
                                     SignUp</a>
                             </span>
-                        @endif
+                        @endif --}}
+                        <span class="nav-item nav-link d-flex justify-content-center align-items-center ml-2">
+                            <a href="{{ route('login') }}"
+                                class="btn btn-sm display-6 font-weight-normal bg-primary text-white me-2">
+                                Contact Us </a>
+                            {{-- <a href="{{ route('login') }}"
+                                class="btn btn-sm display-6 font-weight-normal bg-primary text-white">
+                                About Us </a> --}}
+                        </span>
                     </div>
                 </div>
             </nav>
@@ -165,15 +175,10 @@
                         class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
                         Popular Links</h4>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Home</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>About Us</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Our
-                            Services</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Meet The
-                            Team</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Latest
-                            Blog</a>
-                        <a class="text-light" href="#"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
+                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Privacy And Policies</a>
+                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Terms And Conditions</a>
+                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Health Card Terms And Conditions</a>
+                        
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -203,11 +208,15 @@
     <div class="container-fluid bg-dark text-light border-top border-secondary py-4">
         <div class="container">
             <div class="row g-5">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-md-0"><a class="text-primary"
+                <div class="text-md-start mb-md-0  ">
+                    <p class="d-inline first_element"><a class="text-primary"
                             href="#">{{ $owners != null ? $owners->name : '' }}</a> &copy; All Rights Reserved.
                     </p>
+                    <p class="float-end synex">Developed By <a class="text-primary"
+                            href="https://synexdigital.com/" target="blank">Synex Digital</a>
+                    </p>
                 </div>
+
             </div>
         </div>
     </div>

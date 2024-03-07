@@ -104,15 +104,111 @@
     .passport {
         display: none;
     } */
+      /* Custom CSS for styling */
+  .form-group-typ {
+      position: relative;
+    }
+    .form-control-typ {
+      border: none;
+      border-bottom: 1px solid #ced4da; /* Add border only at the bottom */
+      border-radius: 0; /* No rounded border */
+      padding-top: 1.5rem; /* Add space for label */
+
+    }
+    .form-label-typ {
+      position: absolute;
+      top: 28%;
+      left: 1rem;
+      pointer-events: none;
+      transition: all 0.2s;
+      color: #6c757d;
+    }
+    .form-control-typ:focus,
+    .form-control-typ:not(:placeholder-shown) {
+      outline: none; /* Remove the blue focus border */
+      box-shadow: none; /* Remove any box shadow */
+    }
+    .form-control-typ:focus ~ .form-label-typ,
+    .form-control-typ:not(:placeholder-shown) ~ .form-label-typ {
+      font-size: 0.75rem;
+      top: -0.5rem;
+      color: #198754;
+
+    }
 </style>
+
+
 @endsection
 @section('content')
 
+
+<div class="container mt-5 py-5">
+    <div class="row ">
+        <div class="col-lg-10 m-auto">
+            <div class="card">
+                <div class="card-header " style="background-color: #1d2a4d;">
+                    <h3 class="text-white">Appointment</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('store.appoinment') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <select class="form-select  bg-white border-0 country @error('country_id') is-invalid @enderror" name="country_id" >
+                                    <option value="" selected> Country</option>
+                                    @foreach (App\Models\CountryModel::where('status', 1)->get() as $country)
+                                    <option value="{{ $country->id }}">{{ $country->country }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select bg-white border-0 state @error('state_id') is-invalid @enderror" id="state" name="state_id">
+                                    <option value="{{old('state_id')}}" selected>{{old('state_id')}}City</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <select class="form-select bg-white border-0 hospital @error('hospital_id') is-invalid @enderror" id="hospital" name="hospital_id">
+                                    <option value="" selected>Hospital</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select bg-white border-0 department @error('department_id') is-invalid @enderror" id="departmentVal" name="department_id">
+                                    <option value="" selected>Deparment</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class=" mb-4 form-group form-group-typ">
+                            <input type="text" class="form-control form-control-typ" class="name" placeholder="" required>
+                            <label  class="form-label form-label-typ">Patient Name</label>
+                        </div>
+                        <div class="row mb-4">
+
+
+                            <div class="col-6 mb-3 form-group form-group-typ">
+                                <input type="text" name="phone" class="form-control form-control-typ"  class="name" placeholder="" required>
+
+                                <label  class="form-label form-label-typ">Phone Number</label>
+                            </div>
+                            <div class=" col-6 mb-3 form-group form-group-typ">
+                                <input type="text" class="form-control form-control-typ" class="name" placeholder="" >
+                                <label  class="form-label form-label-typ">Email</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 @php
     $date = date('Y-m-d');
 @endphp
 <!-- Appointment Start -->
-<div class="container-fluid py-5">
+{{-- <div class="container-fluid py-5">
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-lg-8">
@@ -132,25 +228,25 @@
 
                                 </select>
                             </div>
-                            {{-- State --}}
+
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 state @error('state_id') is-invalid @enderror" id="state" name="state_id">
                                     <option value="{{old('state_id')}}" selected>{{old('state_id')}}State</option>
                                 </select>
                             </div>
-                            {{-- Hospital --}}
+
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 hospital @error('hospital_id') is-invalid @enderror" id="hospital" name="hospital_id">
                                     <option value="" selected>Hospital</option>
                                 </select>
                             </div>
-                            {{-- Department --}}
+
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 department @error('department_id') is-invalid @enderror" id="departmentVal" name="department_id">
                                     <option value="" selected>Deparment</option>
                                 </select>
                             </div>
-                            {{-- Doctor --}}
+
                             <div class="col-12">
                                 <select class="form-select bg-white border-0 doctor @error('doctor_id') is-invalid @enderror" id="doctors" name="doctor_id">
                                     <option value="" selected>Doctor</option>
@@ -160,7 +256,7 @@
                                 <table class="table table-borderless" id="doctor_info" style="margin-bottom: 0;border: 1px solid #19bdb2;">
                                 </table>
                             </div>
-                            {{-- Appoinment Date --}}
+
                             <div class="col-12 text-start">
                                 <label for="" class="py-2">Request a date</label>
                                 <input type="date" name="appoinment_date" id="datepicker" class="form-control bg-white border-0 @error('appoinment_date') is-invalid @enderror" min="{{ $date }}">
@@ -191,17 +287,17 @@
                             <div class="col-12">
                                 <input type="number" name="age" class="form-control bg-white border-0 @error('age') is-invalid @enderror" placeholder="Age" min="1" max="120">
                             </div>
-                            {{-- File --}}
+
                             <div class="col-12 mb-3 text-start">
                                 <label for="" class="p-2">Passport</label>
                                 <input type="file" name="passport" class="form-control bg-white border-0 @error('passport') is-invalid @enderror">
                             </div>
-                            {{-- File --}}
+
                             <div class="col-12 mb-3 text-start">
                                 <label for="" class="p-2">Report</label>
                                 <input type="file" name="report[]" class="form-control bg-white border-0 @error('report') is-invalid @enderror" multiple>
                             </div>
-                            {{-- Doctor --}}
+
                             <div class="col-12">
                                 <textarea type="text" name="note" class="form-control bg-white border-0" placeholder="Note.." rows="3"></textarea>
                             </div>
@@ -233,7 +329,7 @@
                                     <input type="file" name="attendantPassport[]" class="form-control bg-white border-0 @error('attendantPassport') is-invalid @enderror">
                                 </div>
                             </div>
-                            {{-- user info --}}
+
                             <div class="login-system">
                                 @if (!Auth::user())
                                 <div id="userinfo" class="mt-5">
@@ -248,7 +344,7 @@
                                     </ul>
 
                                     <div class="tab-content" id="myTabContent">
-                                        {{-- Home --}}
+
                                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                                             <div class="row mt-3">
@@ -286,20 +382,13 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Appointment End -->
 @endsection
 
 @section('script')
-<script>
-    $('.inp').click(function () {
-        $('#billings').css('display','block');
-    });
-    $('#plus').click(function () {
-        let inputNew = $('.medi:last').clone(true);
-        $(inputNew).insertAfter('.medi:last');
-    });
-</script>
+
+
 {{-- Click --}}
 <script>
     $('.payment').click(function(){

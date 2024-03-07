@@ -139,6 +139,7 @@ Route::group(['prefix' => 'admin'],function(){
     Route::post('/login/confirmation', [AdminController::class, 'login'])->name('admin.login');
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
+
 Route::group(['middleware' => 'admin_model'],function(){
 
     //Add User

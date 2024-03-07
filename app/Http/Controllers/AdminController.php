@@ -32,6 +32,7 @@ class AdminController extends Controller
 
     // Store Data
     function register(Request $request){
+    
         $request->validate([
             'name'      => 'required',
             'email'     => 'required',

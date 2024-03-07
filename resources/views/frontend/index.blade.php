@@ -5,12 +5,15 @@
 {{-- Banner --}}
 <div class="owl-carousel team-carousel position-relative">
     @forelse ($banner as $banners)
-    <div style="background-image: url('{{ asset('uploads/banner/'.$banners->image) }}');" class="container-fluid bg-primary py-5 mb-5 hero-header">
-        <div class="container py-5">
+    <div class="container ">
+    <div  class=" mb-5 hero-header">
+        <div>
+            <img src="{{ asset('uploads/banner/'.$banners->image) }}" alt="">
+        </div>
             <div class="row justify-content-start py-5">
                 <div class="col-lg-8 text-center text-lg-start">
-                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">{{ $banners->name }}</h5>
-                    <h1 class="display-1 text-white mb-md-4">{{ $banners->title }}</h1>
+                    {{-- <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">{{ $banners->name }}</h5> --}}
+                    {{-- <h1 class="display-1 text-white mb-md-4">{{ $banners->title }}</h1> --}}
                     {{-- <div class="pt-2">
                         <a href="{{ route('doctor.find') }}" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Find Doctor</a>
                         <a href="{{ route('link.appoinment') }}" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
@@ -34,7 +37,7 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 <div class="pt-2">
-                        <a href="{{ route('doctor.find') }}" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Find Doctor</a>
+                        <a href="{{ route('doctor.find') }}" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Treatment</a>
                         <a href="{{ route('link.appoinment') }}" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
                     </div>
             </div>
@@ -106,7 +109,7 @@
 <div class="container-fluid py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Hospitals</h5>
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Hospitals in bangladesh</h5>
             <h1 class="display-4">Our Hospital In Abroad</h1>
         </div>
         <div class="owl-carousel hospital-carousel position-relative">
@@ -162,7 +165,7 @@
             <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Health Card</h5>
             <h1 class="display-4">Awesome Medical Programs</h1>
         </div>
-        <div class="owl-carousel price-carousel position-relative" style="padding: 0 45px 45px 45px;">
+        <div class=" " style="padding: 0 45px 45px 45px;">
             <div class="bg-light rounded text-center">
                 <div class="position-relative">
                     <img class="img-fluid rounded-top" src="{{ asset('frontend/img/price-1.jpg') }}" alt="">
@@ -181,60 +184,7 @@
                     <a href="" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
                 </div>
             </div>
-            <div class="bg-light rounded text-center">
-                <div class="position-relative">
-                    <img class="img-fluid rounded-top" src="{{ asset('frontend/img/price-2.jpg') }}" alt="">
-                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgba(29, 42, 77, .8);">
-                        <h3 class="text-white">Health Checkup</h3>
-                        <h1 class="display-4 text-white mb-0">
-                            <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">$</small>99<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
-                        </h1>
-                    </div>
-                </div>
-                <div class="text-center py-5">
-                    <p>Emergency Medical Treatment</p>
-                    <p>Highly Experienced Doctors</p>
-                    <p>Highest Success Rate</p>
-                    <p>Telephone Service</p>
-                    <a href="" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
-                </div>
-            </div>
-            <div class="bg-light rounded text-center">
-                <div class="position-relative">
-                    <img class="img-fluid rounded-top" src="{{ asset('frontend/img/price-3.jpg') }}" alt="">
-                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgba(29, 42, 77, .8);">
-                        <h3 class="text-white">Dental Care</h3>
-                        <h1 class="display-4 text-white mb-0">
-                            <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">$</small>149<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
-                        </h1>
-                    </div>
-                </div>
-                <div class="text-center py-5">
-                    <p>Emergency Medical Treatment</p>
-                    <p>Highly Experienced Doctors</p>
-                    <p>Highest Success Rate</p>
-                    <p>Telephone Service</p>
-                    <a href="" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
-                </div>
-            </div>
-            <div class="bg-light rounded text-center">
-                <div class="position-relative">
-                    <img class="img-fluid rounded-top" src="{{ asset('frontend/img/price-4.jpg') }}" alt="">
-                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgba(29, 42, 77, .8);">
-                        <h3 class="text-white">Operation & Surgery</h3>
-                        <h1 class="display-4 text-white mb-0">
-                            <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">$</small>199<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
-                        </h1>
-                    </div>
-                </div>
-                <div class="text-center py-5">
-                    <p>Emergency Medical Treatment</p>
-                    <p>Highly Experienced Doctors</p>
-                    <p>Highest Success Rate</p>
-                    <p>Telephone Service</p>
-                    <a href="" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -248,6 +198,16 @@
         </div>
         <div class="image_block">
             <img src="{{ asset('website-template-preview-347911.jpg') }}" alt="" srcset="" style="width: 100%">
+        </div>
+        <div >
+           <video class="w-100"
+           autoplay
+           muted
+           loop
+           playsinline
+           >
+           <source src="{{ asset('uploads/video/demo.mp4') }} " type="video/mp4">
+        </video>
         </div>
     </div>
 </div>
@@ -275,4 +235,5 @@
     }
 })
     </script>
+
 @endsection
