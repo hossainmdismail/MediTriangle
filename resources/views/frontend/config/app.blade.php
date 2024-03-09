@@ -122,7 +122,7 @@
                             </span>
                         @endif --}}
                         <span class="nav-item nav-link d-flex justify-content-center align-items-center ml-2">
-                            <a href="{{ route('login') }}"
+                            <a href="{{ route('contact') }}"
                                 class="btn btn-sm display-6 font-weight-normal bg-primary text-white me-2">
                                 Contact Us </a>
                             {{-- <a href="{{ route('login') }}"
@@ -167,7 +167,7 @@
                             Team</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Latest
                             Blog</a>
-                        <a class="text-light" href="#"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
+                        <a class="text-light" href="{{route('contact')}}"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -178,7 +178,7 @@
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Privacy And Policies</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Terms And Conditions</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Health Card Terms And Conditions</a>
-                        
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">

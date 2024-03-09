@@ -180,9 +180,11 @@
                                 </select>
                             </div>
                         </div>
-                        <div class=" mb-4 form-group form-group-typ">
-                            <input type="text" class="form-control form-control-typ" class="name" placeholder="" required>
-                            <label  class="form-label form-label-typ">Patient Name</label>
+                        <div class="row">
+                            <div class=" col-12 mb-4 form-group form-group-typ">
+                                <input type="text" class="form-control form-control-typ" class="name" placeholder="" required>
+                                <label  class="form-label form-label-typ">Patient Name</label>
+                            </div>
                         </div>
                         <div class="row mb-4">
 
@@ -196,6 +198,9 @@
                                 <input type="text" class="form-control form-control-typ" class="name" placeholder="" >
                                 <label  class="form-label form-label-typ">Email</label>
                             </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Make An <span class="app_type">Appointment</span></button>
                         </div>
                     </form>
                 </div>

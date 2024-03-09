@@ -110,7 +110,36 @@
     border-radius: 0 !important;  /* Example */
          /* Example */
     }
+    .form-group-typ {
+      position: relative;
+    }
+    .form-control-typ {
+      border: none;
+      border-bottom: 1px solid #ced4da; /* Add border only at the bottom */
+      border-radius: 0; /* No rounded border */
+      padding-top: 1.5rem; /* Add space for label */
 
+    }
+    .form-label-typ {
+      position: absolute;
+      top: 28%;
+      left: 1rem;
+      pointer-events: none;
+      transition: all 0.2s;
+      color: #6c757d;
+    }
+    .form-control-typ:focus,
+    .form-control-typ:not(:placeholder-shown) {
+      outline: none; /* Remove the blue focus border */
+      box-shadow: none; /* Remove any box shadow */
+    }
+    .form-control-typ:focus ~ .form-label-typ,
+    .form-control-typ:not(:placeholder-shown) ~ .form-label-typ {
+      font-size: 0.75rem;
+      top: -0.5rem;
+      color: #198754;
+
+    }
 
 </style>
 @endsection
@@ -123,58 +152,59 @@
                 <div class="card-header " style="background-color: #1d2a4d;">
                     <h3 class="text-white">Visa Invitation Form</h3>
                 </div>
-                <div class="card-body">
-                    <form action="{{ route('store.visa') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('store.visa') }}" method="POST" enctype="multipart/form-data">
+                    <div class="card-body">
                         @csrf
                         <div class=" mb-4 ">
                             <label  class="form-label "> Name</label> <span style="color: #f9a7a7; font-size:10px; " >(According Passport)</span>
                             <input type="text" class="form-control input-default" name="name"   placeholder="" required>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6 mb-3 form-group">
-                                <label  class="form-label form-label-typ">Phone Number</label>
-                                <input type="number" name="phone" class="form-control input-default "  class="name" placeholder="" required>
-                            </div>
                             <div class=" col-6 mb-3 form-group ">
                                 <label  class="form-label ">Email</label>
                                 <input type="text" class="form-control input-default " class="name" placeholder="" >
                             </div>
+                            <div class="col-6 mb-3 form-group">
+                                <label  class="form-label form-label">Phone Number</label>
+                                <input type="number" name="phone" class="form-control input-default "  class="name" placeholder="" required>
+                            </div>
+
                         </div>
                         <div class=" mb-3 ">
                             <label  class="form-label "> Passport Copy</label>
                             <input type="file" class="form-control input-default" name="name"   placeholder="" required>
                         </div>
-                        <div class=" mb-3 ">
+                        <div class=" mb-4 ">
                             <label  class="form-label "> Medical Report</label>
                             <input type="file" class="form-control input-default" name="name"   placeholder="" required>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5>If Anyone Attendant with you</h5>
+                        <div class="d-flex justify-content-between align-items-center ">
+                            <h5 >If Anyone Attendant with you</h5>
                             <button type="button" class="btn btn-primary" id="plus">Add More</button>
                         </div>
-
                         <div class="row   g-3 medi mt-1">
                             <div class="col-4 ">
-
-                                <input type="text" name="attendantName[]" class="form-control bg-white input-default  inp @error('attendantName') is-invalid @enderror" placeholder="Attendant Name"
+                                <label for="" class="form-label" > Attendant Name</label>
+                                <input type="text" name="attendantName[]" class="form-control form-control bg-white input-default  inp @error('attendantName') is-invalid @enderror" placeholder="Name">
                             </div>
                             <div class="col-4 ">
-
-                                <input type="text" name="attendantPassportNumber[]" class="form-control input-default bg-white  @error('attendantPassportNumber') is-invalid @enderror" placeholder="Passport Number" >
+                                <label for="" class="form-label" > Passport Number</label>
+                                <input type="text" name="attendantPassportNumber[]" class="form-control input-default bg-white  @error('attendantPassportNumber') is-invalid @enderror" placeholder=" Number" >
                             </div>
                             <div class="col-4 ">
+                                <label for="" class="form-label" > Passport Copy</label>
                                 <input  type="file"   name="attendantPassport[] " class="form-control bg-white input-default  @error('attendantPassport') is-invalid @enderror">
                             </div>
 
-                            </div>
                         </div>
-                    </form>
-
-                </div>
+                        <div class="col-12 mt-4">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
 </div>
 
 @php

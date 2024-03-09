@@ -1,11 +1,30 @@
 @extends('backend.config.blank')
+@section('style')
+<style>
+    .contact_page{
+    top: 100px;
+}
+@media (max-width: 576px) {
+    .contact_page{
+        top: -86px;
+    }
+}
+.turquoise{
+    color: #3cbdb2;
+}
+.icon_color{
+    color: #1475a5;
+}
+</style>
+
+@endsection
 
 @section('blank')
 <section class="position-relative" style="background: url('{{ asset('404.jpg') }}') center; background-repeat: no-repeat;background-size: auto;">
     <div class="bg-overlay bg-black" style="opacity: 0.7;"></div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 p-0">
+            <div class="col-6 p-0">
                 <div class="d-flex flex-column min-vh-100 px-md-5 py-5 px-4">
                     <div class="mt-md-5">
                         <a href="index.html"><img src="{{ asset('frontend/brand.png') }}" height="100" alt=""></a>
@@ -28,7 +47,10 @@
                     </div>
                 </div>
             </div><!--end col-->
+
         </div><!--end row-->
+
     </div><!--end container-->
 </section><!--end section-->
+
 @endsection

@@ -57,4 +57,7 @@ class FrontEndController extends Controller
     function reset(){
         return view('frontend.auth.reset');
     }
+    function contact(){
+        return view('frontend.contact');
+    }
 }

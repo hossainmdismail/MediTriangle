@@ -30,6 +30,7 @@ use App\Http\Controllers\VisaController;
 use App\Http\Controllers\VisaType;
 use App\Models\DoctorModel;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Controller\ContainerControllerResolver;
 
 Auth::routes();
 
@@ -108,7 +109,8 @@ Route::post('/visa/store/profile',[VisaController::class, 'visaStoreProfile'])->
 Route::get('/doctor/find/{department?}',[FindDoctorController::class, 'link'])->name('doctor.find');
 
 
-
+//contact
+Route::get('/contact',[FrontEndController::class, 'contact'])->name('contact');
 
 
 // ========= SSLCOMMERZ Start ========= //

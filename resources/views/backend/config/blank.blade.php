@@ -21,6 +21,7 @@
         <!-- Style Css-->
         <link href="{{ asset('backend/css/style.min.css') }}" class="theme-opt" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/70b22ffbec.js" crossorigin="anonymous"></script>
+        @yield('style')
     </head>
 
     <body>
