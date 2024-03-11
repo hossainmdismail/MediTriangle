@@ -18,8 +18,6 @@ class BannnerController extends Controller
         // ]);
         $request->validate([
             'photo' => 'required',
-            'name' => 'required',
-            'title' => 'required',
         ]);
 
         $photo = $request->photo;
@@ -27,10 +25,9 @@ class BannnerController extends Controller
         $profileName = 'PRO'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
         Image::make($photo)->save(public_path('uploads/banner/'.$profileName));
 
-        BannnerModel::insert([
+        BannnerModel::create([
             'image' => $profileName,
-            'name' => strtoupper($request->name),
-            'title' => $request->title,
+
             'created_at' => Carbon::now(),
         ]);
         return back()->with('succ', 'Added Successfully');
@@ -44,11 +41,7 @@ class BannnerController extends Controller
     }
     function bannerEdit(Request $request){
 
-        $request->validate([
-            'id' => 'required',
-            'name' => 'required',
-            'title' => 'required',
-        ]);
+        
 
         if ($request->id !=null) {
             // if ($request->status == 1) {

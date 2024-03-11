@@ -5,6 +5,7 @@
         font-size: 12px;
     }
     </style>
+
 @endsection
 @section('content')
     {{-- Modals --}}
@@ -37,7 +38,7 @@
                                         <option value="0">Deactive</option>
                                     </select>
                                 </div>
-{{--
+                                {{--
                                 <div class="mb-3">
                                     <label class="form-label" for="service">Name</label>
                                     <input name="name" id="service" type="text" class="update form-control @error('title') is-invalid @enderror" value="">
@@ -66,13 +67,13 @@
     <div class="layout-specing">
         <div class="row mb-3">
             <div class="d-md-flex justify-content-between">
-                <h5 class="mb-0">Banner</h5>
+                <h5 class="mb-0">Health Card</h5>
 
                 <nav aria-label="breadcrumb" class="d-inline-block mt-4 mt-sm-0">
                     <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
                         <li class="breadcrumb-item"><a href="{{ route('d.service') }}">Dashboard</a></li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
                         <li class="breadcrumb-item active" aria-current="page">Owner</li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
-                        <li class="breadcrumb-item active" aria-current="page">Banner</li>
+                        <li class="breadcrumb-item active" aria-current="page">Health Card</li>
                     </ul>
                 </nav>
             </div>
@@ -82,24 +83,31 @@
             {{-- Website INfo --}}
             <div class="col-lg-4 mb-3">
                 <div class="card border-0 p-4 rounded shadow">
-                    <form action="{{ route('d.banner.store') }}" method="POST" class="mt-4" enctype="multipart/form-data">
+                    <form action="{{ route('health-card.store') }}" method="POST" class="mt-4" enctype="multipart/form-data">
                         @csrf
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <label for="" class="form-label">Banner Image </label> <span style="color: #f9a7a7; font-size:10px; " >Best fit  (1270 x 560)</span>
-                                <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror"  required>
+                        <div class="">
+                            <div class=" mb-3">
+                                <label for="" class="form-label">Card Name </label>
+                                <input type="text" name="name" class="form-control @error('photo') is-invalid @enderror"  required>
+                            </div>
+                            <div class=" mb-3">
+                                <label for="" class="form-label">Card Price </label>
+                                <input type="number" name="price" class="form-control @error('photo') is-invalid @enderror"  required>
+                            </div>
+                            <div class=" mb-3">
+                                <label for="" class="form-label">Card Benifits </label>
 
-                                {{-- <x-input label="Banner Image" name="photo" type="file" placeholder="" /> --}}
+                                <button type="button" class="btn btn-primary btn-sm float-end" id="plus">More</button>
                             </div>
 
-                            {{-- <div class="col-md-12">
-                                <x-input label="name" name="name" type="text" placeholder="Name" />
+                            <div class="row mb-2 ">
+                                <div class="col-12 d-flex medi gap-3 mt-3">
+                                    <input type="text" name="benifits" class="form-control @error('photo') is-invalid @enderror"  required>
+                                </div>
                             </div>
-
-                            <div class="col-md-12">
-                                <x-input label="Title" name="title" type="text" placeholder="Title" />
-                            </div> --}}
-                        <button type="submit" class="btn btn-primary">Add</button>
+                           <div class="my-3 text-center ">
+                            <button type="submit" class="btn btn-primary ">Add</button>
+                           </div>
                         </div>
                     </form>
                 </div>
@@ -108,24 +116,30 @@
             {{-- List --}}
             <div class="col-lg-8">
                 <div class="table-responsive shadow rounded">
-                    @if ($datas->count() != 0 )
+                    @if ($healths->count() != 0 )
                         <table class="table table-center     bg-white mb-0" id="myTable">
                             <thead>
                                 <tr>
-                                    <th class="border-bottom p-3">Photo</th>
-                                    {{-- <th class="border-bottom p-3">Name</th>
-                                    <th class="border-bottom p-3"  style="min-width: 180px;">Title</th> --}}
-                                    <th class="border-bottom p-3">Status</th>
+                                   <th class="border-bottom p-3">Name</th>
+                                    <th class="border-bottom p-3"  style="min-width: 180px;">Price</th>
+                                    <th class="border-bottom p-3">Benifits</th>
                                     <th class="border-bottom p-3 " style="min-width: 100px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($datas as $data)
+                                @foreach ($healths as $data)
                                 <tr>
-                                    <td><img style="width: 100px" src="{{ asset('uploads/banner/'.$data->image) }}" alt=""></td>
-                                    {{-- <td>{{ $data->name }}</td>
-                                    <td class="desLimit">{{$data->title }}</td> --}}
-                                    <td><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td>
+
+                                    <td>{{ $data->name }}</td>
+                                    <td class="">{{$data->price }}</td>
+                                    <td>
+                                        <ul>
+                                            @foreach(explode(',', $data->benifits   ) as $benefit)
+                                                <li>{{$benefit}}</li>
+                                            @endforeach
+                                            </ul>
+                                    </td>
+                                    {{-- <td><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td> --}}
                                     <td class="">
                                         <a href="{{ $data->id }}" class="update_value btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#appointmentform"><i class="fa-solid fa-pen-to-square"></i></a>
 
@@ -133,6 +147,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     @else
@@ -177,4 +192,34 @@
     });
 
 </script>
+
+{{-- <script>
+    $('.inp').click(function () {
+        $('#billings').css('display','block');
+    });
+    $('#plus').click(function () {
+        let inputNew = $('.medi:last').clone(true);
+        $(inputNew).insertAfter('.medi:last');
+    });
+</script> --}}
+<script>
+    $(document).on('click', '.inp', function () {
+        $('#billings').css('display', 'block');
+    });
+
+    $(document).on('click', '#plus', function () {
+        let inputNew = $('.medi:last').clone(true);
+        inputNew.find('input').val('');
+        inputNew.find('.del').remove(); // Remove existing delete button
+        inputNew.append('<button class="del btn btn-danger btn-sm">Delete</button>'); // Append new delete button
+        inputNew.insertAfter('.medi:last');
+    });
+
+    $(document).on('click', '.del', function () {
+        $(this).parent('.medi').remove();
+    });
+</script>
+
+
 @endsection
+

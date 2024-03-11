@@ -160,12 +160,30 @@
 </div>
 {{-- Health Card --}}
 <div class="container-fluid py-5">
-    <div class="container">
+    <div class="container ">
         <div class="text-center mx-auto mb-5" style="max-width: 500px;">
             <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Health Card</h5>
             <h1 class="display-4">Awesome Medical Programs</h1>
         </div>
-        <div class=" " style="padding: 0 45px 45px 45px;">
+        <div class="owl-carousel price-carousel position-relative" style="padding: 0 45px 45px 45px;">
+            <div class="bg-light rounded text-center">
+                <div class="position-relative">
+                    <img class="img-fluid rounded-top" src="{{ asset('frontend/img/price-1.jpg') }}" alt="">
+                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgba(29, 42, 77, .8);">
+                        <h3 class="text-white">Pregnancy Car2e</h3>
+                        <h1 class="display-4 text-white mb-0">
+                            <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">$</small>49<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
+                        </h1>
+                    </div>
+                </div>
+                <div class="text-center py-5">
+                    <p>Emergency Medical Treatment</p>
+                    <p>Highly Experienced Doctors</p>
+                    <p>Highest Success Rate</p>
+                    <p>Telephone Service</p>
+                    <a href="{{route('health.card')}}" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
+                </div>
+            </div>
             <div class="bg-light rounded text-center">
                 <div class="position-relative">
                     <img class="img-fluid rounded-top" src="{{ asset('frontend/img/price-1.jpg') }}" alt="">
@@ -181,7 +199,7 @@
                     <p>Highly Experienced Doctors</p>
                     <p>Highest Success Rate</p>
                     <p>Telephone Service</p>
-                    <a href="" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
+                    <a href="{{route('health.card')}}" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
                 </div>
             </div>
 

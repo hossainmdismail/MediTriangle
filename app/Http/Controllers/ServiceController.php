@@ -18,6 +18,8 @@ class ServiceController extends Controller
             'icon'              => 'required',
             'service'           => 'required',
             'short_description' => 'required',
+        ],[
+            'icon' =>'Please Select Icon !!',
         ]);
         ServiceModel::insert([
             'icon'              => $request->icon,

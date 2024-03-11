@@ -1,4 +1,4 @@
-@extends('frontend.config.app')
+{{-- @extends('frontend.config.app')
 @section('style')
 <style>
     #billings{
@@ -17,8 +17,8 @@
                     <h1 class="display-4">Buy Best Medicine For Your Family</h1>
                 </div>
                 <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
-                {{-- <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="">Find Doctor</a>
-                <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">Read More</a> --}}
+           <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="">Find Doctor</a>
+                <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">Read More</a>
             </div>
             <div class="col-lg-7">
                 <div class="bg-light text-center rounded p-4">
@@ -68,7 +68,7 @@
                                     </ul>
 
                                     <div class="tab-content" id="myTabContent">
-                                        {{-- Home --}}
+                                     
                                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                                             <div class="row mt-3">
@@ -123,4 +123,4 @@
         $('#billings').css('display','block');
     </script>
     @endif
-@endsection
+@endsection --}}

@@ -80,6 +80,7 @@
                                     <li><a href="{{ route('d.country') }}">Country</a> </li>
                                     <li><a href="{{ route('d.state') }}">State</a> </li>
                                     <li><a href="{{ route('d.hospital') }}">Hospital</a> </li>
+                                    <li><a href="{{ route('d.healthCard') }}">Health Card</a> </li>
                                     <li><a href="{{ route('d.department') }}">Department</a> </li>
                                     <li><a href="{{ route('embassy.index') }}">Embassy</a> </li>
                                     <li><a href="{{ route('visatype.index') }}">Passport Type</a> </li>

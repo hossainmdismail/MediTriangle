@@ -111,7 +111,11 @@
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text bg-light border border-end-0 text-dark" id="insta-id">Icon</span>
                                     <input name="icon" id="icons" type="text" class="form-control" aria-label="Username" aria-describedby="insta-id" readonly>
+
                                 </div>
+                                @error('icon')
+                                        <span class="text-sm text-danger" > {{$message}} </span>
+                                    @enderror
                             </div>
 
                             <div class="col-md-12">

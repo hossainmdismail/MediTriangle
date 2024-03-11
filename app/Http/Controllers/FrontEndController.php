@@ -60,4 +60,10 @@ class FrontEndController extends Controller
     function contact(){
         return view('frontend.contact');
     }
+    function thankyou(){
+        return view('frontend.thankyou');
+    }
+    function index(){
+        return view('frontend.health-card.index');
+    }
 }

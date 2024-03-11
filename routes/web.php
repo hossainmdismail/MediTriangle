@@ -1,35 +1,37 @@
 <?php
 
-use App\Http\Controllers\AboutUsController;
-use App\Http\Controllers\AdminController;
+use App\Models\DoctorModel;
+use App\Http\Controllers\VisaType;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminDashboard;
-use App\Http\Controllers\AdminMedicineController;
-use App\Http\Controllers\AdminVideoController;
-use App\Http\Controllers\AdminVisaController;
-use App\Http\Controllers\AppoinmentController;
-use App\Http\Controllers\BannnerController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisaController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CacheController;
-use App\Http\Controllers\DatabaseController;
+use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\VideoConsultant;
 use App\Http\Controllers\DoctorController;
-use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\BannnerController;
 use App\Http\Controllers\EmbassyController;
-use App\Http\Controllers\FindDoctorController;
-use App\Http\Controllers\FrontAjaxController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\DatabaseController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\MedicineController;
-use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\AdminVisaController;
+use App\Http\Controllers\FrontAjaxController;
+use App\Http\Controllers\AdminVideoController;
+use App\Http\Controllers\AppoinmentController;
+use App\Http\Controllers\FindDoctorController;
 use App\Http\Controllers\PdfDownlodController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SocialMediaController;
+use App\Http\Controllers\AdminMedicineController;
+use App\Http\Controllers\HealthCardController;
 use App\Http\Controllers\SslCommerzPaymentController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\VideoConsultant;
-use App\Http\Controllers\VisaController;
-use App\Http\Controllers\VisaType;
-use App\Models\DoctorModel;
-use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Controller\ContainerControllerResolver;
 
 Auth::routes();
@@ -90,8 +92,15 @@ Route::post('/ajax/doctor/info',[FrontAjaxController::class, 'doctorInfo'])->nam
 
 
 //Medicine
-Route::get('/medicine',[MedicineController::class, 'link'])->name('link.medicine');
-Route::post('/medicine/store',[MedicineController::class, 'store'])->name('store.medicine');
+// Route::get('/medicine',[MedicineController::class, 'link'])->name('link.medicine');
+// Route::post('/medicine/store',[MedicineController::class, 'store'])->name('store.medicine');
+
+//thank you
+Route::get('/thank-you',[FrontEndController::class, 'thankyou'])->name('thank.you');
+
+//health card
+Route::get('/health-card',[FrontEndController::class, 'index'])->name('health.card');
+// Route::post('/medicine/store',[MedicineController::class, 'store'])->name('store.medicine');
 
 //Video Consultant
 Route::get('/consultant',[VideoConsultant::class, 'link'])->name('video.consultant.link');
@@ -216,6 +225,11 @@ Route::group(['middleware' => 'admin_model'],function(){
         Route::post('/hospital/ajax',[DatabaseController::class, 'hospitalAjax'])->name('d.hospital.ajax');
         Route::get('/hospital/delete/{id}',[DatabaseController::class, 'hospitalDelete'])->name('hospital.delete');
         Route::post('/hospital/update',[DatabaseController::class, 'hospitalUpdate'])->name('d.hospital.update');
+
+        //Health card
+        Route::resource('/health-card',HealthCardController::class);
+
+
         //department
         Route::get('/department',[DatabaseController::class, 'department'])->name('d.department');
         Route::post('/department/store',[DatabaseController::class, 'departmentStore'])->name('d.department.store');

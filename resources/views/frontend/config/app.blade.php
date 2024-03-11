@@ -92,11 +92,11 @@
                     <div class="navbar-nav ms-auto py-0">
                         <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Doctor Appointment</a>
                         {{-- <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Appointment</a> --}}
-                        <a href="{{ route('video.consultant.link') }}" class="nav-item nav-link">Doctor Consultant</a>
+                        <a href="{{ route('video.consultant.link') }}" class="nav-item nav-link">Doctor Video Consultant</a>
                         <a href="{{ route('link.visa') }}" class="nav-item nav-link">Visa Services</a>
                         {{-- <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Medicine</a> --}}
-                        <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Health Card</a>
-                        <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Blog</a>
+                        <a href="{{route('health.card')}}" class="nav-item nav-link">Health Card</a>
+                        <a href="" class="nav-item nav-link">Blog</a>
                         {{-- <a href="price.html" class="nav-item nav-link">Contact Us</a> --}}
                         {{-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Medicine</a>
@@ -173,7 +173,7 @@
                 <div class="col-lg-3 col-md-6">
                     <h4
                         class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
-                        Popular Links</h4>
+                        Others</h4>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Privacy And Policies</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Terms And Conditions</a>
