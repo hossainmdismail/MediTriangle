@@ -142,7 +142,7 @@
 @section('content')
 
 
-<div class="container mt-5 py-5">
+ <div class="container mt-5 py-5">
     <div class="row ">
         <div class="col-lg-10 m-auto">
             <div class="card">
@@ -209,9 +209,9 @@
     </div>
 
 </div>
-@php
+{{-- @php
     $date = date('Y-m-d');
-@endphp
+@endphp --}}
 <!-- Appointment Start -->
 {{-- <div class="container-fluid py-5">
     <div class="container">
@@ -335,7 +335,7 @@
                                 </div>
                             </div>
 
-                            <div class="login-system">
+                             <div class="login-system">
                                 @if (!Auth::user())
                                 <div id="userinfo" class="mt-5">
 
@@ -393,7 +393,23 @@
 
 @section('script')
 
+<script>
+    $(document).on('click', '.inp', function () {
+        $('#billings').css('display', 'block');
+    });
 
+    $(document).on('click', '#plus', function () {
+        let inputNew = $('.medi:last').clone(true);
+        inputNew.find('input').val('');
+        inputNew.find('.del').remove(); // Remove existing delete button
+        inputNew.append('<button class="del btn btn-danger btn-sm">Delete</button>'); // Append new delete button
+        inputNew.insertAfter('.medi:last');
+    });
+
+    $(document).on('click', '.del', function () {
+        $(this).parent('.medi').remove();
+    });
+</script>
 {{-- Click --}}
 <script>
     $('.payment').click(function(){

@@ -70,7 +70,8 @@
                         <li><a href="{{ route('user.data.appointment') }}"><i class="fa-regular fa-calendar-check"></i></i> Appointment</a></li>
                         <li><a href="{{ route('user.data.visaInvitaion') }}"><i class="fa-brands fa-cc-visa"></i> Visa Invitation</a></li>
                         <li><a href="{{ route('user.data.videoInvitaion') }}"><i class="fa-solid fa-video"></i> Video Consultation</a></li>
-                        <li><a href="{{ route('admin.medicine.link') }}"><i class="fa-solid fa-capsules"></i> Medicine</a></li>
+                        <li><a href="{{ route('health.card.data') }}"><i class="fa-solid fa-capsules"></i> Health Card Application</a></li>
+                        {{-- <li><a href="{{ route('admin.medicine.link') }}"><i class="fa-solid fa-capsules"></i> Medicine</a></li> --}}
                         <li><a href="#"><i class="fa-solid fa-address-card"></i> Card</a></li>
 
                         <li class="sidebar-dropdown">
@@ -80,7 +81,7 @@
                                     <li><a href="{{ route('d.country') }}">Country</a> </li>
                                     <li><a href="{{ route('d.state') }}">State</a> </li>
                                     <li><a href="{{ route('d.hospital') }}">Hospital</a> </li>
-                                    <li><a href="{{ route('d.healthCard') }}">Health Card</a> </li>
+                                    <li><a href="{{route('health-card.index')}}">Health Card</a> </li>
                                     <li><a href="{{ route('d.department') }}">Department</a> </li>
                                     <li><a href="{{ route('embassy.index') }}">Embassy</a> </li>
                                     <li><a href="{{ route('visatype.index') }}">Passport Type</a> </li>
@@ -246,7 +247,7 @@
                             </div>
                             <div class="modal-footer">
                                 {{-- <button type="button" class="btn btn-secondary" id="close-modal" data-dismiss="modal">Close</button> --}}
-                                <a href="" id="delete_confirm" class="btn btn-danger">Delete</a>
+                                <a href="" id="delete_confirm" class="btn btn-danger" >Delete</a>
                             </div>
                         </div>
                     </div>

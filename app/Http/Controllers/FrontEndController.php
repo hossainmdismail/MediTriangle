@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HealthCard;
+use App\Models\HealthCardApplicaton;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +66,47 @@ class FrontEndController extends Controller
         return view('frontend.thankyou');
     }
     function index(){
-        return view('frontend.health-card.index');
+        $healths = HealthCard::where('status',1)->get()->first();
+        return view('frontend.health-card.index',compact('healths'));
+    }
+    function healthCardStore(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'number' => 'required|numeric|digits:11',
+            'address' => 'required',
+        ],[
+            'name'=>'Please Input Name!',
+            'number'=>'Please Input Phone Numebr!',
+            'number.numeric'=>'Please Input Numebr Type!',
+            'number.digits'=>'Number Should Be 11 Digits!',
+            'address'=>'Please Input Address!',
+        ]);
+        if($request->pass_nid_number){
+            $request->validate([
+                'pass_nid_number' =>'numeric|digits:10',
+            ],[
+                'pass_nid_number.numeric'=>'Please Input Numebr Type!',
+                'pass_nid_number.digits'=>'Number Should Be 10 Digits!',
+            ]);
+
+            $application = new HealthCardApplicaton();
+            $application->name = $request->name;
+            $application->number = $request->number;
+            $application->address = $request->address;
+            $application->passport_nid = $request->pass_nid_number;
+            $application->status = "PROCESSING";
+            $application->save();
+            return redirect(route('thank.you'));
+
+        }else{
+            $application = new HealthCardApplicaton();
+            $application->name = $request->name;
+            $application->number = $request->number;
+            $application->address = $request->address;
+            $application->status = "PROCESSING";
+            $application->save();
+            return redirect(route('thank.you'));
+        }
+       return back();
     }
 }

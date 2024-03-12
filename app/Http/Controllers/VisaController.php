@@ -16,6 +16,7 @@ class VisaController extends Controller
         return view('frontend.visa.index');
     }
     function visaStore(Request $request){
+        dd($request->all());
         $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
         $fee = 2500;
         $request->validate([

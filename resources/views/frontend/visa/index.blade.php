@@ -162,17 +162,17 @@
                         <div class="row mb-3">
                             <div class=" col-6 mb-3 form-group ">
                                 <label  class="form-label ">Email</label>
-                                <input type="text" class="form-control input-default " class="name" placeholder="" >
+                                <input type="text" class="form-control input-default " class="email" placeholder="" >
                             </div>
                             <div class="col-6 mb-3 form-group">
                                 <label  class="form-label form-label">Phone Number</label>
-                                <input type="number" name="phone" class="form-control input-default "  class="name" placeholder="" required>
+                                <input type="number" name="phone" class="form-control input-default "  class="number" placeholder="" required>
                             </div>
 
                         </div>
                         <div class=" mb-3 ">
                             <label  class="form-label "> Passport Copy</label>
-                            <input type="file" class="form-control input-default" name="name"   placeholder="" required>
+                            <input type="file" class="form-control input-default" name="passport"   placeholder="" required>
                         </div>
                         <div class=" mb-4 ">
                             <label  class="form-label "> Medical Report</label>

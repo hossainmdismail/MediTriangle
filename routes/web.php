@@ -32,6 +32,7 @@ use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\AdminMedicineController;
 use App\Http\Controllers\HealthCardController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Models\HealthCard;
 use Symfony\Component\HttpKernel\Controller\ContainerControllerResolver;
 
 Auth::routes();
@@ -100,6 +101,8 @@ Route::get('/thank-you',[FrontEndController::class, 'thankyou'])->name('thank.yo
 
 //health card
 Route::get('/health-card',[FrontEndController::class, 'index'])->name('health.card');
+Route::POST('/health-card/store',[FrontEndController::class, 'healthCardStore'])->name('health.card.store');
+
 // Route::post('/medicine/store',[MedicineController::class, 'store'])->name('store.medicine');
 
 //Video Consultant
@@ -176,6 +179,11 @@ Route::group(['middleware' => 'admin_model'],function(){
     Route::get('/user/visaInvitaion',[AdminVisaController::class, 'visa'])->name('user.data.visaInvitaion');
     Route::get('/user/visaInvitaion/watch/{id}',[AdminVisaController::class, 'visaWatch'])->name('visaInvitaion.watch');
     Route::post('/user/data/visaInvitaion/confirmation',[AdminVisaController::class, 'visaConfirmation'])->name('user.data.visaInvitaion.confirmation');
+
+    //health card
+    Route::get('/user/health-card/application',[HealthCardController::class, 'healthCardData'])->name('health.card.data');
+    Route::get('/user/health-card/application/edit/{id}',[HealthCardController::class, 'healthCardDataEdit'])->name('health.card.edit');
+    Route::post('/user/health-card/application/update',[HealthCardController::class, 'healthCardDataUpdate'])->name('health.card.update');
 
     //Order Medicine Manage
     Route::get('/medicine/link',[AdminMedicineController::class, 'link'])->name('admin.medicine.link');

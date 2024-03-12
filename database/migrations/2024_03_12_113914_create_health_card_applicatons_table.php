@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('health_cards', function (Blueprint $table) {
+        Schema::create('health_card_applicatons', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('price');
-            $table->string('benifits');
-            $table->string('status')->default(0);
+            $table->string('name',255);
+            $table->string('number',255);
+            $table->string('address',255);
+            $table->string('status')->nullable();
+            $table->string('note', 255)->nullable();
+            $table->string('passport_nid',255)->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('health_cards');
+        Schema::dropIfExists('health_card_applicatons');
     }
 };

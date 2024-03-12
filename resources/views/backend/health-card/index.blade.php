@@ -13,17 +13,15 @@
         <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header border-bottom p-3">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Service</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Update Health Card</h5>
                     <button type="button" class="btn btn-icon btn-close" data-bs-dismiss="modal" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="modal-body p-3 pt-4">
                     <form action="{{ route('banner.edit') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-12 mb-3">
-                                <div id="icon">
-
-                                </div>
+                            <div class="mb-3">
+                                <input name="name" type="text" class="form-control " id="name">
                             </div>
                             <input type="hidden" id="tokenId" name="id" >
                             <div class="col-md-12">
@@ -88,11 +86,11 @@
                         <div class="">
                             <div class=" mb-3">
                                 <label for="" class="form-label">Card Name </label>
-                                <input type="text" name="name" class="form-control @error('photo') is-invalid @enderror"  required>
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"  required>
                             </div>
                             <div class=" mb-3">
                                 <label for="" class="form-label">Card Price </label>
-                                <input type="number" name="price" class="form-control @error('photo') is-invalid @enderror"  required>
+                                <input type="number" name="price" class="form-control @error('price') is-invalid @enderror"  required>
                             </div>
                             <div class=" mb-3">
                                 <label for="" class="form-label">Card Benifits </label>
@@ -102,7 +100,7 @@
 
                             <div class="row mb-2 ">
                                 <div class="col-12 d-flex medi gap-3 mt-3">
-                                    <input type="text" name="benifits" class="form-control @error('photo') is-invalid @enderror"  required>
+                                    <input type="text" name="benifits[]" class="form-control @error('benifits.*') is-invalid @enderror"  >
                                 </div>
                             </div>
                            <div class="my-3 text-center ">
@@ -117,33 +115,47 @@
             <div class="col-lg-8">
                 <div class="table-responsive shadow rounded">
                     @if ($healths->count() != 0 )
-                        <table class="table table-center     bg-white mb-0" id="myTable">
+                        <table class="table t bg-white mb-0" id="myTable">
                             <thead>
                                 <tr>
-                                   <th class="border-bottom p-3">Name</th>
-                                    <th class="border-bottom p-3"  style="min-width: 180px;">Price</th>
-                                    <th class="border-bottom p-3">Benifits</th>
-                                    <th class="border-bottom p-3 " style="min-width: 100px;">Action</th>
+                                   <th >Name</th>
+                                    <th>Price</th>
+                                    <th >Benifits</th>
+                                    <th >Status</th>
+                                    <th >Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($healths as $data)
-                                <tr>
+                                @php
+                                    $benefitsArray = json_decode($data->benifits, true);
+                                @endphp
 
+                                <tr>
                                     <td>{{ $data->name }}</td>
                                     <td class="">{{$data->price }}</td>
                                     <td>
-                                        <ul>
-                                            @foreach(explode(',', $data->benifits   ) as $benefit)
-                                                <li>{{$benefit}}</li>
+                                        @if(is_array($benefitsArray))
+                                            @foreach($benefitsArray as $singleBenefit)
+                                                @if ($singleBenefit !== null)
+                                                    <li>{{ htmlspecialchars($singleBenefit) }}</li>
+                                                @endif
                                             @endforeach
-                                            </ul>
+                                        @else
+                                            @if ($singleBenefit !== null)
+                                                <li>{{ htmlspecialchars($benefitsArray) }}</li>
+                                            @endif
+                                        @endif
                                     </td>
+                                    <td><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td>
                                     {{-- <td><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td> --}}
                                     <td class="">
-                                        <a href="{{ $data->id }}" class="update_value btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#appointmentform"><i class="fa-solid fa-pen-to-square"></i></a>
-
-                                        <a href="{{ route('banner.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm"  class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
+                                        <a href="{{route('health-card.edit',$data->id)}}" class=" btn btn-icon btn-pills btn-soft-success d" ><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <form action="{{ route('health-card.destroy',$data->id) }}" method="POST" class="display-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"  class="delete_value btn btn-icon btn-pills btn-soft-danger d"><i class="fa-solid fa-trash"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
