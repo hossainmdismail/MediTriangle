@@ -151,17 +151,17 @@
                                             </p>
                                         </div>
 
-                                        <div class="d-flex align-items-center mt-2">
+                                        {{-- <div class="d-flex align-items-center mt-2">
                                             <i class="fa-solid fa-money-check-dollar text-primary h5 mb-0 me-2"></i>
                                             <h6 class="mb-0">Visa</h6>
                                             <p class="text-muted mb-0 ms-2">{{ $data->con_visa->name }}</p>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="d-flex align-items-center mt-2">
+                                        {{-- <div class="d-flex align-items-center mt-2">
                                             <i class="fa-solid fa-phone text-primary h5 mb-0 me-2"></i>
                                             <h6 class="mb-0">Embassy</h6>
                                             <p class="text-muted mb-0 ms-2">{{ $data->con_embassy->name }}</p>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="d-flex align-items-center mt-2">
                                             <i class="fa-solid fa-phone text-primary h5 mb-0 me-2"></i>
@@ -185,29 +185,100 @@
                                         {{-- @endif --}}
 
 
-                                        <div class="d-flex align-items-center mt-2">
+                                        {{-- <div class="d-flex align-items-center mt-2">
                                             <i class="fa-solid fa-person-half-dress text-primary h5 mb-0 me-2"></i>
                                             <h6 class="mb-0">Gender</h6>
-                                            {{-- <p class="text-muted mb-0 ms-2">{{ $data->gender }}</p> --}}
-                                        </div>
+                                            {{-- <p class="text-muted mb-0 ms-2">{{ $data->gender }}</p>
+                                        </div>--}}
 
-                                        <div class="d-flex align-items-center mt-2">
+                                        {{-- <div class="d-flex align-items-center mt-2">
                                             <i class="fa-regular fa-calendar-days text-primary h5 mb-0 me-2"></i>
                                             <h6 class="mb-0">Request</h6>
                                             <p class="text-muted mb-0 ms-2"><span class="badge bg-soft-{{ ($date > $data->expected_date->format('M d Y')? 'danger':'success') }}">{{ $data->expected_date->format('M-d-Y') }}</span></p>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="mt-4">
+                                        {{-- <div class="mt-4">
                                             <h4>Messages</h4>
                                             <p class="p-2 border rounded text-secondary">
                                                 {{ $data->note }}
                                             </p>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
                                 </div>
                             </div>
+                            {{-- Reports --}}
+                            <div class="card mt-4 border-0 rounded shadow">
+                                <div class="card-header">
+                                    <h4>Attendants </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="py-3">
+                                        <div class="row">
+                                            @if ($attendants->count() == 0)
+                                            No reports found
+                                            @else
+                                            <div class="col-12 p-2">
+                                                <div class="team-person position-relative overflow-hidden">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                            <th>Name</th>
+                                                            <th>Passport Number</th>
+                                                            <th>Passport Copy</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($attendants as $data)
+                                                            <tr>
+                                                                <td> {{$data->name}} </td>
+                                                                <td> {{$data->number}} </td>
+                                                                <td>
+                                                                    <img style="width: 100%; height: 100px;" src="{{ asset('uploads/attendant/'.$data->passport) }}" class="img-fluid" alt="">
+                                                                </td>
+                                                            </tr>
 
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+
+                                                    {{-- <ul class="list-unstyled team-like">
+                                                        <li><a href="{{ asset('uploads/visareport/'.$report->reports) }}" class="btn btn-icon btn-pills btn-soft-danger download" download><i class="fa-solid fa-arrow-down"></i></a></li>
+                                                    </ul> --}}
+                                                </div>
+                                            </div>
+                                            @endif
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-lg-6 my-3">
+                            <div class="card team border-0 rounded shadow overflow-hidden">
+                                <div class="card-header">
+                                    <h5>Passport</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="team-person position-relative overflow-hidden">
+                                            <img style="width: 100%" src="{{ asset('uploads/visa/'.$data->passport) }}" class="img-fluid" alt="">
+                                            <ul class="list-unstyled team-like">
+                                                <li>
+                                                    <a href="{{ asset('uploads/visa/'.$data->passport) }}" class="btn btn-icon btn-pills btn-soft-danger download" download>
+                                                        <i class="fa-solid fa-arrow-down"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             {{-- Reports --}}
                             <div class="card mt-4 border-0 rounded shadow">
                                 <div class="card-header">
@@ -234,31 +305,8 @@
                                 </div>
                             </div>
 
-                        </div>
-
-                        <div class="col-lg-6 my-3">
-                            <div class="card team border-0 rounded shadow overflow-hidden">
-                                <div class="card-header">
-                                    <h5>Passport</h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <div class="team-person position-relative overflow-hidden">
-                                            <img style="width: 100%" src="{{ asset('uploads/visa/'.$data->passport) }}" class="img-fluid" alt="">
-                                            <ul class="list-unstyled team-like">
-                                                <li>
-                                                    <a href="{{ asset('uploads/visa/'.$data->passport) }}" class="btn btn-icon btn-pills btn-soft-danger download" download>
-                                                        <i class="fa-solid fa-arrow-down"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             {{-- Doctor Information --}}
-                            <div class="card team border-0 rounded shadow overflow-hidden mt-4">
+                          {{--   <div class="card team border-0 rounded shadow overflow-hidden mt-4">
                                 <div class="row">
 
                                     <div class="col-md-5">
@@ -272,30 +320,29 @@
 
                                     <div class="col-md-7">
                                         <div class="card-body">
-                                            <a href="#" class="title text-dark h5 d-block mb-0">{{ $doctor->name }}</a>
-                                            <small class="text-muted speciality">{{ $doctor->con_department->department }}</small>
+                                           <a href="#" class="title text-dark h5 d-block mb-0">{{ $doctor->name }}</a>
+                                             <small class="text-muted speciality">{{ $doctor->con_department->department }}</small>
                                             <ul class="list-unstyled mt-2 mb-0">
-                                                {{-- <li class="d-flex">
+                                                 <li class="d-flex">
                                                     <i class="fa-solid fa-dollar-sign text-primary align-middle"></i>
                                                     <small class="text-muted ms-2">৳-{{ $doctor->fee }} </small>
-                                                </li> --}}
+                                                </li>
                                                 <li class="d-flex">
                                                     <i class="fa-solid fa-location-dot text-primary align-middle"></i>
-                                                    <small class="text-muted ms-2">{{ $doctor->con_hospital->hospital }}, {{  $doctor->con_state->state }}, {{  $doctor->con_country->country }} </small>
+                                                   <small class="text-muted ms-2">{{ $doctor->con_hospital->hospital }}, {{  $doctor->con_state->state }}, {{  $doctor->con_country->country }} </small>
                                                 </li>
                                                 <li class="d-flex mt-2">
                                                     <i class="fa-solid fa-user-doctor text-primary align-middle"></i>
-                                                    <small class="text-muted ms-2">{{ $doctor->career_title }}</small>
+                                                     <small class="text-muted ms-2">{{ $doctor->career_title }}</small>
                                                 </li>
                                                 <li class="d-flex mt-2">
                                                     <i class="fa-regular fa-clipboard text-primary align-middle"></i>
                                                     <small class="text-muted ms-2">{{ $doctor->speciality }}</small>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

@@ -182,6 +182,7 @@
                             <div class="col-12 text-start">
                                 <label for="" class="py-2">Request a date</label>
                                 <input type="date" name="request_date" id="datepicker" class="form-control bg-white border-0 @error('request_date') is-invalid @enderror" min="{{ $date }}" value="{{ old('request_date') }}">
+                                <span class="text text-sm text-danger ms-2 ">Doctor Video Consultation Is Subject To Doctor Availability</span>
                             </div>
 
 

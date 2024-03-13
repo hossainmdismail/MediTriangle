@@ -28,7 +28,7 @@
                 </div>
             </div><!--end col-->
 
-            <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
+            {{-- <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
                 <div class="card features feature-primary rounded border-0 shadow p-4">
                     <div class="d-flex align-items-center">
                         <div class="icon text-center rounded-md">
@@ -40,9 +40,9 @@
                         </div>
                     </div>
                 </div>
-            </div><!--end col-->
+            </div><!--end col--> --}}
 
-            <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
+            {{-- <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
                 <div class="card features feature-primary rounded border-0 shadow p-4">
                     <div class="d-flex align-items-center">
                         <div class="icon text-center rounded-md">
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-            </div><!--end col-->
+            </div><!--end col--> --}}
 
             <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
                 <div class="card features feature-primary rounded border-0 shadow p-4">
@@ -70,7 +70,7 @@
                 </div>
             </div><!--end col-->
 
-            <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
+            {{-- <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
                 <div class="card features feature-primary rounded border-0 shadow p-4">
                     <div class="d-flex align-items-center">
                         <div class="icon text-center rounded-md">
@@ -82,11 +82,11 @@
                         </div>
                     </div>
                 </div>
-            </div><!--end col-->
+            </div><!--end col--> --}}
 
 
-            <div class="col-xl-2 col-lg-4 col-md-4 mt-4 d-flex justify-content-center">
-                <a href="{{ route('clear.Cache') }}" class="btn btn-outline-success d-flex align-items-center">Clear Cache</a>
+            <div class="col-xl-2 col-lg-4 col-md-4 mt-4 d-flex justify-content-center ">
+                <a href="{{ route('clear.Cache') }}" class="btn btn-outline-success d-flex align-items-center ">Clear Cache</a>
             </div><!--end col-->
 
         </div><!--end row-->

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('expected_date');
             $table->timestamp('appointment_date')->nullable();
             $table->integer('notification')->default(0);
-            $table->integer('prescription');
+            $table->string('prescription');
             $table->integer('order_status')->default(0);
             $table->string('fee');
             $table->string('note')->nullable();

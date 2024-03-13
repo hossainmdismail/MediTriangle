@@ -96,7 +96,7 @@
                         <a href="{{ route('link.visa') }}" class="nav-item nav-link">Visa Services</a>
                         {{-- <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Medicine</a> --}}
                         <a href="{{route('health.card')}}" class="nav-item nav-link">Health Card</a>
-                        <a href="" class="nav-item nav-link">Blog</a>
+                        <a href="blog.html" class="nav-item nav-link">Blog</a>
                         {{-- <a href="price.html" class="nav-item nav-link">Contact Us</a> --}}
                         {{-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Medicine</a>

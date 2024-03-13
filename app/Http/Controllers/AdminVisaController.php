@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DoctorModel;
+use App\Models\VideoConsultAttendant;
 use App\Models\VisaModel;
 use App\Models\VisaModelResport;
 use Illuminate\Http\Request;
@@ -29,11 +30,13 @@ class AdminVisaController extends Controller
        $data = VisaModel::where('id',$id)->first();
        $doctor = DoctorModel::where('id',$data->doctor_id)->first();
        $visaReports = VisaModelResport::where('order_id',$data->order_id)->get();
+       $attendants = VideoConsultAttendant::where('order_id',$data->order_id)->get();
 
        return view('backend.data.visa.watch',[
         'data'       =>  $data,
         'doctor'      =>  $doctor,
         'visa'        =>  $visaReports,
+        'attendants'        =>  $attendants,
         ]);
     }
 

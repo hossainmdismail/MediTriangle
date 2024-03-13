@@ -40,7 +40,7 @@
                         <div class="">
                             <div class="mb-3">
                                 <select name="status" id="status" class="form-select form-select-sm bg-soft-info">
-                                    <option value="PROCSSING">PROCSSING</option>
+                                    <option value=" PROCESSING"> PROCESSING</option>
                                     <option value="DONE">DONE</option>
                                     <option value="CANCEL">CANCEL</option>
 

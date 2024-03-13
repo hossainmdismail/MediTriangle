@@ -76,13 +76,15 @@
                                 <tr>
                                     <th class="border-bottom p-3"><i class="fa-solid fa-print" id="print"></th>
                                     <th class="border-bottom p-3" style="min-width: 100px;">Name</th>
-                                    <th class="border-bottom p-3" style="min-width: 150px;">Visa</th>
-                                    <th class="border-bottom p-3">Embassy</th>
-                                    <th class="border-bottom p-3">Destination</th>
-                                    <th class="border-bottom p-3" style="min-width: 150px;">Request</th>
+                                    <th class="border-bottom p-3" style="min-width: 100px;">Email</th>
+                                    <th class="border-bottom p-3" style="min-width: 100px;">Phone Number</th>
+                                    {{-- <th class="border-bottom p-3" style="min-width: 150px;">Visa</th> --}}
+                                    {{-- <th class="border-bottom p-3">Embassy</th> --}}
+                                    {{-- <th class="border-bottom p-3">Destination</th> --}}
+                                    {{-- <th class="border-bottom p-3" style="min-width: 150px;">Request</th> --}}
                                     <th class="border-bottom p-3">Status</th>
-                                    <th class="border-bottom p-3" style="min-width: 220px;">Doctor</th>
-                                    <th class="border-bottom p-3">Fees</th>
+                                    {{-- <th class="border-bottom p-3" style="min-width: 220px;">Doctor</th> --}}
+                                    {{-- <th class="border-bottom p-3">Fees</th> --}}
                                     <th class="border-bottom p-3"></th>
                                 </tr>
                             </thead>
@@ -91,21 +93,23 @@
                             <tr>
                                 <th class="p-3">{{ $key+1 }}</th>
                                 <td class="p-3">{{ $data->name }}</td>
-                                <td class="p-3">{{ $data->con_visa->name }}</td>
-                                <td class="p-3">{{ $data->con_embassy->name }}</td>
-                                <td class="p-3">
+                                <td class="p-3">{{ $data->email }}</td>
+                                <td class="p-3">{{ $data->number }}</td>
+                                {{-- <td class="p-3">{{ $data->con_visa->name }}</td> --}}
+                                {{-- <td class="p-3">{{ $data->con_embassy->name }}</td> --}}
+                                {{-- <td class="p-3">
                                     <ul>
                                         <li>{{ $data->con_country->country }}</li>
                                         <li>{{ $data->con_state->state }}</li>
                                         <li>{{ $data->con_hospital->hospital }}</li>
                                         <li>{{ $data->con_department->department }}</li>
                                     </ul>
-                                </td>
-                                <td class="p-3">
+                                </td> --}}
+                                {{-- <td class="p-3">
                                     <span class="badge bg-soft-{{ ($date > $data->expected_date->format('M d Y')? 'danger':'success') }}">
                                         {{ $data->expected_date->format('M d Y') }}
                                     </span>
-                                </td>
+                                </td> --}}
                                 <td class="p-3">
                                     @if ($data->order_status == 1)
                                         <span class="badge bg-success">Confirm</span>
@@ -121,18 +125,19 @@
                                         {{ $data->order_status == 2?'Cancel':($data->order_status == 0?'Panding':$data->appointment_date->format('M-d-Y')) }}
                                     </span>
                                 </td>
-                                <td class="p-3">
+                                {{-- <td class="p-3">
                                     <a href="#" class="text-dark">
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ asset('uploads/doctor/'.$data->con_doctor->profile) }}" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                            <span class="ms-2">{{ $data->con_doctor->name }}</span>
+                                            {{-- <img src="{{ asset('uploads/doctor/'.$data->con_doctor->profile) }}" class="avatar avatar-md-sm rounded-circle border shadow" alt=""> --}}
+                                            {{-- <span class="ms-2">{{ $data->con_doctor->name }}</span> 
                                         </div>
                                     </a>
-                                </td>
+                                </td> --}}
                                 {{-- <td class="p-3">৳-{{ number_format($data->fee) }}</td> --}}
                                 <td class="text-end p-3">
                                     <a href="{{ route('visaInvitaion.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-{{ $data->notifications == 0?'primary':'muted' }}"><i class="fa-regular fa-eye"></i></a>
                                 </td>
+
                             </tr>
                             @endforeach
                             </tbody>

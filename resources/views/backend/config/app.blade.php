@@ -42,7 +42,7 @@
     <body>
 
         @php
-            $appointment    = App\Models\AppoinmentModel::select('notifications')->where('notifications',0)->count();
+            $appointment    = App\Models\AppoinmentModel::where('status','PROCESSING')->count();
             $video          = App\Models\VideoConsultantModel::select('notification')->where('notification',0)->count();
             $visa           = App\Models\VisaModel::select('notifications')->where('notifications',0)->count();
             $medicine       = App\Models\MedicineBillings::select('status')->where('status',0)->count();
@@ -170,11 +170,11 @@
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ $notifications}}<span class="visually-hidden">unread mail</span></span>
 
                                     <div class="dropdown-menu dd-menu dropdown-menu-end shadow rounded border-0 mt-3 px-2 py-2" data-simplebar style="height: 320px; width: 300px;">
-                                        @if (App\Models\AppoinmentModel::where('notifications',0)->count() != 0)
+                                        @if (App\Models\AppoinmentModel::where('status','PROCESSING')->count()   != 0)
                                             <a href="{{ route('user.data.appointment') }}" class="d-flex align-items-center justify-content-between py-2">
                                                 <div class="d-inline-flex position-relative overflow-hidden">
                                                     <img src="{{ Avatar::create('Appointment') }}" class="avatar avatar-md-sm rounded-circle shadow" alt="">
-                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">New Appointment <b class="badge bg-soft-primary">{{ App\Models\AppoinmentModel::where('notifications',0)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\AppoinmentModel::where('notifications',0)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
+                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">New Appointment <b class="badge bg-soft-primary">{{ App\Models\AppoinmentModel::where('status','PROCESSING')->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\AppoinmentModel::where('status','PROCESSING')->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
                                                 </div>
                                             </a>
                                         @endif
@@ -192,7 +192,7 @@
                                             <a href="{{ route('user.data.videoInvitaion') }}" class="d-flex align-items-center justify-content-between py-2">
                                                 <div class="d-inline-flex position-relative overflow-hidden">
                                                     <img src="{{ Avatar::create('Visa Invitation') }}" class="avatar avatar-md-sm rounded-circle shadow" alt="">
-                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">Video Consultation <b class="badge bg-soft-primary">{{ App\Models\VideoConsultantModel::where('notification',0)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\VideoConsultantModel::where('notification',0)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
+                                                    <small class="text-dark mb-0 d-block text-truncat ms-3">Video Consultation <b class="badge bg-soft-primary">{{ App\Models\VideoConsultantModel::where('notification',0)->count()}}</b> <br> <small class="text-primary fw-normal d-inline-block">{{ App\Models\VideoConsultantModel::where('status',1)->orderBy('id', 'DESC')->first()->created_at->diffForHumans() }}</small></small>
                                                 </div>
                                             </a>
                                         @endif

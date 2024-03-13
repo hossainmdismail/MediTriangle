@@ -41,10 +41,11 @@
                             <div class="col-sm-12 col-md-5">
                                 <div class="mb-0 position-relative">
                                     <select class="form-select form-control" name="select">
-                                        <option value="">Status</option>
-                                        <option value="0">Panding</option>
-                                        <option value="2">Cancel</option>
-                                        <option value="1">Confirm</option>
+                                    <option value="">Status</option>
+                                    <option value="PROCESSING"> PROCESSING</option>
+                                    <option value="ACCEPT">ACCEPT</option>
+                                    <option value="DONE">DONE</option>
+                                    <option value="CANCEL">CANCEL</option>
                                     </select>
                                 </div>
                             </div><!--end col-->
@@ -73,15 +74,20 @@
                             <thead>
                                 <tr>
                                     <th class="border-bottom p-3"><i class="fa-solid fa-print" id="print"></i></th>
-                                    <th class="border-bottom p-3">ID</th>
+                                    {{-- <th class="border-bottom p-3">ID</th> --}}
                                     <th class="border-bottom p-3" style="min-width: 100px;">Name</th>
                                     <th class="border-bottom p-3" style="min-width: 150px;">Number</th>
+                                    <th class="border-bottom p-3" style="min-width: 150px;">Email</th>
+                                    <th class="border-bottom p-3">City</th>
+                                    <th class="border-bottom p-3">Hospital</th>
                                     <th class="border-bottom p-3">Department</th>
-                                    <th class="border-bottom p-3" style="min-width: 150px;">Request</th>
-                                    <th class="border-bottom p-3">Appointment</th>
+                                    <th class="border-bottom p-3">Status</th>
+                                    <th class="border-bottom p-3">Action</th>
+                                    {{-- <th class="border-bottom p-3" style="min-width: 150px;">Request</th> --}}
+                                    {{-- <th class="border-bottom p-3">Appointment</th> --}}
                                     {{-- <th class="border-bottom p-3">Time</th> --}}
-                                    <th class="border-bottom p-3" style="min-width: 220px;">Doctor</th>
-                                    <th class="border-bottom p-3">Fees</th>
+                                    {{-- <th class="border-bottom p-3" style="min-width: 220px;">Doctor</th> --}}
+                                    {{-- <th class="border-bottom p-3">Fees</th> --}}
                                     <th class="border-bottom p-3"></th>
                                 </tr>
                             </thead>
@@ -90,21 +96,25 @@
                             <tr>
                                 <th class="p-3">{{ $key+1 }}</th>
 
-                                <td class="p-3">{{ $data->order_id }}</td>
+                                <td class="p-3">{{ $data->name }}</td>
 
-                                <td class="p-3">{{ $data->passportname }}</td>
+                                <td class="p-3">{{ $data->number }}</td>
 
-                                <td class="p-3">{{ $data->appointment_type == 2?$data->passportnumber:$data->number }}</td>
+                                <td class="p-3">{{ $data->email }}</td>
 
+                                <td class="p-3">{{ $data->con_state->state }}</td>
+                                <td class="p-3">{{ $data->con_hospital->hospital }}</td>
                                 <td class="p-3">{{ $data->con_department->department }}</td>
+                                <td> <span class="badge bg-soft-info">{{ $data->status }}</span> </td>
 
-                                <td class="p-3">
+
+                                {{-- <td class="p-3">
                                     <span class="badge bg-soft-{{ ($date > $data->appoinment_date->format('M d Y')? 'danger':'success') }}">
                                         {{ $data->appoinment_date->format('M d Y') }}
                                     </span>
-                                </td>
+                                </td> --}}
 
-                                <td class="p-3">
+                                {{-- <td class="p-3">
                                     @if ($data->status ==1)
                                     <span class="badge bg-success">
                                         Confirm
@@ -115,9 +125,9 @@
                                         {{ $data->order_status != 0?$data->activity->format('M-d-Y'):($data->status == 2?'Canceled':'panding') }}
                                     </span>
 
-                                </td>
+                                </td> --}}
 
-                                <td class="p-3">
+                                {{-- <td class="p-3">
                                     <a href="#" class="text-dark">
                                         <div class="d-flex align-items-center">
                                             <img src="{{ asset('uploads/doctor/'.$data->con_doctor->profile) }}" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
@@ -126,10 +136,10 @@
                                     </a>
                                 </td>
 
-                                <td class="p-3">৳-{{ number_format($data->fee) }}</td>
+                                <td class="p-3">৳-{{ number_format($data->fee) }}</td> --}}
 
                                 <td class="text-end p-3">
-                                    <a href="{{ route('appointment.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-{{ $data->notifications == 0?'primary':'muted' }}"><i class="fa-regular fa-eye"></i></a>
+                                    <a href="{{ route('appointment.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-"><i class="fa-solid fa-pen-to-square "></i></a>
                                     {{-- <a href="#" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#acceptappointment"><i class="fa-solid fa-check"></i></a>
                                     <a href="#" class="btn btn-icon btn-pills btn-soft-danger" data-bs-toggle="modal" data-bs-target="#cancelappointment"><i class="fa-solid fa-xmark"></i></a> --}}
                                 </td>

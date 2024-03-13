@@ -1,6 +1,80 @@
 @extends('backend.config.app')
 @section('content')
-    {{-- Modals --}}
+<div class="container-fluid">
+    <div class="layout-specing">
+        <div class="row">
+            <div class="col-xl-9 col-lg-6 col-md-4">
+                <h5 class="mb-0">Appointment</h5>
+                <nav aria-label="breadcrumb" class="d-inline-block mt-2">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item">Dashboard</li><i style="font-size:12px;padding-left:6px"
+                            class="fa-solid fa-chevron-right"></i>
+                        <li class="breadcrumb-item" aria-current="page"><a
+                                href="{{ route('user.data.appointment') }}">Appointment</a>
+                        </li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
+                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                        {{-- <li class="breadcrumb-item active" aria-current="page">{{ $datas->order_id }}</li> --}}
+
+                    </ul>
+                </nav>
+            </div><!--end col-->
+            <div class="col-lg-6 mb-3 m-auto">
+                <div class="card border-0 p-4 rounded shadow">
+                    <div class="card-header bg-white ">
+                        <h3 class="text-center">Appoinment Info</h3>
+                    </div>
+                    <form action="{{ route('user.data.appointment.confirmation') }}" method="POST" class="mt-4" >
+                        @csrf
+
+                        <div class="">
+                            <div class="mb-3">
+                                <select name="status" id="status" class="form-select form-select-sm bg-soft-info">
+                                    <option {{$appoinment->status ==  'PROCESSING' ? 'selected' : ''}} value=" PROCESSING"> PROCESSING</option>
+                                    <option {{$appoinment->status == 'ACCEPT' ? 'selected' : ''}} value="ACCEPT">ACCEPT</option>
+                                    <option {{$appoinment->status == 'DONE' ? 'selected' : ''}} value="DONE">DONE</option>
+                                    <option {{$appoinment->status == 'CANCEL' ? 'selected' : ''}} value="CANCEL">CANCEL</option>
+
+                                </select>
+                            </div>
+                            <div class=" mb-3">
+                                <label for="" class="form-label"> Note </label>
+                                <input type="hidden" name="id" value="{{$appoinment->id}}">
+                                <textarea name="note" class="form-control "  > {{$appoinment->note}} </textarea>
+                            </div>
+
+
+                           <div class="my-3 text-center ">
+                            <button type="submit" class="btn btn-primary ">Update</button>
+                           </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- Modals
     <div class="modal fade" id="confirm" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;"
         aria-hidden="true">
         <div class="modal-dialog modal-md modal-dialog-centered">
@@ -97,7 +171,7 @@
     </div>
     {{-- Modals --}}
 
-    @php
+    {{-- @php
         $date = date('M d Y');
     @endphp
     <div class="container-fluid">
@@ -144,7 +218,7 @@
 
                         <div class="row">
                             <div class="col-lg-6 my-3">
-                                {{-- Patient --}}
+
                                 <div class="card border-0 rounded shadow">
                                     <div class="card-header">
                                         <h4>Patient</h4>
@@ -228,7 +302,7 @@
                                     </div>
                                 </div>
 
-                                {{-- Report --}}
+
                                 @if (App\Models\AppoinmentReports::where('order_id', $datas->order_id)->get()->count() != 0)
                                     <div class="card mt-4 border-0 rounded shadow">
                                         <div class="card-header">
@@ -284,7 +358,7 @@
                                                     </ul>
                                                 </div>
 
-                                                {{-- <img src="{{ asset('uploads/attendant/'.$attendant->passport) }}" width="100px"> --}}
+                                                {{-- <img src="{{ asset('uploads/attendant/'.$attendant->passport) }}" width="100px"> -
 
                                                 <ul class="list-group mx-4">
                                                     <li class="list-group-item">{{ $attendant->attendant_name }}</li>
@@ -355,5 +429,5 @@
             </div><!--end row-->
 
         </div>
-    </div><!--end container-->
+    </div><!--end container--> --}}
 @endsection

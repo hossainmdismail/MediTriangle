@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('visa_models', function (Blueprint $table) {
+
             $table->id();
             $table->string('name');
             $table->string('number');
@@ -19,14 +20,14 @@ return new class extends Migration
             $table->string('order_id')->nullable();
             $table->string('order_status')->default(0);
             $table->string('notifications')->default(0);
-            $table->integer('country_id');
-            $table->integer('visa_id');
-            $table->integer('embassy_id');
-            $table->integer('state_id');
-            $table->integer('hospital_id');
-            $table->integer('department_id');
-            $table->integer('doctor_id');
-            $table->string('prescription');
+            $table->integer('country_id')->nullable();
+            $table->integer('visa_id')->nullable();
+            $table->integer('embassy_id')->nullable();
+            $table->integer('state_id')->nullable();
+            $table->integer('hospital_id')->nullable();
+            $table->integer('department_id')->nullable();
+            $table->integer('doctor_id')->nullable();
+            $table->string('prescription')->nullable();
             $table->date('expected_date');
             $table->date('appointment_date')->nullable();
             $table->string('passport');

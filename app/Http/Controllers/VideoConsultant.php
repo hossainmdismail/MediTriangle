@@ -46,62 +46,64 @@ class VideoConsultant extends Controller
             'report'            => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
         //Login
-        if (!Auth::check()) {
-            if (User::where('number',$request->number)->exists()) {
-                return back()->with('err', 'Number Exists ! Login Please');
-            }else {
-                $pass ='RAN'.rand(1,5000).'LOG'.rand(1,500);
-                User::insert([
-                    'name' => $request->name,
-                    'number' => $request->newNumber,
-                    'email' => $request->email,
-                    'password' => bcrypt($pass),
-                    'created_at' => Carbon::now(),
-                ]);
-                Auth::guard()->attempt(['number'=> $request->number,'password'=>$pass]);
+        // if (!Auth::check()) {
+        //     if (User::where('number',$request->number)->exists()) {
+        //         return back()->with('err', 'Number Exists ! Login Please');
+        //     }else {
+        //         $pass ='RAN'.rand(1,5000).'LOG'.rand(1,500);
+        //         User::insert([
+        //             'name' => $request->name,
+        //             'number' => $request->newNumber,
+        //             'email' => $request->email,
+        //             'password' => bcrypt($pass),
+        //             'created_at' => Carbon::now(),
+        //         ]);
+        //         Auth::guard()->attempt(['number'=> $request->number,'password'=>$pass]);
 
-                // SMS
-                $url = "http://bulksmsbd.net/api/smsapi";
-                $api_key = "5Ga7wUBj70JdpiqVhe8t";
-                $senderid = "8809617611020";
-                $number = $request->number;
-                $message = 'Your Password is : '.$pass;
+        //         // SMS
+        //         $url = "http://bulksmsbd.net/api/smsapi";
+        //         $api_key = "5Ga7wUBj70JdpiqVhe8t";
+        //         $senderid = "8809617611020";
+        //         $number = $request->number;
+        //         $message = 'Your Password is : '.$pass;
 
-                $data = [
-                    "api_key" => $api_key,
-                    "senderid" => $senderid,
-                    "number" => $number,
-                    "message" => $message
-                ];
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                $response = curl_exec($ch);
-                curl_close($ch);
-            }
-        }
-        //login end
+        //         $data = [
+        //             "api_key" => $api_key,
+        //             "senderid" => $senderid,
+        //             "number" => $number,
+        //             "message" => $message
+        //         ];
+        //         $ch = curl_init();
+        //         curl_setopt($ch, CURLOPT_URL, $url);
+        //         curl_setopt($ch, CURLOPT_POST, 1);
+        //         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        //         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        //         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        //         $response = curl_exec($ch);
+        //         curl_close($ch);
+        //     }
+        // }
+        // //login end
         $doctor = DoctorModel::where('id',$request->doctor_id)->first();
         $fee =  $doctor->fee+(($doctor->vat/100)*$doctor->fee);
         Photo::upload($request->report,'uploads/video','VID');
-        VideoConsultantModel::insert([
-            'doctor_id'         => $request->doctor_id,
-            'name'              => $request->name,
-            'number'            => $request->number,
-            'gender'            => $request->gender,
-            'age'               => $request->age,
-            'expected_date'     => $request->request_date,
-            'note'              => $request->note,
-            'fee'               => $fee,
-            'order_id'          => $order_id,
-            'prescription'      => Photo::$name,
-        ]);
+       $videoConsult= new VideoConsultantModel();
+            $videoConsult->doctor_id         = $request->doctor_id;
+            $videoConsult->name              = $request->name;
+            $videoConsult->number            = $request->number;
+            $videoConsult->gender            = $request->gender;
+            $videoConsult->age               = $request->age;
+            $videoConsult->expected_date     = $request->request_date;
+            $videoConsult->note              = $request->note;
+            $videoConsult->fee               = $fee;
+            $videoConsult->order_id          = $order_id;
+            $videoConsult->prescription      = Photo::$name;
+            $videoConsult->save();
+
 
         // $data = array("id"=>Auth::user()->id, "amount"=>$fee,'order_id'=>$order_id);
-        $data = array("id"=>Auth::user()->id, "amount"=>$fee,'order_id'=>$order_id,'type' => 'video');
-        return redirect()->route('pay')->with('data',$data);
+        // $data = array("id"=>Auth::user()->id, "amount"=>$fee,'order_id'=>$order_id,'type' => 'video');
+        // return redirect()->route('pay')->with('data',$data);
+        return redirect(route('thank.you'));
     }
 }

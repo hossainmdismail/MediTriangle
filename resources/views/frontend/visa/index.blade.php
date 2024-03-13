@@ -162,11 +162,11 @@
                         <div class="row mb-3">
                             <div class=" col-6 mb-3 form-group ">
                                 <label  class="form-label ">Email</label>
-                                <input type="text" class="form-control input-default " class="email" placeholder="" >
+                                <input type="text" class="form-control input-default " name="email" placeholder="" >
                             </div>
                             <div class="col-6 mb-3 form-group">
                                 <label  class="form-label form-label">Phone Number</label>
-                                <input type="number" name="phone" class="form-control input-default "  class="number" placeholder="" required>
+                                <input type="number" name="phone" class="form-control input-default "   placeholder="" required>
                             </div>
 
                         </div>
@@ -176,7 +176,7 @@
                         </div>
                         <div class=" mb-4 ">
                             <label  class="form-label "> Medical Report</label>
-                            <input type="file" class="form-control input-default" name="name"   placeholder="" required>
+                            <input type="file" class="form-control input-default" name="prescription[]"   placeholder=""  multiple>
                         </div>
                         <div class="d-flex justify-content-between align-items-center ">
                             <h5 >If Anyone Attendant with you</h5>
@@ -193,7 +193,7 @@
                             </div>
                             <div class="col-4 ">
                                 <label for="" class="form-label" > Passport Copy</label>
-                                <input  type="file"   name="attendantPassport[] " class="form-control bg-white input-default  @error('attendantPassport') is-invalid @enderror">
+                                <input  type="file"   name="attendantPassport[]" class="form-control bg-white input-default  @error('attendantPassport') is-invalid @enderror">
                             </div>
 
                         </div>
@@ -207,9 +207,9 @@
     </div>
 </div>
 
-@php
+{{-- @php
     $date = date('Y-m-d');
-@endphp
+@endphp --}}
 <!-- Appointment Start -->
 {{-- <div class="container-fluid py-5">
     <div class="container">
@@ -223,8 +223,8 @@
                         <div class="row g-3 mt-3" id="blocks_show">
                             <input type="hidden" name="appointment_type" value="2" id="">
 
-                            {{-- Country --}}
-                            {{-- <div class="col-sm-12 col-lg-6">
+
+                             <div class="col-sm-12 col-lg-6">
                                 <select class="form-select bg-white border-0 country @error('country_id') is-invalid @enderror" name="country_id">
                                     <option value="" selected>Choose Country</option>
                                     @foreach (App\Models\CountryModel::where('status', 1)->get() as $country)

@@ -26,9 +26,9 @@ class AdminDashboard extends Controller
             $patientHistory = DB::table('appoinment_models')
             ->select(
                 DB::raw('DATE_FORMAT(created_at, "%M") as month'),
-                DB::raw('COUNT(gender) as total'),
-                DB::raw('SUM(CASE WHEN gender = "male" THEN 1 ELSE 0 END) as male'),
-                DB::raw('SUM(CASE WHEN gender = "female" THEN 1 ELSE 0 END) as female')
+                // DB::raw('COUNT(gender) as total'),
+                // DB::raw('SUM(CASE WHEN gender = "male" THEN 1 ELSE 0 END) as male'),
+                // DB::raw('SUM(CASE WHEN gender = "female" THEN 1 ELSE 0 END) as female')
             )
             ->whereYear('created_at', 2023)
             ->groupBy(DB::raw('DATE_FORMAT(created_at, "%M")'))
@@ -66,9 +66,9 @@ class AdminDashboard extends Controller
         // return $response;
         $user               = User::all()->count();
         $patient            = AppoinmentModel::all()->count();
-        $notificationsCount = AppoinmentModel::where('notifications',0);
-        $totalAppointment   = AppoinmentModel::where('appointment_type',1)->count();
-        $totalEarn          = AppoinmentModel::sum('fee');
+        $notificationsCount = AppoinmentModel::where('status', 'PROCESSING');
+        $totalAppointment   = AppoinmentModel::where('status','PROCESSING')->count();
+        // $totalEarn          = AppoinmentModel::sum('fee');
 
         // return $notificationsCount->orderBy('id', 'DESC')->first()->passportname;
         // dd($notificationsCount);
@@ -77,7 +77,7 @@ class AdminDashboard extends Controller
             'patient'               => $patient,
             'notificationsCount'    => $notificationsCount,
             'totalAppointment'      => $totalAppointment,
-            'totalEarn'             => $totalEarn,
+            // 'totalEarn'             => $totalEarn,
             'data'                  => json_encode($chart),
         ]);
     }
@@ -87,9 +87,9 @@ class AdminDashboard extends Controller
                 return $query->whereDate('created_at',$request->date);
             })
             ->when($request->select != null, function ($query) use ($request){
-                return $query->where('status',$request->select);
+                return $query->where('status','=',$request->select);
             })
-            ->where('appointment_type',1)
+
             ->paginate(10)
             ->withQueryString();
         // if ($request->select != '') {
@@ -123,18 +123,22 @@ class AdminDashboard extends Controller
         // return view('backend.data.video.index',['datas' => $data]);
     }
     function appointmentWatch($id){
-        AppoinmentModel::find($id)->update([
-            'notifications'  =>  1,
-        ]);
-       $data = AppoinmentModel::where('id',$id)->first();
-       $doctor = DoctorModel::where('id',$data->doctor_id)->first();
-       $payment = DB::table('orders')->where('order_id',$data->order_id)->first()->status;
-        // dd($data->con_attendant);
-       return view('backend.data.appointment.watch',[
-        'datas'       =>  $data,
-        'doctor'      =>  $doctor,
-        'payment'     =>  $payment,
-        ]);
+
+        $appoinment = AppoinmentModel::find($id);
+        return view('backend.data.appointment.watch',compact('appoinment'));
+
+        // AppoinmentModel::find($id)->update([
+        //     'notifications'  =>  1,
+        // ]);
+    //    $data = AppoinmentModel::where('id',$id)->first();
+    //    $doctor = DoctorModel::where('id',$data->doctor_id)->first();
+    //    $payment = DB::table('orders')->where('order_id',$data->order_id)->first()->status;
+    //     // dd($data->con_attendant);
+    //    return view('backend.data.appointment.watch',[
+    //     'datas'       =>  $data,
+    //     'doctor'      =>  $doctor,
+    //     'payment'     =>  $payment,
+    //     ]);
     }
     function visaInvitaion(Request $request){
         $data = AppoinmentModel::orderBy('id','DESC')
@@ -153,24 +157,31 @@ class AdminDashboard extends Controller
         // return view('backend.data.visa.index',['datas' => $data]);
     }
     function appointmentConfirmation(Request $request){
-        $request->validate([
-            'order_id'  =>'required',
-            'message'   =>'required',
-            'btn'       =>'required',
-        ]);
-        if ($request->btn == 1) {
-            $request->validate([
-                'date' =>'required',
-                'time' =>'required',
-            ]);
-            if (AppoinmentModel::where('order_id',$request->order_id)->exists()) {
-                AppoinmentModel::where('order_id',$request->order_id)->update([
-                    'status'        => 1,
-                    'activity'      => $request->date,
-                    'message'       => $request->message,
-                    'order_status'  => 1,
-                ]);
-                $message = 'Accepted ,'.'appointment date :'. $request->date.'. Note :'.$request->message;
+
+        $appoinment = AppoinmentModel::find($request->id);
+        $appoinment->status = $request->status;
+        $appoinment->note = $request->note;
+        $appoinment->save();
+        return redirect(route('user.data.appointment'));
+
+        // $request->validate([
+        //     'order_id'  =>'required',
+        //     'message'   =>'required',
+        //     'btn'       =>'required',
+        // ]);
+        // if ($request->btn == 1) {
+        //     $request->validate([
+        //         'date' =>'required',
+        //         'time' =>'required',
+        //     ]);
+        //     if (AppoinmentModel::where('order_id',$request->order_id)->exists()) {
+        //         AppoinmentModel::where('order_id',$request->order_id)->update([
+        //             'status'        => 1,
+        //             'activity'      => $request->date,
+        //             'message'       => $request->message,
+        //             'order_status'  => 1,
+        //         ]);
+        //         $message = 'Accepted ,'.'appointment date :'. $request->date.'. Note :'.$request->message;
                 // SMS
 
                 // $url = env('SMS_URL');
@@ -193,18 +204,21 @@ class AdminDashboard extends Controller
                 // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 // $response = curl_exec($ch);
                 // curl_close($ch);
-                return back()->with('succ','Order Confirmed');
-            }else {
-                return back()->with('err','Something is wrong');
-            }
-        }
-        elseif ($request->btn == 2) {
-            AppoinmentModel::where('order_id',$request->order_id)->update([
-                'status' => 2,
-                'message' => $request->message,
-                'order_status' => 0,
-            ]);
-            $message = 'Cancaled ,'.'. Note :'.$request->message;
+            //     return back()->with('succ','Order Confirmed');
+            // }else {
+            //     return back()->with('err','Something is wrong');
+            // }
+        // } return back()->with('succ','Order Confirmed');
+        //     // }else {
+        //     //     return back()->with('err','Something is wrong');
+        //     // }
+        // elseif ($request->btn == 2) {
+        //     AppoinmentModel::where('order_id',$request->order_id)->update([
+        //         'status' => 2,
+        //         'message' => $request->message,
+        //         'order_status' => 0,
+        //     ]);
+        //     $message = 'Cancaled ,'.'. Note :'.$request->message;
             // SMS
 
             // $url = env('SMS_URL');
@@ -227,7 +241,7 @@ class AdminDashboard extends Controller
             // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             // $response = curl_exec($ch);
             // curl_close($ch);
-            return back()->with('succ','Order Canceled');
-        }
+        //     return back()->with('succ','Order Canceled');
+        // }
     }
 }
