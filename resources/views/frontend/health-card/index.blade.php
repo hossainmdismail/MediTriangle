@@ -72,7 +72,7 @@
                         <div class="row">
                             <div class=" col-12 mb-4 form-group form-group-typ">
                                 <input type="text" class="form-control form-control-typ @error('name') border-bottom border-danger  @enderror" name="name" placeholder="" value="{{ old('name') }}" >
-                                <label  class="form-label form-label-typ"> <span class="text-danger">*</span> Name</label>
+                                <label  class="form-label form-label-typ"> Name<span class="text-danger">*</span></label>
                                 @error('name')
                                 <span class="text-sm text-danger" > {{$message}} </span>
                             @enderror
@@ -81,7 +81,7 @@
                         <div class="row">
                             <div class=" col-12 mb-4 form-group form-group-typ">
                                 <input type="text" class="form-control form-control-typ @error('number') border-bottom border-danger  @enderror"  name="number" placeholder="" value="{{ old('number') }}" >
-                                <label  class="form-label form-label-typ "> <span class="text-danger">*</span>Phone Number</label>
+                                <label  class="form-label form-label-typ "> Phone Number<span class="text-danger">*</span></label>
                                 @error('number')
                                     <span class="text-sm text-danger" > {{$message}} </span>
                                 @enderror
@@ -90,7 +90,7 @@
                         <div class="row">
                             <div class=" col-12 mb-4 form-group form-group-typ">
                                 <textarea type="text" class="form-control form-control-typ @error('address') border-bottom border-danger  @enderror" name="address" placeholder="" >{{ old('address') }}</textarea>
-                                <label  class="form-label form-label-typ">  <span class="text-danger">*</span>Address     </label>
+                                <label  class="form-label form-label-typ">  Address<span class="text-danger">*</span>     </label>
                                 @error('address')
                                     <span class="text-sm text-danger" > {{$message}} </span>
                                 @enderror

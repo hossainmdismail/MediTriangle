@@ -135,6 +135,9 @@
       color: #198754;
 
     }
+
+
+
 </style>
 
 
@@ -147,22 +150,24 @@
         <div class="col-lg-10 m-auto">
             <div class="card">
                 <div class="card-header " style="background-color: #1d2a4d;">
-                    <h3 class="text-white">Appointment</h3>
+                    <h3 class="text-white">Doctor Appointment</h3>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('store.appoinment') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="row mb-4">
-                            <div class="col-6">
+                        <div class="row my-4">
+                            <div class="col-md-6 mb-4">
+
                                 <select class="form-select border-bottom  bg-white border-0 country @error('country_id') is-invalid border-bottom border-danger @enderror" name="country_id"  >
-                                    <option value="" selected> Country</option>
+                                    <option value="" selected >Country </option>
 
                                     @foreach (App\Models\CountryModel::where('status', 1)->get() as $country)
                                     <option value="{{ $country->id }}">{{ $country->country }}</option>
                                     @endforeach
                                 </select>
+
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <select class="form-select border-bottom bg-white border-0 state @error('state_id') is-invalid border-bottom border-danger @enderror" id="state" name="state_id">
                                     <option value="{{old('state_id')}}" selected>{{old('state_id')}}City</option>
                                 </select>
@@ -170,12 +175,12 @@
 
                         </div>
                         <div class="row mb-4">
-                            <div class="col-6">
+                            <div class="col-md-6 mb-4">
                                 <select class="form-select border-bottom bg-white border-0 hospital @error('hospital_id') is-invalid border-bottom border-danger @enderror" id="hospital" name="hospital_id">
                                     <option value="" selected>Hospital</option>
                                 </select>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <select class="form-select border-bottom bg-white border-0 department @error('department_id') is-invalid border-bottom border-danger @enderror" id="departmentVal" name="department_id">
                                     <option value="" selected>Deparment</option>
                                 </select>
@@ -190,14 +195,14 @@
                         <div class="row mb-4">
 
 
-                            <div class="col-6 mb-3 form-group form-group-typ">
+                            <div class="col-md-6 mb-3 form-group form-group-typ">
                                 <input type="text" name="phone" class="form-control form-control-typ @error('phone') is-invalid border-bottom border-danger @enderror"  placeholder=""  value="{{ old('phone') }}" >
                                 <label  class="form-label form-label-typ">Phone Number</label>
                                 @error('phone')
                                     <span class="text tex-sm text-danger"> {{$message}} </span>
                                 @enderror
                             </div>
-                            <div class=" col-6 mb-3 form-group form-group-typ">
+                            <div class=" col-md-6 mb-3 form-group form-group-typ">
                                 <input type="text" class="form-control form-control-typ @error('email') is-invalid border-bottom border-danger @enderror" name="email" placeholder="" value="{{ old('email') }}">
                                 <label  class="form-label form-label-typ">Email</label>
                                 @error('email')

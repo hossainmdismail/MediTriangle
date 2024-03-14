@@ -4,7 +4,7 @@
     <div  class="container-fluid mb-5 px-0 ">
         <div class=" contact_img" >
             <div class=" ">
-                <h1 class="text-center text-primary display-4  ">Get In Touch </h1>
+                <h1 class="text-center text-primary display-4  ">Get Us </h1>
             </div>
         </div>
     </div>

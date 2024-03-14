@@ -156,7 +156,7 @@
                     <div class="card-body">
                         @csrf
                         <div class=" mb-4 ">
-                            <label  class="form-label "> Name</label> <span style="color: #f9a7a7; font-size:10px; " >(According Passport)</span>
+                            <label  class="form-label "> Name</label><span class="text-danger">*</span> <span style="color: #f9a7a7; font-size:10px; " >(According Passport)</span>
                             <input type="text" class="form-control input-default" name="name"   placeholder="" required>
                         </div>
                         <div class="row mb-3">
@@ -165,17 +165,17 @@
                                 <input type="text" class="form-control input-default " name="email" placeholder="" >
                             </div>
                             <div class="col-6 mb-3 form-group">
-                                <label  class="form-label form-label">Phone Number</label>
-                                <input type="number" name="phone" class="form-control input-default "   placeholder="" required>
+                                <label  class="form-label form-label">Phone Number</label><span class="text-danger">*</span>
+                                <input type="number" min="0" name="phone" class="form-control input-default "   placeholder="" required>
                             </div>
 
                         </div>
                         <div class=" mb-3 ">
-                            <label  class="form-label "> Passport Copy</label>
+                            <label  class="form-label "> Passport Copy</label><span class="text-danger">*</span>
                             <input type="file" class="form-control input-default" name="passport"   placeholder="" required>
                         </div>
                         <div class=" mb-4 ">
-                            <label  class="form-label "> Medical Report</label>
+                            <label  class="form-label "> Medical Report</label><span class="text-danger">*</span>
                             <input type="file" class="form-control input-default" name="prescription[]"   placeholder=""  multiple>
                         </div>
                         <div class="d-flex justify-content-between align-items-center ">

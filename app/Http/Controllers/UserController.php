@@ -7,6 +7,7 @@ use App\Models\BannnerModel;
 use App\Models\DepartmentModel;
 use App\Models\DoctorModel;
 use App\Models\HealthCard;
+use App\Models\HospitalModel;
 use App\Models\ServiceModel;
 
 
@@ -24,6 +25,7 @@ class UserController extends Controller
         $service =ServiceModel::where('status',1)->get();
         $department = DepartmentModel::where('status',1)->get();
         $healths = HealthCard::where('status',1)->get()->first();
+        $hospitals = HospitalModel::where('status',1)->get();
 
         SEOMeta::setTitle('Home');
         SEOMeta::setDescription('This is my page description');
@@ -48,6 +50,7 @@ class UserController extends Controller
             'services' => $service,
             'department' => $department,
             'healths' => $healths,
+            'hospitals' => $hospitals,
         ]);
     }
 }

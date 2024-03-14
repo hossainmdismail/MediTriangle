@@ -109,4 +109,11 @@ class FrontEndController extends Controller
         }
        return back();
     }
+
+    function hctc(){
+        return view('frontend.health-card-terms-and-conditions');
+    }
+    function privacypolicy(){
+        return view('frontend.privacyandpolicy');
+    }
 }

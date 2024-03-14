@@ -109,13 +109,19 @@
 <div class="container-fluid py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Hospitals in bangladesh</h5>
-            <h1 class="display-4">Our Hospital In Abroad</h1>
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Hospitals </h5>
+            <h1 class="display-4">Our Hospitals In Bangladesh</h1>
         </div>
         <div class="owl-carousel hospital-carousel position-relative">
-            @foreach ($doctors->take(5) as $doctor)
-            <div class="col-12">
-                <img class="img-fluid h-100" src="{{ asset('uploads/doctor/'.$doctor->profile) }}" style="object-fit: cover;">
+            @foreach ($hospitals->take(5) as $data)
+            <div class="col-lg-12 ">
+                <div class="card">
+                    <img src="{{asset('uploads/hospitalimage.jpg')}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h6 class="card-title">{{$data->con_state->state}}</h6>
+                      <h3 class="text-center" > {{$data->hospital}} </h3>
+                    </div>
+                  </div>
             </div>
             @endforeach
 
@@ -165,7 +171,7 @@
             <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Health Card</h5>
             <h1 class="display-4">Awesome Medical Programs</h1>
         </div>
-        <div class=" col-5 m-auto" style="padding: 0 45px 45px 45px;">
+        <div class=" col-lg-5 col-md-12 custom-p m-auto" style="padding: 0 45px 45px 45px;">
             @if ($healths )
             <div class="bg-light rounded text-center">
                 <div class="position-relative">

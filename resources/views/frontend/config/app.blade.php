@@ -159,7 +159,7 @@
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
                         Quick Links</h4>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Home</a>
+                        <a class="text-light mb-2" href="{{route('home')}}"><i class="fa fa-angle-right me-2"></i>Home</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>About Us</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Our
                             Services</a>
@@ -175,23 +175,26 @@
                         class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
                         Others</h4>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Privacy And Policies</a>
+                        <a class="text-light mb-2" href="{{route('privacypolicy')}}"><i class="fa fa-angle-right me-2"></i>Privacy And Policies</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Terms And Conditions</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Health Card Terms And Conditions</a>
+                        <a class="text-light mb-2" href="{{route('hctc')}}"><i class="fa fa-angle-right me-2"></i>Health Card Terms And Conditions</a>
 
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4
                         class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
-                        Newsletter</h4>
-                    <form action="">
+                        Follow Us</h4>
+                    {{-- <h4
+                        class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
+                        Newsletter</h4> --}}
+                    {{-- <form action="">
                         <div class="input-group">
                             <input type="text" class="form-control p-3 border-0" placeholder="Your Email Address">
                             <button class="btn btn-primary">Sign Up</button>
                         </div>
-                    </form>
-                    <h6 class="text-primary text-uppercase mt-4 mb-3">Follow Us</h6>
+                    </form> --}}
+                    {{-- <h6 class="text-primary text-uppercase mt-4 mb-3">Follow Us</h6> --}}
                     <div class="d-flex">
                         @forelse ($socials as $social)
                             <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2"

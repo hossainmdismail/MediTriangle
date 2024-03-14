@@ -209,6 +209,9 @@
         text-align: center;
         float: none !important;
     }
+    .custom-p {
+        padding: 0 !important;
+    }
 
 }
 
@@ -405,4 +408,5 @@
 
 
 /* sdfas */
+
 

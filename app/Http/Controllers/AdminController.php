@@ -17,6 +17,14 @@ class AdminController extends Controller
         return view('backend.auth.login');
 
     }
+    function register_2(){
+        $admin = AdminModel::all();
+        if($admin->count() == 0){
+            return view('backend.auth.register_2');
+        }else{
+            return view('backend.auth.login');
+        }
+    }
     function registerLink(){
         return view('backend.auth.register');
     }
@@ -32,7 +40,7 @@ class AdminController extends Controller
 
     // Store Data
     function register(Request $request){
-    
+
         $request->validate([
             'name'      => 'required',
             'email'     => 'required',
@@ -50,6 +58,25 @@ class AdminController extends Controller
         }else{
             return back()->with('error' , 'That email address is already registered. You sure you don\'t have an account?');
         }
+    }
+    // Store Data
+    function register2(Request $request){
+
+        $request->validate([
+            'name'      => 'required',
+            'email'     => 'required',
+            'password'  => 'required',
+        ]);
+
+            AdminModel::insert([
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'password'  => bcrypt($request->password),
+                'role'      => 1,
+                'created_at' =>Carbon::now(),
+            ]);
+            return back();
+       
     }
 
     //Logout

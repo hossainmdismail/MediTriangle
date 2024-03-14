@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('department_id');
             $table->string('name',255);
             $table->bigInteger('number');
-            $table->string('email',255);
+            $table->string('email',255)->nullable();
             $table->string('status',255)->nullable();
             $table->string('note',255)->nullable();
             $table->timestamps();

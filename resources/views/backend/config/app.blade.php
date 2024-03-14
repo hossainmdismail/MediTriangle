@@ -72,7 +72,7 @@
                         <li><a href="{{ route('user.data.videoInvitaion') }}"><i class="fa-solid fa-video"></i> Video Consultation</a></li>
                         <li><a href="{{ route('health.card.data') }}"><i class="fa-solid fa-capsules"></i> Health Card Application</a></li>
                         {{-- <li><a href="{{ route('admin.medicine.link') }}"><i class="fa-solid fa-capsules"></i> Medicine</a></li> --}}
-                        <li><a href="#"><i class="fa-solid fa-address-card"></i> Card</a></li>
+                        {{-- <li><a href="#"><i class="fa-solid fa-address-card"></i> Card</a></li> --}}
 
                         <li class="sidebar-dropdown">
                             <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-database"></i> DataBase <span style="margin-left:10px" class="badge bg-warning me-2 mt-2">important</span></a>
@@ -83,8 +83,8 @@
                                     <li><a href="{{ route('d.hospital') }}">Hospital</a> </li>
                                     <li><a href="{{route('health-card.index')}}">Health Card</a> </li>
                                     <li><a href="{{ route('d.department') }}">Department</a> </li>
-                                    <li><a href="{{ route('embassy.index') }}">Embassy</a> </li>
-                                    <li><a href="{{ route('visatype.index') }}">Passport Type</a> </li>
+                                    {{-- <li><a href="{{ route('embassy.index') }}">Embassy</a> </li> --}}
+                                    {{-- <li><a href="{{ route('visatype.index') }}">Passport Type</a> </li> --}}
                                 </ul>
                             </div>
                         </li>

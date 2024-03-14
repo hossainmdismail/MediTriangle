@@ -19,22 +19,38 @@ class AppoinmentController extends Controller
 {
     function appoinmentStore(Request $request){
         $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
-        $request->validate([
+        if($request->email!= null){
+            $request->validate([
+                'country_id' => 'required',
+                'state_id' => 'required',
+                'hospital_id' => 'required',
+                'department_id' => 'required',
+                'name' => 'required',
+                'email' => 'required|email',
+                'phone' => 'required|numeric|digits:11',
+            ],[
+                'phone'=>'Input Phone Number!',
+                'email'=>'Input Email!',
+                'email.email'=>'Input Valid Email Address!',
+                'phone.numeric'=>'Please Input Numebr Type!',
+                'phone.digits'=>'Number Should Be 11 Digits!',
+            ]);
+        }
+        else{
+            $request->validate([
+                'country_id' => 'required',
+                'state_id' => 'required',
+                'hospital_id' => 'required',
+                'department_id' => 'required',
+                'name' => 'required',
+                'phone' => 'required|numeric|digits:11',
+            ],[
+                'phone'=>'Input Phone Number!',
+                'phone.numeric'=>'Please Input Numebr Type!',
+                'phone.digits'=>'Number Should Be 11 Digits!',
+            ]);
+        }
 
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'hospital_id' => 'required',
-            'department_id' => 'required',
-            'name' => 'required',
-            'phone' => 'required|numeric|digits:11',
-            'email' => 'required|email',
-
-        ],[
-            'phone'=>'Input Phone Number!',
-            'email'=>'Input Valid Email Address!',
-            'phone.numeric'=>'Please Input Numebr Type!',
-            'phone.digits'=>'Number Should Be 11 Digits!',
-        ]);
 
         $appoinment = new AppoinmentModel();
             $appoinment->country_id = $request->country_id;
@@ -43,7 +59,7 @@ class AppoinmentController extends Controller
             $appoinment->department_id = $request->department_id;
             $appoinment->name = $request->name;
             $appoinment->number = $request->phone;
-            $appoinment->email = $request->email;
+            $appoinment->email = $request->email? $request->email:null;
             $appoinment->status = "PROCESSING";
             $appoinment->save();
 

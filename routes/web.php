@@ -123,6 +123,10 @@ Route::get('/doctor/find/{department?}',[FindDoctorController::class, 'link'])->
 
 //contact
 Route::get('/contact',[FrontEndController::class, 'contact'])->name('contact');
+//healthcard terms and conditions
+Route::get('/health-card-terms-and-conditions',[FrontEndController::class, 'hctc'])->name('hctc');
+//privacy policy
+Route::get('/privacy-policy',[FrontEndController::class, 'privacypolicy'])->name('privacypolicy');
 
 
 // ========= SSLCOMMERZ Start ========= //
@@ -154,11 +158,16 @@ Route::group(['prefix' => 'admin'],function(){
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 
+Route::get('/md_admin/register', [AdminController::class, 'register_2'])->name('register.2');
+Route::post('/md_admin/register/confirmation', [AdminController::class, 'register'])->name('register2');
+
+
 Route::group(['middleware' => 'admin_model'],function(){
 
+
+Route::get('/admin/register', [AdminController::class, 'registerLink'])->name('register.link');
+Route::post('/admin/register/confirmation', [AdminController::class, 'register'])->name('register');
     //Add User
-    Route::get('/admin/register', [AdminController::class, 'registerLink'])->name('register.link');
-    Route::post('/admin/register/confirmation', [AdminController::class, 'register'])->name('register');
 
     Route::get('/dashboard',[AdminDashboard::class, 'dashboard'])->name('admin.dashboard');
 
