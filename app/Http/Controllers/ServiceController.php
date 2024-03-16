@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ServiceModel;
 use Carbon\Carbon;
+use App\Models\ServiceModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
     function service(){
         $data = ServiceModel::all();
-        return view('backend.service.index',['datas' => $data]);
+        if (Auth::guard('admin_model')->user()->can('settings')) {
+            // Show the view page
+            return view('backend.service.index',['datas' => $data]);
+        } else {
+            return abort(404);
+        }
     }
     function serviceStore(Request $request){
         $math = ServiceModel::count();

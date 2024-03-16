@@ -19,6 +19,7 @@
             </div>
         </div><!--end row-->
 
+        @if (Auth::guard('admin_model')->user()->can('database'))
         <div class="row mb-3">
             <!-- Modal Start -->
             <div class="col-12 mt-2">
@@ -35,6 +36,7 @@
             </div><!--end col-->
             <!-- Modal End -->
         </div>
+        @endif
 
 
         <div class="row">

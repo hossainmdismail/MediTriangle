@@ -26,7 +26,13 @@ class AdminController extends Controller
         }
     }
     function registerLink(){
-        return view('backend.auth.register');
+        if (Auth::guard('admin_model')->user()->can('user')) {
+            // Show the view page
+            return view('backend.auth.register');
+
+        } else {
+            return abort(404);
+        }
     }
 
     //Login Authorize
@@ -76,7 +82,7 @@ class AdminController extends Controller
                 'created_at' =>Carbon::now(),
             ]);
             return back();
-       
+
     }
 
     //Logout

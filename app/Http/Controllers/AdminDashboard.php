@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\DoctorModel;
+use Illuminate\Http\Request;
 use App\Models\AppoinmentModel;
 use App\Models\AppoinmentReports;
-use App\Models\DoctorModel;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AdminDashboard extends Controller
 {
@@ -103,7 +104,12 @@ class AdminDashboard extends Controller
         //     ->paginate(10);
         // }
 
-        return view('backend.data.appointment.index',['datas' => $data]);
+        if (Auth::guard('admin_model')->user()->can('appointment')){
+
+            return view('backend.data.appointment.index',['datas' => $data]);
+        }else{
+            return abort(404);
+        }
     }
     function videoInvitaion(Request $request){
         $data = AppoinmentModel::orderBy('id','DESC')
@@ -125,7 +131,13 @@ class AdminDashboard extends Controller
     function appointmentWatch($id){
 
         $appoinment = AppoinmentModel::find($id);
+        if (Auth::guard('admin_model')->user()->can('appointment')){
+
         return view('backend.data.appointment.watch',compact('appoinment'));
+        }else{
+            return abort(404);
+        }
+
 
         // AppoinmentModel::find($id)->update([
         //     'notifications'  =>  1,
@@ -157,12 +169,18 @@ class AdminDashboard extends Controller
         // return view('backend.data.visa.index',['datas' => $data]);
     }
     function appointmentConfirmation(Request $request){
+        if (Auth::guard('admin_model')->user()->can('appointment')){
 
-        $appoinment = AppoinmentModel::find($request->id);
+ $appoinment = AppoinmentModel::find($request->id);
         $appoinment->status = $request->status;
         $appoinment->note = $request->note;
         $appoinment->save();
         return redirect(route('user.data.appointment'));
+            }else{
+                return abort(404);
+            }
+
+
 
         // $request->validate([
         //     'order_id'  =>'required',

@@ -116,7 +116,12 @@
                                     {{-- <th class="border-bottom p-3">Name</th>
                                     <th class="border-bottom p-3"  style="min-width: 180px;">Title</th> --}}
                                     <th class="border-bottom p-3">Status</th>
+                                    @if (Auth::guard('admin_model')->user()->can('edit') || Auth::guard('admin_model')->user()->can('delete'))
+
                                     <th class="border-bottom p-3 " style="min-width: 100px;">Action</th>
+                                    @else
+                                    <th></th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -127,9 +132,12 @@
                                     <td class="desLimit">{{$data->title }}</td> --}}
                                     <td><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td>
                                     <td class="">
+                                        @if (Auth::guard('admin_model')->user()->can('edit'))
                                         <a href="{{ $data->id }}" class="update_value btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#appointmentform"><i class="fa-solid fa-pen-to-square"></i></a>
-
+                                        @endif
+                                        @if (Auth::guard('admin_model')->user()->can('delete'))
                                         <a href="{{ route('banner.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm"  class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

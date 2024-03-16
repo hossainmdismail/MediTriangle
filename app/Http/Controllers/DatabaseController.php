@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CountryModel;
-use App\Models\DepartmentModel;
-use App\Models\HospitalModel;
-use App\Models\SpecialityModel;
-use App\Models\StateModel;
 use Carbon\Carbon;
+use App\Models\StateModel;
+use App\Models\CountryModel;
 use Illuminate\Http\Request;
+use App\Models\HospitalModel;
+use App\Models\DepartmentModel;
+use App\Models\SpecialityModel;
+use Illuminate\Support\Facades\Auth;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class DatabaseController extends Controller
@@ -16,7 +17,14 @@ class DatabaseController extends Controller
     //Country Link
     function country(){
         $data = CountryModel::where('status',1)->paginate(8);
-        return view('backend.database.country',['datas' => $data]);
+
+        if (Auth::guard('admin_model')->user()->can('database')) {
+            return view('backend.database.country',['datas' => $data]);
+            // Show the view page
+        } else {
+            return abort(404);
+        }
+
     }
     function countryStore(Request $request){
         $request->validate([
@@ -52,7 +60,13 @@ class DatabaseController extends Controller
     function state(){
         $data = StateModel::where('status',1)->paginate(8);
         $country = CountryModel::where('status',1)->get();
-        return view('backend.database.state',['datas' => $data,'countries' => $country]);
+        if (Auth::guard('admin_model')->user()->can('database')) {
+            return view('backend.database.state',['datas' => $data,'countries' => $country]);
+            // Show the view page
+        } else {
+            return abort(404);
+        }
+
     }
     function stateStore(Request $request){
         $request->validate([
@@ -90,7 +104,13 @@ class DatabaseController extends Controller
     function hospital(){
         $data = HospitalModel::where('status',1)->paginate(8);
         $country = CountryModel::where('status',1)->get();
-        return view('backend.database.hospital',['datas' => $data,'countries' => $country]);
+        if (Auth::guard('admin_model')->user()->can('database')) {
+            return view('backend.database.hospital',['datas' => $data,'countries' => $country]);
+            // Show the view page
+        } else {
+            return abort(404);
+        }
+
     }
     function hospitalStore(Request $request){
         $request->validate([
@@ -135,7 +155,13 @@ class DatabaseController extends Controller
     function department(){
         $sp = SpecialityModel::where('status',1)->paginate(8);
         $data = DepartmentModel::where('status',1)->paginate(8);
-        return view('backend.database.department',['datas' => $data,'sps' => $sp]);
+        if (Auth::guard('admin_model')->user()->can('database')) {
+            return view('backend.database.department',['datas' => $data,'sps' => $sp]);
+            // Show the view page
+        } else {
+            return abort(404);
+        }
+
     }
     function departmentStore(Request $request){
         $request->validate([

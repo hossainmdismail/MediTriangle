@@ -9,12 +9,13 @@ use App\Models\DoctorModel;
 use App\Models\HealthCard;
 use App\Models\HospitalModel;
 use App\Models\ServiceModel;
-
-
 use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\OpenGraph;
-use Artesaos\SEOTools\Facades\TwitterCard;
 use Artesaos\SEOTools\Facades\JsonLd;
+
+
+
 
 class UserController extends Controller
 {
@@ -26,22 +27,27 @@ class UserController extends Controller
         $department = DepartmentModel::where('status',1)->get();
         $healths = HealthCard::where('status',1)->get()->first();
         $hospitals = HospitalModel::where('status',1)->get();
+       
+            SEOMeta::setTitle('Home'); //web title
+            SEOTools::setDescription('this is description');
+            SEOMeta::addKeyword('this is tags');
+            OpenGraph::setTitle('this is seo title');
+            SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
+        // SEOMeta::setTitle('Home');
+        // SEOMeta::setDescription('This is my page description');
+        // SEOMeta::setCanonical('https://meditriangle.com');
 
-        SEOMeta::setTitle('Home');
-        SEOMeta::setDescription('This is my page description');
-        SEOMeta::setCanonical('https://meditriangle.com');
+        // OpenGraph::setDescription('This is my page description');
+        // OpenGraph::setTitle('Home');
+        // OpenGraph::setUrl('https://meditriangle.com');
+        // OpenGraph::addProperty('type', 'articles');
 
-        OpenGraph::setDescription('This is my page description');
-        OpenGraph::setTitle('Home');
-        OpenGraph::setUrl('https://meditriangle.com');
-        OpenGraph::addProperty('type', 'articles');
+        // TwitterCard::setTitle('Homepage');
+        // TwitterCard::setSite('https://meditriangle.com');
 
-        TwitterCard::setTitle('Homepage');
-        TwitterCard::setSite('https://meditriangle.com');
-
-        JsonLd::setTitle('Homepage');
-        JsonLd::setDescription('This is my page description');
-        JsonLd::addImage('http://meditriangle.com/frontend/brand.png');
+        // JsonLd::setTitle('Homepage');
+        // JsonLd::setDescription('This is my page description');
+        // JsonLd::addImage('http://meditriangle.com/frontend/brand.png');
 
         return view('frontend.index',[
             'about' => $about,

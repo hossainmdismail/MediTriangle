@@ -122,7 +122,12 @@
                                     <th>Price</th>
                                     <th >Benifits</th>
                                     <th >Status</th>
-                                    <th >Action</th>
+                                    @if (Auth::guard('admin_model')->user()->can('edit') || Auth::guard('admin_model')->user()->can('delete'))
+                                        <th >Action</th>
+                                    @else
+                                        <th></th>
+                                    @endif
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -150,12 +155,16 @@
                                     <td><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td>
                                     {{-- <td><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td> --}}
                                     <td class="">
+                                        @if (Auth::guard('admin_model')->user()->can('edit'))
                                         <a href="{{route('health-card.edit',$data->id)}}" class=" btn btn-icon btn-pills btn-soft-success d" ><i class="fa-solid fa-pen-to-square"></i></a>
+                                        @endif
+                                        @if (Auth::guard('admin_model')->user()->can('delete'))
                                         <form action="{{ route('health-card.destroy',$data->id) }}" method="POST" class="display-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"  class="delete_value btn btn-icon btn-pills btn-soft-danger d"><i class="fa-solid fa-trash"></i></button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

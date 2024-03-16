@@ -14,9 +14,19 @@ use Illuminate\Http\Request;
 use App\Models\VisaModelResport;
 use Illuminate\Support\Facades\Auth;
 
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\SEOTools;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\JsonLd;
+
 class VisaController extends Controller
 {
     function visaLink(){
+        SEOMeta::setTitle('Visa'); //web title
+        SEOTools::setDescription('this is description');
+        SEOMeta::addKeyword('this is tags');
+        OpenGraph::setTitle('this is seo title');
+        SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
         return view('frontend.visa.index');
     }
     function visaStore(Request $request){

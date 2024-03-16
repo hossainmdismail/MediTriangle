@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use ArrayIterator;
 use MultipleIterator;
 use App\Models\HealthCard;
-use App\Models\HealthCardApplicaton;
 use Illuminate\Http\Request;
+use App\Models\HealthCardApplicaton;
+use Illuminate\Support\Facades\Auth;
 
 class HealthCardController extends Controller
 {
@@ -18,7 +19,13 @@ class HealthCardController extends Controller
 
         $healths = HealthCard::all();
 
-        return view('backend.health-card.index',compact('healths'));
+        if (Auth::guard('admin_model')->user()->can('database')) {
+            return view('backend.health-card.index',compact('healths'));
+            // Show the view page
+        } else {
+            return abort(404);
+        }
+
     }
 
     /**
@@ -66,7 +73,19 @@ class HealthCardController extends Controller
     public function edit(string $id)
     {
         $healths= HealthCard::find($id);
-        return view('backend.health-card.edit', compact('healths',));
+
+        if (Auth::guard('admin_model')->user()->can('database')) {
+            if (Auth::guard('admin_model')->user()->can('edit')){
+
+                return view('backend.health-card.edit', compact('healths',));
+            }else {
+                return abort(404);
+            }
+            // Show the view page
+        } else {
+            return abort(404);
+        }
+
     }
 
     /**
@@ -101,17 +120,32 @@ class HealthCardController extends Controller
 
     public function healthCardData(){
         $applicatios = HealthCardApplicaton::all();
-        return view('backend.health-card.healthCardApplication', compact('applicatios'));
+        if (Auth::guard('admin_model')->user()->can('health_card_application')){
+            return view('backend.health-card.healthCardApplication', compact('applicatios'));
+        }else{
+            return abort(404);
+        }
+
     }
     public function healthCardDataEdit($id){
         $applications = HealthCardApplicaton::find($id);
-       return view('backend.health-card.editHealthCardApplication',compact('applications'));
+        if (Auth::guard('admin_model')->user()->can('health_card_application')){
+            return view('backend.health-card.editHealthCardApplication',compact('applications'));
+        }else{
+            return abort(404);
+        }
+
     }
     public function healthCardDataUpdate(Request $request ){
-        $applications = HealthCardApplicaton::find($request->id);
-        $applications->status = $request->status;
-        $applications->note = $request->note;
-        $applications->save();
-        return redirect(route('health.card.data'));
+        if (Auth::guard('admin_model')->user()->can('health_card_application')){
+            $applications = HealthCardApplicaton::find($request->id);
+            $applications->status = $request->status;
+            $applications->note = $request->note;
+            $applications->save();
+            return redirect(route('health.card.data'));
+        }else{
+            return abort(404);
+        }
+
     }
 }

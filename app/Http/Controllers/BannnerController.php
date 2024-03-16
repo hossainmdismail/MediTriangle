@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BannnerModel;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Image;
+use Carbon\Carbon;
+use App\Models\BannnerModel;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class BannnerController extends Controller
 {
     function banner(){
         $data = BannnerModel::all();
-        return view('backend.banner.index',['datas' => $data]);
+        if (Auth::guard('admin_model')->user()->can('settings')) {
+            // Show the view page
+            return view('backend.banner.index',['datas' => $data]);
+
+        } else {
+            return abort(404);
+        }
     }
     function bannerStore(Request $request){
         // BannnerModel::where('status',1)->update([
@@ -41,7 +49,7 @@ class BannnerController extends Controller
     }
     function bannerEdit(Request $request){
 
-        
+
 
         if ($request->id !=null) {
             // if ($request->status == 1) {

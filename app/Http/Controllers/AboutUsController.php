@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AboutModel;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Image;
+use Carbon\Carbon;
+use App\Models\AboutModel;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class AboutUsController extends Controller
 {
     function about(){
         $data = AboutModel::all();
-        return view('backend.about.index',['datas' => $data]);
+        if (Auth::guard('admin_model')->user()->can('settings')) {
+            // Show the view page
+
+            return view('backend.about.index',['datas' => $data]);
+        } else {
+            return abort(404);
+        }
     }
     function aboutStore(Request $request){
         AboutModel::where('status',1)->update([

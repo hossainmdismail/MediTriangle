@@ -67,13 +67,22 @@
 
                     <ul class="sidebar-menu">
                         <li><a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-house me-2 d-inline-block"></i> Dashboard</a></li>
+                        @if (Auth::guard('admin_model')->user()->can('appointment'))
                         <li><a href="{{ route('user.data.appointment') }}"><i class="fa-regular fa-calendar-check"></i></i> Appointment</a></li>
+                        @endif
+                        @if (Auth::guard('admin_model')->user()->can('visa_invitation'))
+
                         <li><a href="{{ route('user.data.visaInvitaion') }}"><i class="fa-brands fa-cc-visa"></i> Visa Invitation</a></li>
+                        @endif
+                        @if (Auth::guard('admin_model')->user()->can('video_consultation'))
                         <li><a href="{{ route('user.data.videoInvitaion') }}"><i class="fa-solid fa-video"></i> Video Consultation</a></li>
+                        @endif
+                        @if (Auth::guard('admin_model')->user()->can('health_card_application'))
                         <li><a href="{{ route('health.card.data') }}"><i class="fa-solid fa-capsules"></i> Health Card Application</a></li>
+                        @endif
                         {{-- <li><a href="{{ route('admin.medicine.link') }}"><i class="fa-solid fa-capsules"></i> Medicine</a></li> --}}
                         {{-- <li><a href="#"><i class="fa-solid fa-address-card"></i> Card</a></li> --}}
-
+                        @if (Auth::guard('admin_model')->user()->can('database'))
                         <li class="sidebar-dropdown">
                             <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-database"></i> DataBase <span style="margin-left:10px" class="badge bg-warning me-2 mt-2">important</span></a>
                             <div class="sidebar-submenu">
@@ -88,25 +97,34 @@
                                 </ul>
                             </div>
                         </li>
+                        @endif
+
                         {{-- <li><a href="appointment.html"><i class="fa-solid fa-user-doctor"></i>Doctors</a></li> --}}
+                        @if (Auth::guard('admin_model')->user()->can('doctors'))
+                            <li class="sidebar-dropdown">
+                                <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-user-doctor"></i> Doctors</a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li><a href="{{ route('doctor.link') }}">Add Doctor</a></li>
+                                        <li><a href="{{ route('doctor.manage') }}">Manage Doctor</a></li>
 
-                        <li class="sidebar-dropdown">
-                            <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-user-doctor"></i> Doctors</a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li><a href="{{ route('doctor.link') }}">Add Doctor</a></li>
-                                    <li><a href="{{ route('doctor.manage') }}">Manage Doctor</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
 
-                                </ul>
-                            </div>
-                        </li>
 
+                        @if (Auth::guard('admin_model')->user()->can('settings'))
                         <li class="sidebar-dropdown">
                             <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-tv"></i>Settings </a>
                             <div class="sidebar-submenu">
                                 <ul>
-                                    <li><a href="{{ route('register.link') }}">Add User</a></li>
-                                    <li><a href="{{ route('role.link') }}">Role Management</a></li>
+                                    @if (Auth::guard('admin_model')->user()->can('user'))
+                                        <li><a href="{{ route('register.link') }}">Add User</a></li>
+                                    @endif
+                                    @if (Auth::guard('admin_model')->user()->can('role'))
+                                        <li><a href="{{ route('role.link') }}">Role Management</a></li>
+                                    @endif
                                     <li><a href="{{ route('owner.link') }}">Website Info</a></li>
                                     <li><a href="{{ route('d.social') }}">Social Media</a></li>
                                     <li><a href="{{ route('d.service') }}">Service</a></li>
@@ -117,6 +135,7 @@
                                 </ul>
                             </div>
                         </li>
+                        @endif
 
                         {{-- <li><a href="" target="_blank"><i class="uil uil-window me-2 d-inline-block"></i>Landing page</a></li> --}}
                     </ul>
@@ -164,6 +183,7 @@
 
                         <ul class="list-unstyled mb-0">
 
+
                             <li class="list-inline-item mb-0 ms-1">
                                 <div class="dropdown dropdown-primary">
                                     <button type="button" class="btn btn-icon btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-inbox"></i></button>
@@ -210,21 +230,23 @@
                                 </div>
                             </li>
 
+
                             <li class="list-inline-item mb-0 ms-1">
                                 <div class="dropdown dropdown-primary">
                                     <button type="button" class="btn btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('backend/images/doctors/01.jpg') }}" class="avatar avatar-ex-small rounded-circle" alt=""></button>
                                     <div class="dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3" style="min-width: 200px;">
-                                        <a class="dropdown-item d-flex align-items-center text-dark" href="profile.html">
+                                        <a class="dropdown-item d-flex align-items-center text-dark" href="#">
                                             <img src="{{ asset('backend/images/doctors/01.jpg') }}" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
                                             <div class="flex-1 ms-2">
-                                                <span class="d-block mb-1">Calvin Carlo</span>
-                                                <small class="text-muted">Orthopedic</small>
+                                                <span class="d-block mb-1"> {{Auth::guard('admin_model')->user()->name}} </span>
+                                                <small class="text-muted">{{Auth::guard('admin_model')->user()->getRoleNames()}}  </small>
                                             </div>
                                         </a>
-                                        <a class="dropdown-item text-dark" href="index.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-dashboard align-middle h6"></i></span> Dashboard</a>
-                                        <a class="dropdown-item text-dark" href="dr-profile.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-setting align-middle h6"></i></span> Profile Settings</a>
+                                        {{-- <a class="dropdown-item text-dark" href="index.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-dashboard align-middle h6"></i></span> Dashboard</a>
+                                        <a class="dropdown-item text-dark" href="dr-profile.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-setting align-middle h6"></i></span> Profile Settings</a> --}}
                                         <div class="dropdown-divider border-top"></div>
-                                        <a class="dropdown-item text-dark" href="{{ route('admin.logout') }}"><span class="mb-0 d-inline-block me-1"><i class="uil uil-sign-out-alt align-middle h6"></i></span> Logout</a>
+                                        <a class="dropdown-item text-dark" href="{{ route('admin.logout') }}"><span class="mb-0 d-inline-block me-1"></span> Logout</a>
+                                        {{-- <i class="uil uil-sign-out-alt align-middle h6"></i> --}}
                                     </div>
                                 </div>
                             </li>

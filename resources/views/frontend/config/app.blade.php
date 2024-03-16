@@ -10,6 +10,12 @@
             ->get()
             ->take(5);
     @endphp
+
+{!! SEOMeta::generate() !!}
+{!! OpenGraph::generate() !!}
+{!! Twitter::generate() !!}
+{!! JsonLd::generate() !!}
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- {!! SEOMeta::generate() !!}

@@ -117,8 +117,12 @@
                                 <h5 class="text-muted mb-0 badge bg-soft-info">৳-{{ $data->fee }}</h5>
                                 <h5 class="text-muted mb-0 badge bg-soft-info"> Years old</h5>
                                 <div class="confirm my-3">
+                                    @if (Auth::guard('admin_model')->user()->can('invoice_edit'))
                                     <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#confirm">Confirm</button>
+                                    @endif
+                                    @if (Auth::guard('admin_model')->user()->can('invoice_delete'))
                                     <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#cancel">Cancel</button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -235,6 +239,9 @@
                                                                 <td> {{$data->number}} </td>
                                                                 <td>
                                                                     <img style="width: 100%; height: 100px;" src="{{ asset('uploads/attendant/'.$data->passport) }}" class="img-fluid" alt="">
+                                                                    <a href="{{ asset('uploads/attendant/'.$data->passport) }}" class="btn btn-icon btn-pills btn-soft-danger download" download>
+                                                                        <i class="fa-solid fa-arrow-down"></i>
+                                                                    </a>
                                                                 </td>
                                                             </tr>
 
@@ -260,6 +267,7 @@
                         </div>
 
                         <div class="col-lg-6 my-3">
+
                             <div class="card team border-0 rounded shadow overflow-hidden">
                                 <div class="card-header">
                                     <h5>Passport</h5>
@@ -267,10 +275,10 @@
                                 <div class="row">
                                     <div class="col-3">
                                         <div class="team-person position-relative overflow-hidden">
-                                            <img style="width: 100%" src="{{ asset('uploads/visa/'.$data->passport) }}" class="img-fluid" alt="">
+                                            <img style="width: 100%" src="{{ asset('uploads/visa/'.$datas->passport) }}" class="img-fluid" alt="">
                                             <ul class="list-unstyled team-like">
                                                 <li>
-                                                    <a href="{{ asset('uploads/visa/'.$data->passport) }}" class="btn btn-icon btn-pills btn-soft-danger download" download>
+                                                    <a href="{{ asset('uploads/visa/'.$datas->passport) }}" class="btn btn-icon btn-pills btn-soft-danger download" download>
                                                         <i class="fa-solid fa-arrow-down"></i>
                                                     </a>
                                                 </li>
@@ -279,6 +287,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             {{-- Reports --}}
                             <div class="card mt-4 border-0 rounded shadow">
                                 <div class="card-header">

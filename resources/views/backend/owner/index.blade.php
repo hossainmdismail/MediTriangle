@@ -58,7 +58,12 @@
                                     <th class="border-bottom p-3" style="min-width: 50px;">Id</th>
                                     <th class="border-bottom p-3" style="min-width: 180px;">Information</th>
                                     <th class="border-bottom p-3">Status</th>
+                                    @if (Auth::guard('admin_model')->user()->can('edit') || Auth::guard('admin_model')->user()->can('delete'))
                                     <th class="border-bottom p-3 text-center" style="min-width: 100px;">Action</th>
+                                    @else
+                                    <th></th>
+                                    @endif
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,11 +80,14 @@
                                     <td class="p-3"><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td>
                                     <td class="text-end p-3">
                                         {{-- <a href="#" class="btn btn-icon btn-pills btn-soft-primary" data-bs-toggle="modal" data-bs-target="#viewprofile"><i class="uil uil-eye"></i></a> --}}
+                                        @if (Auth::guard('admin_model')->user()->can('edit'))
                                         <a href="{{ route('owner.edit',$data->id) }}" class="btn btn-icon btn-pills btn-soft-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        @endif
 
                                         {{-- <a href="{{ route('owner.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm" class="btn btn-primary m-1"> Click Here</a> --}}
-
+                                        @if (Auth::guard('admin_model')->user()->can('delete'))
                                         <a href="{{ route('owner.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm"  class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

@@ -27,7 +27,7 @@
                                             {{ $permission.' / ' }}
                                             @endforeach
                                         </td>
-                                        @if (Auth::guard('admin_model')->user()->can('delete_options'))
+                                        @if (Auth::guard('admin_model')->user()->can('delete'))
                                         <td><a class="btn btn-sm btn-danger" href="{{ route('delete.role',$roles->id) }}">Delete</a></td>
                                         @endif
                                     </tr>
@@ -65,7 +65,7 @@
                                             Member
                                             @endforelse
                                         </td>
-                                        @if (Auth::guard('admin_model')->user()->can('delete_options'))
+                                        @if (Auth::guard('admin_model')->user()->can('delete'))
                                             <td><a class="btn btn-sm btn-danger" href="{{ route('remove.role',$users->id) }}">Remove</a></td>
                                         @endif
 
@@ -100,8 +100,13 @@
                             <form action="{{ route('role.store') }}" method="post">
                                 @csrf
                                 <div class="mt-3">
-                                    <input type="text" class="form-control" name="role_name" placeholder="Role Name">
+                                    <input type="text" class="form-control " name="role_name" placeholder="Role Name">
+
                                 </div>
+                                @error('role_name')
+                                    <span class="text-sm text-danger" > {{$message}} </span>
+                                @enderror
+
                                 <div class="form-group">
                                     @foreach ($permissions as $permission)
                                         <div class="form-check form-check-inline">

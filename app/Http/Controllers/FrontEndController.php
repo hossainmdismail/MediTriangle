@@ -7,11 +7,20 @@ use App\Models\HealthCardApplicaton;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\SEOTools;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\JsonLd;
 
 class FrontEndController extends Controller
 {
     //Appoinmnet
     function appoinmentLink(){
+        SEOMeta::setTitle('Appoinment'); //web title
+        SEOTools::setDescription('this is description');
+        SEOMeta::addKeyword('this is tags');
+        OpenGraph::setTitle('this is seo title');
+        SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
         return view('frontend.appoinment.index');
     }
     function loginLink(){
@@ -66,6 +75,11 @@ class FrontEndController extends Controller
         return view('frontend.thankyou');
     }
     function index(){
+        SEOMeta::setTitle('Health Card'); //web title
+        SEOTools::setDescription('this is description');
+        SEOMeta::addKeyword('this is tags');
+        OpenGraph::setTitle('this is seo title');
+        SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
         $healths = HealthCard::where('status',1)->get()->first();
         return view('frontend.health-card.index',compact('healths'));
     }
@@ -111,9 +125,19 @@ class FrontEndController extends Controller
     }
 
     function hctc(){
+        SEOMeta::setTitle('Health Card Terms And Conditions'); //web title
+        SEOTools::setDescription('this is description');
+        SEOMeta::addKeyword('this is tags');
+        OpenGraph::setTitle('this is seo title');
+        SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
         return view('frontend.health-card-terms-and-conditions');
     }
     function privacypolicy(){
+        SEOMeta::setTitle('Privacy Policy'); //web title
+        SEOTools::setDescription('this is description');
+        SEOMeta::addKeyword('this is tags');
+        OpenGraph::setTitle('this is seo title');
+        SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
         return view('frontend.privacyandpolicy');
     }
 }

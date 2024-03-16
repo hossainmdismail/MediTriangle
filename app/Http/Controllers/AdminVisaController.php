@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DoctorModel;
-use App\Models\VideoConsultAttendant;
 use App\Models\VisaModel;
-use App\Models\VisaModelResport;
+use App\Models\DoctorModel;
 use Illuminate\Http\Request;
+use App\Models\VisaModelResport;
+use Illuminate\Support\Facades\Auth;
+use App\Models\VideoConsultAttendant;
 
 class AdminVisaController extends Controller
 {
@@ -20,7 +21,12 @@ class AdminVisaController extends Controller
             })
             ->paginate(10)
             ->withQueryString();
-        return view('backend.data.visa.index',['datas' => $data]);
+            if (Auth::guard('admin_model')->user()->can('visa_invitation')){
+                return view('backend.data.visa.index',['datas' => $data]);
+            }else{
+                return abort(404);
+            }
+
     }
 
     function visaWatch($id){
@@ -28,16 +34,23 @@ class AdminVisaController extends Controller
             'notifications'  =>  1,
         ]);
        $data = VisaModel::where('id',$id)->first();
+       $datas = VisaModel::where('id',$id)->first();
        $doctor = DoctorModel::where('id',$data->doctor_id)->first();
        $visaReports = VisaModelResport::where('order_id',$data->order_id)->get();
        $attendants = VideoConsultAttendant::where('order_id',$data->order_id)->get();
 
-       return view('backend.data.visa.watch',[
-        'data'       =>  $data,
-        'doctor'      =>  $doctor,
-        'visa'        =>  $visaReports,
-        'attendants'        =>  $attendants,
-        ]);
+       if (Auth::guard('admin_model')->user()->can('visa_invitation')){
+        return view('backend.data.visa.watch',[
+            'data'       =>  $data,
+            'datas'       =>  $datas,
+            'doctor'      =>  $doctor,
+            'visa'        =>  $visaReports,
+            'attendants'        =>  $attendants,
+            ]);
+    }else{
+        return abort(404);
+    }
+
     }
 
     function visaInvitaion(Request $request){

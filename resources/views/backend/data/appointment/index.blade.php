@@ -139,7 +139,9 @@
                                 <td class="p-3">৳-{{ number_format($data->fee) }}</td> --}}
 
                                 <td class="text-end p-3">
+                                    @if (Auth::guard('admin_model')->user()->can('invoice_edit'))
                                     <a href="{{ route('appointment.watch',$data->id) }}" class="watch btn btn-icon btn-pills btn-soft-"><i class="fa-solid fa-pen-to-square "></i></a>
+                                    @endif
                                     {{-- <a href="#" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#acceptappointment"><i class="fa-solid fa-check"></i></a>
                                     <a href="#" class="btn btn-icon btn-pills btn-soft-danger" data-bs-toggle="modal" data-bs-target="#cancelappointment"><i class="fa-solid fa-xmark"></i></a> --}}
                                 </td>

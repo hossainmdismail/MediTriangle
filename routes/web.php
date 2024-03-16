@@ -165,8 +165,8 @@ Route::post('/md_admin/register/confirmation', [AdminController::class, 'registe
 Route::group(['middleware' => 'admin_model'],function(){
 
 
-Route::get('/admin/register', [AdminController::class, 'registerLink'])->name('register.link');
-Route::post('/admin/register/confirmation', [AdminController::class, 'register'])->name('register');
+    Route::get('/admin/register', [AdminController::class, 'registerLink'])->name('register.link');
+    Route::post('/admin/register/confirmation', [AdminController::class, 'register'])->name('register');
     //Add User
 
     Route::get('/dashboard',[AdminDashboard::class, 'dashboard'])->name('admin.dashboard');

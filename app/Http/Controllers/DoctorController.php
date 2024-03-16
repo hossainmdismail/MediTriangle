@@ -12,7 +12,14 @@ use Image;
 class DoctorController extends Controller
 {
     function doctorLink(){
-        return view('backend.doctor.index');
+        if (Auth::guard('admin_model')->user()->can('doctors')) {
+            // Show the view page
+            return view('backend.doctor.index');
+        } else {
+            return abort(404);
+        }
+
+
     }
     function doctorStore(Request $request){
         $request->validate([
@@ -49,7 +56,12 @@ class DoctorController extends Controller
     }
     function doctorEdit($id){
         $data = DoctorModel::where('id',$id)->first();
-        return view('backend.doctor.edit',['datas'=>$data]);
+        if (Auth::guard('admin_model')->user()->can('doctors')) {
+            // Show the view page
+            return view('backend.doctor.edit',['datas'=>$data]);
+        } else {
+            return abort(404);
+        }
     }
     function doctorUpdate(Request $request){
         $request->validate([
@@ -98,6 +110,12 @@ class DoctorController extends Controller
     // manage link
     function doctorManage(){
         $data = DoctorModel::where('status',1)->paginate(10);
-        return view('backend.doctor.manage',['datas' => $data]);
+        if (Auth::guard('admin_model')->user()->can('doctors')) {
+            // Show the view page
+            return view('backend.doctor.manage',['datas' => $data]);
+        } else {
+            return abort(404);
+        }
+
     }
 }

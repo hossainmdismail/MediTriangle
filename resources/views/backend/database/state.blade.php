@@ -116,7 +116,12 @@
                                 <th class="border-bottom p-3" style="min-width: 180px;">State</th>
                                 <th class="border-bottom p-3">Status</th>
                                 <th class="border-bottom p-3">Created</th>
+                                @if (Auth::guard('admin_model')->user()->can('edit') || Auth::guard('admin_model')->user()->can('delete'))
                                 <th class="border-bottom p-3 text-end" style="min-width: 100px;">Action</th>
+                                @else
+                                <th></th>
+                                @endif
+
                             </tr>
                             </thead>
                             <tbody>
@@ -131,8 +136,12 @@
                                         <span class="{{ $data->con_country == null ?'badge bg-soft-danger':'' }}">{{ $data->con_country == null ?'Edit ':'' }}</span></td>
                                     <td class="p-3">{{ $data->created_at->diffForHumans() }}</td>
                                     <td class="text-end p-3">
+                                        @if (Auth::guard('admin_model')->user()->can('edit') )
                                         <a href="{{ $data->state }}" data-value="{{ $data->id }}" class="update_value btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#update"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        @endif
+                                        @if (Auth::guard('admin_model')->user()->can('delete') )
                                         <a href="{{ route('state.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm" class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

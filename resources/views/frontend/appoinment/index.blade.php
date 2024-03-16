@@ -204,7 +204,7 @@
                             </div>
                             <div class=" col-md-6 mb-3 form-group form-group-typ">
                                 <input type="text" class="form-control form-control-typ @error('email') is-invalid border-bottom border-danger @enderror" name="email" placeholder="" value="{{ old('email') }}">
-                                <label  class="form-label form-label-typ">Email</label>
+                                <label  class="form-label form-label-typ">Email <span style="color: #f9a7a7; font-size:10px; " >(Optional)</span></label>
                                 @error('email')
                                 <span class="text tex-sm text-danger"> {{$message}} </span>
                             @enderror

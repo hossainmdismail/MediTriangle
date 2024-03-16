@@ -117,8 +117,13 @@
                                 <h5 class="text-muted mb-0 badge bg-soft-info">৳-{{ $datas->fee }}</h5>
                                 <h5 class="text-muted mb-0 badge bg-soft-info">{{ $datas->age }} Years old</h5>
                                 <div class="confirm my-3">
+                                    @if (Auth::guard('admin_model')->user()->can('invoice_edit'))
                                     <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#confirm">Confirm</button>
+                                    @endif
+                                    @if (Auth::guard('admin_model')->user()->can('invoice_delete'))
                                     <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#cancel">Cancel</button>
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>

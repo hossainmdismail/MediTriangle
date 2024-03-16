@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OwnerModel;
 use Carbon\Carbon;
+use App\Models\OwnerModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OwnerController extends Controller
 {
     function ownerLink(){
         $data = OwnerModel::orderBy('id', 'DESC')->paginate(10);
-        return view('backend.owner.index',[
-            'datas' => $data,
-        ]);
+        if (Auth::guard('admin_model')->user()->can('settings')) {
+            // Show the view page
+            return view('backend.owner.index',[
+                'datas' => $data,
+            ]);
+        } else {
+            return abort(404);
+        }
+
     }
     function ownerStore(Request $request){
         $count = OwnerModel::where('status',1)->count();
@@ -36,7 +43,13 @@ class OwnerController extends Controller
     }
     function ownerEdit($id){
         $data = OwnerModel::where('id',$id)->first();
-        return view('backend.owner.edit',['data'=>$data]);
+        if (Auth::guard('admin_model')->user()->can('settings')) {
+            // Show the view page
+
+            return view('backend.owner.edit',['data'=>$data]);
+        } else {
+            return abort(404);
+        }
     }
     function ownerUpdate(Request $request){
         $request->validate([

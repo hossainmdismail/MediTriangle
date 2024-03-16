@@ -10,6 +10,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Photo;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\SEOTools;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\JsonLd;
+
 
 class VideoConsultant extends Controller
 {
@@ -21,6 +26,11 @@ class VideoConsultant extends Controller
         if ($request->department != null) {
             $doctor = DoctorModel ::where('department_id',$request->department)->paginate(10);
         }
+        SEOMeta::setTitle('Video Consultant'); //web title
+        SEOTools::setDescription('this is description');
+        SEOMeta::addKeyword('this is tags');
+        OpenGraph::setTitle('this is seo title');
+        SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
         return view('frontend.consultant.index',[
             'doctors' => $doctor,
             'department' => $department,
@@ -29,6 +39,11 @@ class VideoConsultant extends Controller
     }
 
     function take($id){
+        SEOMeta::setTitle('Apply Video Consuntation'); //web title
+        SEOTools::setDescription('this is description');
+        SEOMeta::addKeyword('this is tags');
+        OpenGraph::setTitle('this is seo title');
+        SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
         $doctor = DoctorModel::where('id',$id)->first();
         return view('frontend.consultant.form')->with(['doctor' => $doctor]);
 

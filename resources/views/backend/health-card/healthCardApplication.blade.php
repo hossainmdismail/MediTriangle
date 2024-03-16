@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="layout-specing">
         <div class="row">
-            <div class="col-lg-10 ">
+            <div class="col-lg-10 m-auto     ">
                 <div class="" >
                     <div class="table-responsive shadow rounded ">
                         @if ($applicatios->count() != 0 )
@@ -15,6 +15,7 @@
                                         <th >Address</th>
                                         <th >Passport/Nid</th>
                                         <th >Status</th>
+                                        
                                         <th >Action</th>
                                     </tr>
                                 </thead>

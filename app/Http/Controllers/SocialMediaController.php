@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SocialMediaModel;
 use Illuminate\Http\Request;
+use App\Models\SocialMediaModel;
+use Illuminate\Support\Facades\Auth;
 
 class SocialMediaController extends Controller
 {
     function social(){
         $data = SocialMediaModel::all();
-        return view('backend.social.index',['datas' => $data]);
+        if (Auth::guard('admin_model')->user()->can('settings')) {
+            // Show the view page
+            return view('backend.social.index',['datas' => $data]);
+        } else {
+            return abort(404);
+        }
     }
     function socialStore(Request $request){
         $request->validate([

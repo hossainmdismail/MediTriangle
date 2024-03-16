@@ -52,7 +52,12 @@
                                 <th class="border-bottom p-3" >Database</th>
                                 <th class="border-bottom p-3">Status</th>
                                 <th class="border-bottom p-3">Created</th>
+                                @if (Auth::guard('admin_model')->user()->can('edit') || Auth::guard('admin_model')->user()->can('delete'))
                                 <th class="border-bottom p-3 text-end" style="min-width: 100px;">Action</th>
+                                @else
+                                <th></th>
+                                @endif
+
                             </tr>
                             </thead>
                             <tbody>
@@ -84,8 +89,14 @@
 
                                     <td class="p-3"><span class="badge bg-soft-success">{{ $data->created_at->diffForHumans() }}</span></td>
                                     <td class="text-end p-3">
+                                        @if (Auth::guard('admin_model')->user()->can('edit'))
+
                                         <a href="{{ route('doctor.edit',$data->id) }}" class="update_value btn btn-icon btn-pills btn-soft-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        @endif
+                                        @if (Auth::guard('admin_model')->user()->can('delete'))
+
                                         <a href="{{ route('doctor.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginFormTwo" class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

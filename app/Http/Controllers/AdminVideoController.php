@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DoctorModel;
-use App\Models\VideoConsultantModel;
 use Illuminate\Http\Request;
+use App\Models\VideoConsultantModel;
+use Illuminate\Support\Facades\Auth;
 
 class AdminVideoController extends Controller
 {
@@ -18,7 +19,12 @@ function video(Request $request){
         })
         ->paginate(10)
         ->withQueryString();
-    return view('backend.data.video.index',['datas' => $data]);
+        if (Auth::guard('admin_model')->user()->can('video_consultation')){
+            return view('backend.data.video.index',['datas' => $data]);
+        }else{
+            return abort(404);
+        }
+
 }
 
 function videoWatch($id){
