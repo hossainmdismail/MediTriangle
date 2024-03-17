@@ -189,7 +189,7 @@
                         <div class="row">
                             <div class=" col-12 mb-4 form-group form-group-typ">
                                 <input type="text" class="form-control form-control-typ @error('name') is-invalid border-bottom border-danger @enderror" name="name" placeholder=""  value="{{ old('name') }}">
-                                <label  class="form-label form-label-typ">Patient Name</label>
+                                <label  class="form-label form-label-typ">Patient Name <span style="color: #f9a7a7; font-size:10px; " >(According Passport)</span> </label>
                             </div>
                         </div>
                         <div class="row mb-4">

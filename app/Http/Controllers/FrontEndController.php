@@ -140,4 +140,20 @@ class FrontEndController extends Controller
         SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
         return view('frontend.privacyandpolicy');
     }
+    function terms(){
+        SEOMeta::setTitle('Terms And Conditions'); //web title
+        SEOTools::setDescription('this is description');
+        SEOMeta::addKeyword('this is tags');
+        OpenGraph::setTitle('this is seo title');
+        SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
+        return view('frontend.terms-and-condition');
+    }
+    function aboutus(){
+        SEOMeta::setTitle('About Us'); //web title
+        SEOTools::setDescription('this is description');
+        SEOMeta::addKeyword('this is tags');
+        OpenGraph::setTitle('this is seo title');
+        SEOMeta::setCanonical('https://meditriangle.com' . request()->getPathInfo());
+        return view('frontend.aboutus');
+    }
 }

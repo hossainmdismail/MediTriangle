@@ -239,6 +239,8 @@
                                                                 <td> {{$data->number}} </td>
                                                                 <td>
                                                                     <img style="width: 100%; height: 100px;" src="{{ asset('uploads/attendant/'.$data->passport) }}" class="img-fluid" alt="">
+
+
                                                                     <a href="{{ asset('uploads/attendant/'.$data->passport) }}" class="btn btn-icon btn-pills btn-soft-danger download" download>
                                                                         <i class="fa-solid fa-arrow-down"></i>
                                                                     </a>
@@ -273,7 +275,7 @@
                                     <h5>Passport</h5>
                                 </div>
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-lg-6 col-mg-12">
                                         <div class="team-person position-relative overflow-hidden">
                                             <img style="width: 100%" src="{{ asset('uploads/visa/'.$datas->passport) }}" class="img-fluid" alt="">
                                             <ul class="list-unstyled team-like">
@@ -297,9 +299,10 @@
                                     <div class="py-3">
                                         <div class="row">
                                             @forelse ($visa as $report)
-                                                <div class="col-3 p-2">
+                                                <div class="col-lg-6 col-md-12 p-2">
                                                     <div class="team-person position-relative overflow-hidden">
-                                                        <img style="width: 100%" src="{{ asset('uploads/visareport/'.$report->reports) }}" class="img-fluid" alt="">
+                                                        {{-- <img style="width: 100%" src="{{ asset('uploads/visareport/'.$report->reports) }}" class="img-fluid" alt=""> --}}
+                                                        <iframe src="{{ asset('uploads/visareport/' . $report->reports) }}" width="100%" height="230px"></iframe>
                                                         <ul class="list-unstyled team-like">
                                                             <li><a href="{{ asset('uploads/visareport/'.$report->reports) }}" class="btn btn-icon btn-pills btn-soft-danger download" download><i class="fa-solid fa-arrow-down"></i></a></li>
                                                         </ul>

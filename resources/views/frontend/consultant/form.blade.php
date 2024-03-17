@@ -116,7 +116,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-lg-8">
-                <div class="bg-light text-center rounded p-5">
+                <div class="bg-light text-center rounded p-4">
                     <h1 class="mb-5">Video Consultation</h1>
                     <hr>
                     <form action="{{ route('video.consultant.store') }}" method="POST" enctype="multipart/form-data">
@@ -172,6 +172,7 @@
                                     <option value="" selected>Gender</option>
                                     <option value="Male" @if('Male' == old('gender'))  selected @endif>Male</option>
                                     <option value="Female" @if('Female' == old('gender'))  selected @endif>Female</option>
+                                    <option value="Others" @if('Others' == old('gender'))  selected @endif>Others</option>
                                 </select>
                             </div>
                             <div class="col-sm-12 col-lg-6">
@@ -182,14 +183,17 @@
                             <div class="col-12 text-start">
                                 <label for="" class="py-2">Request a date</label>
                                 <input type="date" name="request_date" id="datepicker" class="form-control bg-white border-0 @error('request_date') is-invalid @enderror" min="{{ $date }}" value="{{ old('request_date') }}">
-                                <span class="text text-sm text-danger ms-2 ">Doctor Video Consultation Is Subject To Doctor Availability</span>
+                                <span class="  fw-lighter  text-danger ms-2 mt-2">Doctor Video Consultation Is Subject To Doctor Availability</span>
                             </div>
 
 
                             {{-- File --}}
                             <div class="col-12 mb-3 text-start">
-                                <label for="" class="p-2">Report / Prescription</label>
+                                <label for="" class="p-2">Report / Prescription <span style="color: #f9a7a7; font-size:10px; " >(PDF ONLY)</span></label>
                                 <input type="file" name="report" class="form-control bg-white border-0 @error('report') is-invalid @enderror" value="{{ old('passport') }}">
+                                @error('report')
+                                    <span class="text-sm text-danger" > {{$message}} </span>
+                                @enderror
                             </div>
                             {{-- Doctor --}}
                             <div class="col-12">

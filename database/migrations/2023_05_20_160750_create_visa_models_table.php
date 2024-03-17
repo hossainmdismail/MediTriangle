@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('department_id')->nullable();
             $table->integer('doctor_id')->nullable();
             $table->string('prescription')->nullable();
-            $table->date('expected_date');
+            $table->date('expected_date')->nullable();
             $table->date('appointment_date')->nullable();
             $table->string('passport');
             $table->string('note')->nullable();

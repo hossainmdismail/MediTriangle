@@ -39,7 +39,10 @@ class VisaController extends Controller
             'phone'            => 'required',
             'email'             => 'required',
             'passport'          => 'required|image|mimes:jpeg,png,jpg,gif',
+            'prescription'      => 'required|mimes:pdf|max:10000',
 
+        ],[
+            'prescription' => 'Report Must Be PDF!',
         ]);
         //Login
         // if (!Auth::check()) {
@@ -80,28 +83,25 @@ class VisaController extends Controller
         //     }
         // }
         //login end
+        $file = $request->file('prescription');
+        $ext = $file->getClientOriginalExtension();
+        $name = 'PRO' . rand(1, 2000) . 'FILE' . rand(1, 500) . '.' . $ext;
+        // Store the file in the 'public/uploads' directory with the generated name
+        $path = $file->storeAs('uploads/visareport', $name, 'public');
+        VisaModelResport::insert([
+            'order_id' => $order_id,
+            'reports' => $name,
+            'created_at' => Carbon::now(),
+        ]);
 
-        if ($request->hasFile('prescription')) {
-            $file = $request->prescription;
-            $data = null;
-            foreach ($file as $value) {
-                $make = $value;
-                $extn = $make->getClientOriginalExtension();
-                $profileName = 'PRO'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
-                $data .= $profileName;
-                Image::make($make)->save(public_path('uploads/visareport/'.$profileName));
-
-                VisaModelResport::insert([
-                    'order_id' => $order_id,
-                    'reports' => $profileName,
-                    'created_at' => Carbon::now(),
-                ]);
-            }
-        } else {
-            return back()->with('err', 'Prescription Input is Blank');
-        }
         // //Attendant
         if ($request->attendantName) {
+            $request->validate([
+                'attendantName.*' => 'required',
+                'attendantPassportNumber.*' => 'required',
+                'attendantPassport.*' => 'required|mimes:jpeg,png,jpg',
+            ]);
+
             // dd($request->attendantPassport);
             $mi = new MultipleIterator();
             $mi->attachIterator(new ArrayIterator($request->attendantName));

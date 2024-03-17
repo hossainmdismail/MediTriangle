@@ -58,7 +58,9 @@ class VideoConsultant extends Controller
             'gender'            => 'required',
             'age'               => 'required',
             'request_date'      => 'required',
-            'report'            => 'required|image|mimes:jpeg,png,jpg,gif',
+            'report'            => 'required|mimes:pdf',
+        ],[
+            'report' => 'Report Must Be PDF!',
         ]);
         //Login
         // if (!Auth::check()) {
@@ -101,7 +103,17 @@ class VideoConsultant extends Controller
         // //login end
         $doctor = DoctorModel::where('id',$request->doctor_id)->first();
         $fee =  $doctor->fee+(($doctor->vat/100)*$doctor->fee);
-        Photo::upload($request->report,'uploads/video','VID');
+        $file = $request->file('report');
+        $ext = $file->getClientOriginalExtension();
+        $name = 'VID' . rand(1, 2000) . 'FILE' . rand(1, 500) . '.' . $ext;
+        // Store the file in the 'public/uploads' directory with the generated name
+        $path = $file->storeAs('uploads/video', $name, 'public');
+
+
+
+
+
+        // Photo::upload($request->report,'uploads/video','VID');
        $videoConsult= new VideoConsultantModel();
             $videoConsult->doctor_id         = $request->doctor_id;
             $videoConsult->name              = $request->name;
@@ -112,7 +124,7 @@ class VideoConsultant extends Controller
             $videoConsult->note              = $request->note;
             $videoConsult->fee               = $fee;
             $videoConsult->order_id          = $order_id;
-            $videoConsult->prescription      = Photo::$name;
+            $videoConsult->prescription      = $name;
             $videoConsult->save();
 
 

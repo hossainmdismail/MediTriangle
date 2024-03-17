@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AboutModel;
 use App\Models\BannnerModel;
+use App\Models\CountryModel;
 use App\Models\DepartmentModel;
 use App\Models\DoctorModel;
 use App\Models\HealthCard;
@@ -26,8 +27,21 @@ class UserController extends Controller
         $service =ServiceModel::where('status',1)->get();
         $department = DepartmentModel::where('status',1)->get();
         $healths = HealthCard::where('status',1)->get()->first();
-        $hospitals = HospitalModel::where('status',1)->get();
-       
+        $countrybd = CountryModel::where('status',1)->where('country', 'bangladesh')->first();
+        $countryind = CountryModel::where('status',1)->where('country', 'india')->first();
+        if($countrybd){
+            $hospitalbd = HospitalModel::where('status',1)->where('country_id',$countrybd->id)->get();
+        }else{
+            $hospitalbd= null;
+        }
+        if($countryind){
+            $hospitalind = HospitalModel::where('status',1)->where('country_id',$countryind->id)->get();
+        }else{
+            $hospitalind = null;
+        }
+
+
+
             SEOMeta::setTitle('Home'); //web title
             SEOTools::setDescription('this is description');
             SEOMeta::addKeyword('this is tags');
@@ -56,7 +70,8 @@ class UserController extends Controller
             'services' => $service,
             'department' => $department,
             'healths' => $healths,
-            'hospitals' => $hospitals,
+            'hospitalbd' => $hospitalbd,
+            'hospitalind' => $hospitalind,
         ]);
     }
 }

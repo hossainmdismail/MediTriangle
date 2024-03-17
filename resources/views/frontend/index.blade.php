@@ -113,17 +113,48 @@
             <h1 class="display-4">Our Hospitals In Bangladesh</h1>
         </div>
         <div class="owl-carousel hospital-carousel position-relative">
-            @foreach ($hospitals->take(5) as $data)
-            <div class="col-lg-12 ">
-                <div class="card">
-                    <img src="{{asset('uploads/hospitalimage.jpg')}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h6 class="card-title">{{$data->con_state->state}}</h6>
-                      <h3 class="text-center" > {{$data->hospital}} </h3>
+           @if (!$hospitalbd == null)
+            @foreach($hospitalbd as $data)
+                    <div class="col-lg-12 ">
+                        <div class="card">
+                            <img src="{{asset('uploads/hospitalimage.jpg')}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h6 class="card-title">{{$data->con_state->state}}</h6>
+                            <h3 class="text-center" > {{$data->hospital}} </h3>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-            </div>
-            @endforeach
+                @endforeach
+           @endif
+
+
+        </div>
+    </div>
+</div>
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Hospitals </h5>
+            <h1 class="display-4">Our Hospitals In Abroad</h1>
+        </div>
+        <div class="owl-carousel hospital-carousel position-relative">
+            @if (!$hospitalind == null)
+            @forelse($hospitalind as $data)
+                <div class="col-lg-12 ">
+                    <div class="card">
+                        <img src="{{asset('uploads/hospitalimage.jpg')}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h6 class="card-title">{{$data->con_state->state}}</h6>
+                        <h3 class="text-center" > {{$data->hospital}} </h3>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                NOT DATA TO SHOW
+            @endforelse
+            @endif
+
+
 
         </div>
     </div>

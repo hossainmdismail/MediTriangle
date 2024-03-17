@@ -123,7 +123,7 @@
                                     @if (Auth::guard('admin_model')->user()->can('invoice_delete'))
                                     <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#cancel">Cancel</button>
                                     @endif
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -203,13 +203,15 @@
                         <div class="col-lg-6 my-3">
                             <div class="card team border-0 rounded shadow overflow-hidden">
                                 <div class="card-header">
-                                    <h5>Prescriptions</h5>
+                                    <h5>Prescriptions {{$datas->order_id}}</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-3">
+                                        <div class="col-lg-6 col-md-12">
                                             <div class="team-person position-relative overflow-hidden">
-                                                <img style="width: 100%" src="{{ asset('uploads/video/'.$datas->prescription) }}" class="img-fluid" alt="">
+                                                {{-- <img style="width: 100%" src="{{ asset('uploads/video/'.$datas->prescription) }}" class="img-fluid" alt=""> --}}
+                                                <iframe src="{{ asset('uploads/video/' . $datas->prescription) }}" width="100%" height="230px;"></iframe>
+
                                                 <ul class="list-unstyled team-like">
                                                     <li><a href="{{ asset('uploads/video/'.$datas->prescription) }}" class="btn btn-icon btn-pills btn-soft-danger download" download><i class="fa-solid fa-arrow-down"></i></a></li>
                                                 </ul>

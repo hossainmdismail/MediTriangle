@@ -175,8 +175,11 @@
                             <input type="file" class="form-control input-default" name="passport"   placeholder="" required>
                         </div>
                         <div class=" mb-4 ">
-                            <label  class="form-label "> Medical Report</label><span class="text-danger">*</span>
-                            <input type="file" class="form-control input-default" name="prescription[]"   placeholder=""  multiple>
+                            <label  class="form-label "> Medical Report</label><span class="text-danger">*</span > <span style="color: #f9a7a7; font-size:10px; ">(PDF ONLY)</span>
+                            <input type="file" class="form-control input-default" name="prescription"   placeholder=""  multiple>
+                            @error('prescription')
+                                <span class="text-sm text-danger"> {{$message}} </span>
+                            @enderror
                         </div>
                         <div class="d-flex justify-content-between align-items-center ">
                             <h5 >If Anyone Attendant with you</h5>
@@ -185,15 +188,15 @@
                         <div class="row   g-3 medi mt-1">
                             <div class="col-4 ">
                                 <label for="" class="form-label" > Attendant Name</label>
-                                <input type="text" name="attendantName[]" class="form-control form-control bg-white input-default  inp @error('attendantName') is-invalid @enderror" placeholder="Name">
+                                <input type="text" name="attendantName[]" class="form-control form-control bg-white input-default  inp @error('attendantName.*') is-invalid @enderror" placeholder="Name">
                             </div>
                             <div class="col-4 ">
                                 <label for="" class="form-label" > Passport Number</label>
-                                <input type="text" name="attendantPassportNumber[]" class="form-control input-default bg-white  @error('attendantPassportNumber') is-invalid @enderror" placeholder=" Number" >
+                                <input type="text" name="attendantPassportNumber[]" class="form-control input-default bg-white  @error('attendantPassportNumber.*') is-invalid @enderror" placeholder=" Number" >
                             </div>
                             <div class="col-4 ">
-                                <label for="" class="form-label" > Passport Copy</label>
-                                <input  type="file"   name="attendantPassport[]" class="form-control bg-white input-default  @error('attendantPassport') is-invalid @enderror">
+                                <label for="" class="form-label" > Passport Copy <span style="color: #f9a7a7; font-size:10px; ">(IMAGE ONLY)</span> </label>
+                                <input  type="file"   name="attendantPassport[]" class="form-control bg-white input-default  @error('attendantPassport.*') is-invalid @enderror">
                             </div>
 
                         </div>

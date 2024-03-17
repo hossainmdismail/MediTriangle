@@ -125,6 +125,10 @@ Route::get('/doctor/find/{department?}',[FindDoctorController::class, 'link'])->
 Route::get('/contact',[FrontEndController::class, 'contact'])->name('contact');
 //healthcard terms and conditions
 Route::get('/health-card-terms-and-conditions',[FrontEndController::class, 'hctc'])->name('hctc');
+// terms and conditions
+Route::get('/terms-and-conditions',[FrontEndController::class, 'terms'])->name('terms');
+//privacy policy
+Route::get('/about-us',[FrontEndController::class, 'aboutus'])->name('aboutus');
 //privacy policy
 Route::get('/privacy-policy',[FrontEndController::class, 'privacypolicy'])->name('privacypolicy');
 

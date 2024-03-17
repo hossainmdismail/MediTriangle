@@ -166,7 +166,7 @@
                         Quick Links</h4>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-light mb-2" href="{{route('home')}}"><i class="fa fa-angle-right me-2"></i>Home</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>About Us</a>
+                        <a class="text-light mb-2" href="{{route('aboutus')}}"><i class="fa fa-angle-right me-2"></i>About Us</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Our
                             Services</a>
                         <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Meet The
@@ -182,7 +182,7 @@
                         Others</h4>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-light mb-2" href="{{route('privacypolicy')}}"><i class="fa fa-angle-right me-2"></i>Privacy And Policies</a>
-                        <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Terms And Conditions</a>
+                        <a class="text-light mb-2" href="{{route('terms')}}"><i class="fa fa-angle-right me-2"></i>Terms And Conditions</a>
                         <a class="text-light mb-2" href="{{route('hctc')}}"><i class="fa fa-angle-right me-2"></i>Health Card Terms And Conditions</a>
 
                     </div>
